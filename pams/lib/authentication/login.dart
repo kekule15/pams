@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:pams/authentication/forgotpassword.dart';
+import 'package:pams/screens/homepage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,8 +19,8 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: <Widget>[
             Container(
-              width: 200,
-              height: 120,
+              width: 250,
+              height: 170,
               decoration: BoxDecoration(
                   image: DecorationImage(
                       fit: BoxFit.contain,
@@ -34,12 +36,13 @@ class _LoginPageState extends State<LoginPage> {
                   color: HexColor("#F5F5F5"),
                   borderRadius: BorderRadius.circular(20)),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(12),
                 child: Form(
                   child: Column(
                     children: <Widget>[
                       Center(
-                        child: Text("Login to get started"),
+                        child: Text("Login to get started",
+                            style: TextStyle(fontSize: 18)),
                       ),
                       Container(
                         height: 40,
@@ -92,7 +95,12 @@ class _LoginPageState extends State<LoginPage> {
                         height: 5,
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgotPassword()));
+                        },
                         child: Container(
                           margin: EdgeInsets.only(right: 20),
                           child: Align(
@@ -102,14 +110,21 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       InkWell(
-                        onTap: (){},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage(
+                                        currentPage: 0,
+                                      )));
+                        },
                         child: Container(
                           margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
                           height: 30,
                           width: 150,
                           decoration: BoxDecoration(
-                              color: HexColor("#F58E34"),
-                              borderRadius: BorderRadius.circular(40)),
+                            color: HexColor("#F58E34"),
+                          ),
                           child: Center(
                             child: Text("Login",
                                 style: TextStyle(

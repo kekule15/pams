@@ -67,8 +67,8 @@ class _AuthPageState extends State<AuthPage> {
                 _register = false;
                 container1Color = true;
                 text1Color = true;
-                container2Color = !container2Color;
-                text2Color = !text2Color;
+                container2Color = false;
+                text2Color = false;
               });
             },
             child: Container(
@@ -103,8 +103,8 @@ class _AuthPageState extends State<AuthPage> {
                   _logo = false;
                   _login = false;
                   _register = true;
-                  container1Color = !container1Color;
-                  text1Color = !text1Color;
+                  container1Color = false;
+                  text1Color = false;
                   container2Color = true;
                   text2Color = true;
                 });
