@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:pams/authentication/login.dart';
-
+import 'package:pams/authentication/auth.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -24,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context)=>LoginPage(),
+          builder: (context) => AuthPage(),
         ),
       ),
     );
@@ -32,17 +31,20 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      child: Center(
-        child: Container(
-          width: 200,
-          height: 200,
-          decoration: BoxDecoration(
-            color: Colors.black,
-            image: DecorationImage(
-              image: AssetImage("assets/logoo.png"),
-              fit: BoxFit.fill,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Container(
+        color: Colors.white,
+        child: Center(
+          child: Container(
+            width: 350,
+            height: 240,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              image: DecorationImage(
+                image: AssetImage("assets/logoo.png"),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
         ),
