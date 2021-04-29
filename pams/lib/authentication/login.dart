@@ -101,16 +101,21 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
-                        height: 30,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            color: HexColor("#F58E34"),
-                            borderRadius: BorderRadius.circular(40)),
-                        child: Center(
-                          child: Text("Login",
-                              style: TextStyle(color: Colors.white)),
+                      InkWell(
+                        onTap: (){},
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
+                          height: 30,
+                          width: 150,
+                          decoration: BoxDecoration(
+                              color: HexColor("#F58E34"),
+                              borderRadius: BorderRadius.circular(40)),
+                          child: Center(
+                            child: Text("Login",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                          ),
                         ),
                       )
                     ],

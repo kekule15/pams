@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/authentication/login.dart';
+import 'package:pams/authentication/register.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -8,7 +9,13 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  bool container1Color = true;
+  bool text1Color = true;
+  bool container2Color = true;
+  bool text2Color = true;
   bool _logo = true;
+  bool _login = false;
+  bool _register = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,17 +30,17 @@ class _AuthPageState extends State<AuthPage> {
                     fit: BoxFit.cover,
                     image: AssetImage("assets/backgroundImage.PNG"))),
           ),
-          _logo
-              ? Visibility(
-                  visible: _logo,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.contain,
-                            image: AssetImage("assets/logoo.png"))),
-                  ),
-                )
-              : Visibility(child: LoginPage()),
+          Visibility(
+            visible: _logo,
+            child: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.contain,
+                      image: AssetImage("assets/logoo.png"))),
+            ),
+          ),
+          Visibility(visible: _login, child: LoginPage()),
+          Visibility(visible: _register, child: RegisterPage()),
           Align(
             alignment: Alignment.bottomCenter,
             child: _buttons(),
@@ -56,6 +63,12 @@ class _AuthPageState extends State<AuthPage> {
             onTap: () {
               setState(() {
                 _logo = false;
+                _login = true;
+                _register = false;
+                container1Color = true;
+                text1Color = true;
+                container2Color = !container2Color;
+                text2Color = !text2Color;
               });
             },
             child: Container(
@@ -63,27 +76,60 @@ class _AuthPageState extends State<AuthPage> {
               width: 300,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
-                  color: HexColor("#F5F5F5")),
+                  color: container2Color
+                      ? HexColor("#F5F5F5")
+                      : Colors.transparent,
+                  border: Border.all(
+                    color: HexColor("#F5F5F5"),
+                    style: BorderStyle.solid,
+                    width: 2.0,
+                  )),
               child: Center(
                 child: Text(
                   "Login",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: text2Color ? Colors.black : Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),
           ),
           Positioned(
             top: 50,
-            child: Container(
-              height: 40,
-              width: 300,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: HexColor("#F5F5F5")),
-              child: Center(
-                child: Text(
-                  "Register",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  _logo = false;
+                  _login = false;
+                  _register = true;
+                  container1Color = !container1Color;
+                  text1Color = !text1Color;
+                  container2Color = true;
+                  text2Color = true;
+                });
+              },
+              child: Container(
+                height: 40,
+                width: 300,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: container1Color
+                        ? HexColor("#F5F5F5")
+                        : Colors.transparent,
+                    border: Border.all(
+                      color: HexColor("#F5F5F5"),
+                      style: BorderStyle.solid,
+                      width: 2.0,
+                    )),
+                child: Center(
+                  child: Text(
+                    "Register",
+                    style: TextStyle(
+                        color: text1Color ? Colors.black : Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
