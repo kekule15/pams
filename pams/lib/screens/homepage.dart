@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/screens/faq.dart';
+import 'package:pams/screens/profile.dart';
 import 'package:pams/screens/test.dart';
 
 class HomePage extends StatefulWidget {
@@ -111,9 +112,14 @@ class _HomeViewState extends State<HomeView> {
                     Row(
                       children: <Widget>[
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfilePage()));
+                          },
                           child: Container(
-                            height: 70,
+                            height: 90,
                             width: 70,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
@@ -164,7 +170,7 @@ class _HomeViewState extends State<HomeView> {
                           // to make elevation
                           BoxShadow(
                             color: Colors.grey[300],
-                            offset: Offset(2, 2),
+                            offset: Offset(3, 2),
                             blurRadius: 4,
                           ),
                           // to make the coloured border
@@ -227,8 +233,8 @@ class _HomeViewState extends State<HomeView> {
                             style: TextStyle(
                                 shadows: <Shadow>[
                                   Shadow(
-                                    offset: Offset(3.0, 3.0),
-                                    blurRadius: 8.0,
+                                    offset: Offset(0, 1.0),
+                                    blurRadius: 3.0,
                                     color: Colors.grey[600],
                                   ),
                                   // Shadow(
@@ -277,8 +283,8 @@ class _HomeViewState extends State<HomeView> {
                             style: TextStyle(
                                 shadows: <Shadow>[
                                   Shadow(
-                                    offset: Offset(3.0, 3.0),
-                                    blurRadius: 8.0,
+                                    offset: Offset(0, 1.0),
+                                    blurRadius: 3.0,
                                     color: Colors.grey[600],
                                   ),
                                   // Shadow(
