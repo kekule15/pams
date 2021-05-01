@@ -67,7 +67,7 @@ class _ElementTestState extends State<ElementTest> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(10, 50, 10, 10),
+                  margin: EdgeInsets.fromLTRB(7, 50, 7, 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -116,7 +116,7 @@ class _ElementTestState extends State<ElementTest> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: HexColor("#26E07F"),
-        title: Text("Water test",
+        title: Text("Flour Mill",
             style: TextStyle(color: Colors.white, fontSize: 20)),
       ),
       backgroundColor: Colors.white,
@@ -124,7 +124,7 @@ class _ElementTestState extends State<ElementTest> {
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+              margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
               child: Form(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +133,7 @@ class _ElementTestState extends State<ElementTest> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          "Select what to test",
+                          "Water test",
                           style: TextStyle(
                             color: HexColor("#072468"),
                             fontSize: 25,
@@ -368,7 +368,7 @@ class _ElementTestState extends State<ElementTest> {
             Icon(Icons.camera_alt, color: HexColor("#F58E34"), size: 40),
             Text("Take a photo"),
             Container(
-              margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 40),
               height: 200,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(

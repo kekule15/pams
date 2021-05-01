@@ -20,64 +20,66 @@ class _ActivityPageState extends State<ActivityPage> {
       ),
       backgroundColor: Colors.white,
       body: Container(
-        child: ListView.builder(itemBuilder: (context, int) {
-          return Container(
-            margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
-            height: 70,
-            width: MediaQuery.of(context).size.width / 1.4,
-            decoration: BoxDecoration(
-              boxShadow: [
-                // to make elevation
-                BoxShadow(
-                  color: Colors.grey[300],
-                  offset: Offset(0, 2),
-                  blurRadius: 4,
-                ),
-                // to make the coloured border
-                BoxShadow(
-                  color: HexColor("#072468"),
-                  offset: Offset(0, 0.5),
-                ),
-              ],
-              color: Colors.white,
-            ),
-            child: ListTile(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TestDetails()));
-              },
-              leading: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: HexColor("#50F58E34"), shape: BoxShape.circle),
-                  child: Center(
-                    child: Icon(
-                      Icons.restore_page,
-                      size: 25,
-                      color: HexColor("#F58E34"),
+        child: ListView.builder(
+            itemCount: 15,
+            itemBuilder: (context, int) {
+              return Container(
+                margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                height: 70,
+                width: MediaQuery.of(context).size.width / 1.4,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    // to make elevation
+                    BoxShadow(
+                      color: Colors.grey[300],
+                      offset: Offset(0, 2),
+                      blurRadius: 4,
                     ),
-                  )),
-              title: Text("Flour Mill - Water test",
-                  style: TextStyle(
-                    color: HexColor("#072468"),
-                  )),
-              subtitle: Row(
-                children: <Widget>[
-                  Text("12 Apr 2021"),
-                  SizedBox(
-                    width: 10,
+                    // to make the coloured border
+                    BoxShadow(
+                      color: HexColor("#072468"),
+                      offset: Offset(0, 0.5),
+                    ),
+                  ],
+                  color: Colors.white,
+                ),
+                child: ListTile(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => TestDetails()));
+                  },
+                  leading: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: HexColor("#50F58E34"), shape: BoxShape.circle),
+                      child: Center(
+                        child: Icon(
+                          Icons.restore_page,
+                          size: 25,
+                          color: HexColor("#F58E34"),
+                        ),
+                      )),
+                  title: Text("Flour Mill - Water test",
+                      style: TextStyle(
+                        color: HexColor("#072468"),
+                      )),
+                  subtitle: Row(
+                    children: <Widget>[
+                      Text("12 Apr 2021"),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("10:29AM")
+                    ],
                   ),
-                  Text("10:29AM")
-                ],
-              ),
-              trailing: Text("Delivered",
-                  style: TextStyle(
-                    color: HexColor("#072468"),
-                  )),
-            ),
-          );
-        }),
+                  trailing: Text("Delivered",
+                      style: TextStyle(
+                        color: HexColor("#072468"),
+                      )),
+                ),
+              );
+            }),
       ),
     );
   }
