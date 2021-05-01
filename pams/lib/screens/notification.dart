@@ -10,8 +10,9 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         backgroundColor: HexColor("#26E07F"),
         title: Text("Notifications",
             style: TextStyle(color: Colors.white, fontSize: 20)),

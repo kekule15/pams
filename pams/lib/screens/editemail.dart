@@ -11,6 +11,8 @@ class _EditEmailState extends State<EditEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
         backgroundColor: HexColor("#26E07F"),
         title:
             Text("Email", style: TextStyle(color: Colors.white, fontSize: 20)),
@@ -36,7 +38,7 @@ class _EditEmailState extends State<EditEmail> {
               Text("Please enter your new email address",
                   style: TextStyle(color: HexColor("#072468"), fontSize: 18)),
               Container(
-                height: 40,
+                height: 50,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -56,14 +58,14 @@ class _EditEmailState extends State<EditEmail> {
                 ),
                 margin: EdgeInsets.all(20),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
                   child: TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.email_rounded,
                         color: HexColor("#F58E34"),
-                        size: 22,
+                        size: 28,
                       ),
                       hintText: 'Email',
                       border: InputBorder.none,
