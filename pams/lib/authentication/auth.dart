@@ -52,8 +52,8 @@ class _AuthPageState extends State<AuthPage> {
 
   _buttons() {
     return Container(
-      height: 100,
-      margin: EdgeInsets.only(bottom: 30),
+      height: 90,
+      margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.transparent,
       ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/screens/faq.dart';
+import 'package:pams/screens/fieldsampling.dart';
+import 'package:pams/screens/notification.dart';
 import 'package:pams/screens/profile.dart';
 import 'package:pams/screens/test.dart';
 
@@ -52,7 +54,7 @@ class _HomePageState extends State<HomePage> {
               size: 40,
               color: HexColor("#26E07F"),
             ),
-            label: "Test",
+            label: "Activity",
           ),
           new BottomNavigationBarItem(
             backgroundColor: Colors.white,
@@ -72,7 +74,7 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _children = [
     HomeView(),
-    TestPage(),
+    ActivityPage(),
     FAQPage(),
   ];
   void onTabTapped(int index) {
@@ -103,7 +105,7 @@ class _HomeViewState extends State<HomeView> {
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30))),
             child: Container(
-              margin: EdgeInsets.fromLTRB(20, 70, 20, 0),
+              margin: EdgeInsets.fromLTRB(15, 50, 15, 0),
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Row(
@@ -141,7 +143,12 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NotificationPage()));
+                      },
                       child: Container(
                         height: 40,
                         width: 40,
@@ -206,7 +213,12 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                       Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FieldSampling()));
+                    },
                     child: Container(
                       margin: EdgeInsets.only(top: 70),
                       height: 40,

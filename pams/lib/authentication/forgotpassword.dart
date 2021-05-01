@@ -40,8 +40,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       margin: EdgeInsets.only(
                         top: 20,
                       ),
-                      width: 350,
-                      height: 300,
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      height: MediaQuery.of(context).size.height / 2.8,
                       decoration: BoxDecoration(
                           color: HexColor("#F5F5F5"),
                           borderRadius: BorderRadius.circular(20)),

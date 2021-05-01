@@ -19,8 +19,8 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: <Widget>[
             Container(
-              width: 250,
-              height: 170,
+              width: 220,
+              height: 120,
               decoration: BoxDecoration(
                   image: DecorationImage(
                       fit: BoxFit.contain,
@@ -30,8 +30,8 @@ class _LoginPageState extends State<LoginPage> {
               margin: EdgeInsets.only(
                 top: 5,
               ),
-              width: 350,
-              height: 300,
+              width: MediaQuery.of(context).size.width / 1.1,
+              height: MediaQuery.of(context).size.height / 2.5,
               decoration: BoxDecoration(
                   color: HexColor("#F5F5F5"),
                   borderRadius: BorderRadius.circular(20)),

@@ -10,15 +10,14 @@ class _EditEmailState extends State<EditEmail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: HexColor("#26E07F"),
         title:
             Text("Email", style: TextStyle(color: Colors.white, fontSize: 20)),
       ),
       backgroundColor: Colors.white,
-      body: Center(
-        child: Container(
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
             children: <Widget>[
               Container(
@@ -72,23 +71,22 @@ class _EditEmailState extends State<EditEmail> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 140,
+              ),
               InkWell(
                 onTap: () {},
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
-                    height: 40,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      color: HexColor("#F58E34"),
-                    ),
-                    child: Center(
-                      child: Text("Continue",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                    ),
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
+                  height: 40,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: HexColor("#F58E34"),
+                  ),
+                  child: Center(
+                    child: Text("Continue",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white)),
                   ),
                 ),
               )

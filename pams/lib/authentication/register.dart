@@ -17,8 +17,8 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           children: <Widget>[
             Container(
-              width: 250,
-              height: 170,
+              width: 220,
+              height: 120,
               decoration: BoxDecoration(
                   image: DecorationImage(
                       fit: BoxFit.contain,
@@ -28,8 +28,8 @@ class _RegisterPageState extends State<RegisterPage> {
               margin: EdgeInsets.only(
                 top: 5,
               ),
-              width: 350,
-              height: 400,
+              width: MediaQuery.of(context).size.width / 1.1,
+              height: MediaQuery.of(context).size.height / 1.9,
               decoration: BoxDecoration(
                   color: HexColor("#F5F5F5"),
                   borderRadius: BorderRadius.circular(20)),
