@@ -98,9 +98,12 @@ class _HomeViewState extends State<HomeView> {
         children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 350,
+            height: 330,
             decoration: BoxDecoration(
-                color: HexColor("#26E07F"),
+                // color: HexColor("#26E07F"),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/backgroundImage.PNG')),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30))),
@@ -165,10 +168,9 @@ class _HomeViewState extends State<HomeView> {
           ),
           Center(
             child: Container(
-              margin: EdgeInsets.only(top: 200),
-              height: 400,
-              child: Column(
-                children: <Widget>[
+                margin: EdgeInsets.only(top: 200),
+                height: 400,
+                child: Column(children: <Widget>[
                   Container(
                     height: 170,
                     width: 300,
@@ -212,108 +214,131 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FieldSampling()));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(top: 70),
-                      height: 40,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: HexColor("#072468"),
-                        boxShadow: [
-                          // to make elevation
-                          BoxShadow(
-                            color: Colors.grey[300],
-                            offset: Offset(4, 4),
-                            blurRadius: 6,
-                          ),
-                          // to make the coloured border
-                          // BoxShadow(
-                          //   color: HexColor("#F58E34"),
-                          //   offset: Offset(0, 4),
-                          // ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text("Field Sampling",
-                            style: TextStyle(
-                                shadows: <Shadow>[
-                                  Shadow(
-                                    offset: Offset(0, 1.0),
-                                    blurRadius: 3.0,
-                                    color: Colors.grey[600],
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FieldSampling()));
+                          },
+                          child: Container(
+                            height: 110,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(3),
+                              color: HexColor("#F58E34"),
+                              boxShadow: [
+                                // to make elevation
+                                BoxShadow(
+                                  color: Colors.grey[300],
+                                  offset: Offset(4, 4),
+                                  blurRadius: 6,
+                                ),
+                                // to make the coloured border
+                                // BoxShadow(
+                                //   color: HexColor("#F58E34"),
+                                //   offset: Offset(0, 4),
+                                // ),
+                              ],
+                            ),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.file_copy_rounded,
+                                    color: Colors.white,
                                   ),
-                                  // Shadow(
-                                  //   offset: Offset(10.0, 10.0),
-                                  //   blurRadius: 8.0,
-                                  //   color: Colors.grey,
-                                  // ),
+                                  Text("Field Sampling",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          shadows: <Shadow>[
+                                            Shadow(
+                                              offset: Offset(0, 1.0),
+                                              blurRadius: 3.0,
+                                              color: Colors.grey[600],
+                                            ),
+                                            // Shadow(
+                                            //   offset: Offset(10.0, 10.0),
+                                            //   blurRadius: 8.0,
+                                            //   color: Colors.grey,
+                                            // ),
+                                          ],
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 19,
+                                          color: Colors.white)),
                                 ],
-                                fontWeight: FontWeight.bold,
-                                fontSize: 23,
-                                color: Colors.white)),
-                      ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          splashColor: Colors.white,
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        HomePage(currentPage: 1)));
+                          },
+                          child: Container(
+                            height: 110,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(3),
+                              color: HexColor("#F58E34"),
+                              boxShadow: [
+                                // to make elevation
+                                BoxShadow(
+                                  color: Colors.grey[300],
+                                  offset: Offset(4, 4),
+                                  blurRadius: 6,
+                                ),
+                                // to make the coloured border
+                                // BoxShadow(
+                                //   color: HexColor("#F58E34"),
+                                //   offset: Offset(0, 4),
+                                // ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.restore_page,
+                                  color: Colors.white,
+                                ),
+                                Text("View Activity",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        shadows: <Shadow>[
+                                          Shadow(
+                                            offset: Offset(0, 1.0),
+                                            blurRadius: 3.0,
+                                            color: Colors.grey[600],
+                                          ),
+                                          // Shadow(
+                                          //   offset: Offset(10.0, 10.0),
+                                          //   blurRadius: 8.0,
+                                          //   color: Colors.grey,
+                                          // ),
+                                        ],
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 19,
+                                        color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  InkWell(
-                    splashColor: Colors.white,
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomePage(currentPage: 1)));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(top: 20),
-                      height: 40,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: HexColor("#F58E34"),
-                        boxShadow: [
-                          // to make elevation
-                          BoxShadow(
-                            color: Colors.grey[300],
-                            offset: Offset(4, 4),
-                            blurRadius: 6,
-                          ),
-                          // to make the coloured border
-                          // BoxShadow(
-                          //   color: HexColor("#F58E34"),
-                          //   offset: Offset(0, 4),
-                          // ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text("View Activity",
-                            style: TextStyle(
-                                shadows: <Shadow>[
-                                  Shadow(
-                                    offset: Offset(0, 1.0),
-                                    blurRadius: 3.0,
-                                    color: Colors.grey[600],
-                                  ),
-                                  // Shadow(
-                                  //   offset: Offset(10.0, 10.0),
-                                  //   blurRadius: 8.0,
-                                  //   color: Colors.grey,
-                                  // ),
-                                ],
-                                fontWeight: FontWeight.bold,
-                                fontSize: 23,
-                                color: Colors.white)),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+                ])),
           )
         ],
       ),
