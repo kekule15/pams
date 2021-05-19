@@ -9,129 +9,91 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  bool container1Color = true;
-  bool text1Color = true;
-  bool container2Color = true;
-  bool text2Color = true;
-  bool _logo = true;
-  bool _login = false;
-  bool _register = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: HexColor("#26E07F"),
-      body: SafeArea(
-          child: Stack(
-        children: <Widget>[
-          Container(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: HexColor("#26E07F"),
+        body: SafeArea(
+          child: Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,
                     image: AssetImage("assets/backgroundImage.PNG"))),
-          ),
-          Visibility(
-            visible: _logo,
-            child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.contain,
-                      image: AssetImage("assets/logoo.png"))),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 100),
+                  height: 300,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.contain,
+                          image: AssetImage("assets/logoo.png"))),
+                ),
+                Expanded(child: Container()),
+                BottomAppBar(
+                  color: Colors.transparent,
+                  child: _buttons(),
+                  elevation: 0,
+                ),
+                // Expanded(
+                //   child: Align(
+                //     alignment: FractionalOffset.bottomCenter,
+                //     child: _buttons(),
+                //   ),
+                // )
+              ],
             ),
           ),
-          Visibility(visible: _login, child: LoginPage()),
-          Visibility(visible: _register, child: RegisterPage()),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: _buttons(),
-          )
-        ],
-      )),
-    );
+        ));
   }
 
   _buttons() {
     return Container(
-      height: 90,
       margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.transparent,
       ),
-      child: Stack(
+      child: Column(
         children: <Widget>[
-          InkWell(
-            onTap: () {
-              setState(() {
-                _logo = false;
-                _login = true;
-                _register = false;
-                container1Color = true;
-                text1Color = true;
-                container2Color = false;
-                text2Color = false;
-              });
-            },
-            child: Container(
-              height: 40,
-              width: 300,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: container2Color
-                      ? HexColor("#F5F5F5")
-                      : Colors.transparent,
-                  border: Border.all(
-                    color: HexColor("#F5F5F5"),
-                    style: BorderStyle.solid,
-                    width: 2.0,
-                  )),
-              child: Center(
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                      color: text2Color ? Colors.black : Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 30),
+            child: MaterialButton(
+              color: Colors.white,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+              child: Text(
+                "Login",
+                style: TextStyle(fontSize: 20),
               ),
+              height: 45,
+              minWidth: 600,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(40))),
             ),
           ),
-          Positioned(
-            top: 50,
-            child: InkWell(
-              onTap: () {
-                setState(() {
-                  _logo = false;
-                  _login = false;
-                  _register = true;
-                  container1Color = false;
-                  text1Color = false;
-                  container2Color = true;
-                  text2Color = true;
-                });
+          SizedBox(
+            height: 15,
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 30),
+            child: MaterialButton(
+              color: Colors.white,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RegisterPage()));
               },
-              child: Container(
-                height: 40,
-                width: 300,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: container1Color
-                        ? HexColor("#F5F5F5")
-                        : Colors.transparent,
-                    border: Border.all(
-                      color: HexColor("#F5F5F5"),
-                      style: BorderStyle.solid,
-                      width: 2.0,
-                    )),
-                child: Center(
-                  child: Text(
-                    "Register",
-                    style: TextStyle(
-                        color: text1Color ? Colors.black : Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+              child: Text(
+                "Register",
+                style: TextStyle(fontSize: 20),
               ),
+              height: 45,
+              minWidth: 600,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(40))),
             ),
           ),
         ],

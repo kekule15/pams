@@ -121,16 +121,16 @@ class _HomeViewState extends State<HomeView> {
                                     builder: (context) => ProfilePage()));
                           },
                           child: Container(
-                            height: 90,
-                            width: 70,
+                            height: 70,
+                            width: 50,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                     image: AssetImage("assets/avatar.png")),
                                 border: Border.all(
                                   color: Colors.white,
                                   style: BorderStyle.solid,
-                                  width: 6.0,
+                                  width: 4.0,
                                 ),
                                 shape: BoxShape.circle),
                           ),
@@ -139,7 +139,7 @@ class _HomeViewState extends State<HomeView> {
                           width: 10,
                         ),
                         Text("Hi Henry",
-                            style: TextStyle(color: Colors.white, fontSize: 23))
+                            style: TextStyle(color: Colors.white, fontSize: 20))
                       ],
                     ),
                     InkWell(
@@ -214,10 +214,10 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   InkWell(
                     onTap: () {
-                       Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => FieldSampling()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FieldSampling()));
                     },
                     child: Container(
                       margin: EdgeInsets.only(top: 70),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/authentication/forgotpassword.dart';
+import 'package:pams/authentication/register.dart';
 import 'package:pams/screens/homepage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,135 +11,171 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool hidePassWord = true;
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        margin: EdgeInsets.only(top: 50),
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: 220,
-              height: 120,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.contain,
-                      image: AssetImage("assets/logoo.png"))),
-            ),
-            Container(
-              margin: EdgeInsets.only(
-                top: 5,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage("assets/backgroundImage.PNG"))),
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 100),
+                width: 200,
+                height: 150,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.contain,
+                        image: AssetImage("assets/logoo.png"))),
               ),
-              width: MediaQuery.of(context).size.width / 1.1,
-              height: MediaQuery.of(context).size.height / 2.5,
-              decoration: BoxDecoration(
-                  color: HexColor("#F5F5F5"),
-                  borderRadius: BorderRadius.circular(20)),
-              child: Padding(
-                padding: const EdgeInsets.all(12),
+              Container(
+                margin: EdgeInsets.fromLTRB(10, 50, 10, 0),
+                decoration: BoxDecoration(
+                    color: HexColor("#F5F5F5"),
+                    borderRadius: BorderRadius.circular(20)),
                 child: Form(
+                  key: formKey,
                   child: Column(
                     children: <Widget>[
+                      SizedBox(
+                        height: 15,
+                      ),
                       Center(
                         child: Text("Login to get started",
                             style: TextStyle(fontSize: 18)),
                       ),
                       Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        margin: EdgeInsets.all(20),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.email_rounded,
-                                color: HexColor("#F58E34"),
-                                size: 22,
-                              ),
-                              hintText: 'Email',
-                              border: InputBorder.none,
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        child: TextFormField(
+                          validator: (input) => !input.contains("@")
+                              ? "Email Id should be valid"
+                              : null,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.email_rounded,
+                              color: HexColor("#F58E34"),
+                              size: 22,
                             ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        margin: EdgeInsets.fromLTRB(20, 0, 20, 5),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: TextFormField(
-                            keyboardType: TextInputType.text,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.remove_red_eye_outlined,
-                                color: HexColor("#F58E34"),
-                                size: 22,
-                              ),
-                              hintText: 'password',
-                              border: InputBorder.none,
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: HexColor("#30F58E34")),
                             ),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("#F58E34"))),
+                            hintText: 'Email',
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: 5,
+                        height: 15,
                       ),
-                      InkWell(
-                        onTap: () {
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        child: TextFormField(
+                          keyboardType: TextInputType.text,
+                          validator: (input) => input.length < 6
+                              ? "Password should be at least 6 characters"
+                              : null,
+                          obscureText: hidePassWord,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: HexColor("#30F58E34"),
+                                  style: BorderStyle.solid),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("#F58E34"))),
+                            prefixIcon: Icon(
+                              Icons.lock,
+                              color: HexColor("#F58E34"),
+                            ),
+                            suffixIcon: IconButton(
+                                icon: Icon(hidePassWord
+                                    ? Icons.visibility_off
+                                    : Icons.remove_red_eye),
+                                onPressed: () {
+                                  setState(() {
+                                    hidePassWord = !hidePassWord;
+                                  });
+                                },
+                                color: HexColor("#60F58E34")),
+                            hintText: 'password',
+                          ),
+                        ),
+                      ),
+                      MaterialButton(
+                        onPressed: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ForgotPassword()));
                         },
-                        child: Container(
-                          margin: EdgeInsets.only(right: 20),
-                          child: Align(
-                            alignment: Alignment.topRight,
-                            child: Text("Forgot Password?"),
+                        child: Text('Forgot Password'),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'Do not have an account?',
+                            style: TextStyle(),
+                          ),
+                          MaterialButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegisterPage()));
+                            },
+                            child: Text('Register',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          )
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 40),
+                        child: MaterialButton(
+                          onPressed: () {
+                            final form = formKey.currentState;
+                            if (form.validate()) {
+                              form.save();
+                              return Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage(
+                                            currentPage: 0,
+                                          )));
+                            }
+                          },
+                          minWidth: 600,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(40))),
+                          height: 38,
+                          color: HexColor("#F58E34"),
+                          child: Text(
+                            'Login',
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage(
-                                        currentPage: 0,
-                                      )));
-                        },
-                        child: Container(
-                          margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
-                          height: 30,
-                          width: 150,
-                          decoration: BoxDecoration(
-                            color: HexColor("#F58E34"),
-                          ),
-                          child: Center(
-                            child: Text("Login",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white)),
-                          ),
-                        ),
-                      )
+                      SizedBox(
+                        height: 10,
+                      ),
                     ],
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

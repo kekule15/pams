@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/authentication/auth.dart';
+import 'package:pams/authentication/login.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -8,50 +9,56 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final scaffoldkey = GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        margin: EdgeInsets.only(top: 20),
+    return Scaffold(
+      key: scaffoldkey,
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage("assets/backgroundImage.PNG"))),
         child: Column(
-          children: <Widget>[
+          children: [
             Container(
-              width: 220,
-              height: 120,
+              margin: EdgeInsets.fromLTRB(40, 40, 40, 0),
+              height: 150,
+              width: 150,
               decoration: BoxDecoration(
                   image: DecorationImage(
                       fit: BoxFit.contain,
                       image: AssetImage("assets/logoo.png"))),
             ),
-            Container(
-              margin: EdgeInsets.only(
-                top: 5,
-              ),
-              width: MediaQuery.of(context).size.width / 1.1,
-              height: MediaQuery.of(context).size.height / 1.9,
-              decoration: BoxDecoration(
-                  color: HexColor("#F5F5F5"),
-                  borderRadius: BorderRadius.circular(20)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Form(
-                  child: Column(
-                    children: <Widget>[
-                      Center(
-                        child: Text("Register to get started",
-                            style: TextStyle(fontSize: 18)),
-                      ),
-                      Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            Expanded(
+              child: ListView(children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Center(
+                          child: Text("Register to get started",
+                              style: TextStyle(fontSize: 18)),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
                           child: TextFormField(
+                            validator: (input) => input.length < 6
+                                ? "First name should not be empty"
+                                : null,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               prefixIcon: Icon(
@@ -59,22 +66,81 @@ class _RegisterPageState extends State<RegisterPage> {
                                 color: HexColor("#F58E34"),
                                 size: 22,
                               ),
-                              hintText: 'Name',
-                              border: InputBorder.none,
+                              hintText: ' First name',
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("#30F58E34")),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: HexColor("#F58E34"))),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        margin: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
                           child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            validator: (input) => input.length < 6
+                                ? "Last name should not be empty"
+                                : null,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.account_box_sharp,
+                                color: HexColor("#F58E34"),
+                                size: 22,
+                              ),
+                              hintText: ' Last name',
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("#30F58E34")),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: HexColor("#F58E34"))),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          child: TextFormField(
+                            validator: (input) => input.length < 11
+                                ? "Phone number should be at least 11 characters"
+                                : null,
+                            keyboardType: TextInputType.phone,
+                            maxLength: 11,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.phone,
+                                color: HexColor("#F58E34"),
+                                size: 22,
+                              ),
+                              hintText: 'Phone number',
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("#30F58E34")),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: HexColor("#F58E34"))),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          child: TextFormField(
+                            validator: (input) => !input.contains("@")
+                                ? "Email Id should be valid"
+                                : null,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                               prefixIcon: Icon(
@@ -83,69 +149,55 @@ class _RegisterPageState extends State<RegisterPage> {
                                 size: 22,
                               ),
                               hintText: 'Email',
-                              border: InputBorder.none,
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("#30F58E34")),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: HexColor("#F58E34"))),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        margin: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
                           child: TextFormField(
                             keyboardType: TextInputType.text,
+                            validator: (input) => input.length < 6
+                                ? "Password should be at least 6 characters"
+                                : null,
                             obscureText: true,
                             decoration: InputDecoration(
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("#30F58E34")),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: HexColor("#F58E34"))),
                               prefixIcon: Icon(
-                                Icons.remove_red_eye_outlined,
+                                Icons.lock,
                                 color: HexColor("#F58E34"),
                                 size: 22,
                               ),
                               hintText: 'password',
-                              border: InputBorder.none,
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        margin: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: TextFormField(
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.rule_folder,
-                                color: HexColor("#F58E34"),
-                                size: 22,
-                              ),
-                              hintText: 'Designation',
-                              border: InputBorder.none,
-                            ),
-                          ),
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        margin: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
                           child: TextFormField(
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.phone,
+                            maxLength: 4,
+                            validator: (input) => input.length < 4
+                                ? "Activation code should be at least 4 characters"
+                                : null,
                             decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.volunteer_activism,
@@ -153,49 +205,67 @@ class _RegisterPageState extends State<RegisterPage> {
                                 size: 22,
                               ),
                               hintText: 'Activation code',
-                              border: InputBorder.none,
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: HexColor("#30F58E34")),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: HexColor("#F58E34"))),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Text("Already have an account? Login."),
-                          ),
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AuthPage()));
-                        },
-                        child: Container(
-                          margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
-                          height: 30,
-                          width: 150,
-                          decoration: BoxDecoration(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text('Already have an Account?'),
+                            MaterialButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()));
+                              },
+                              child: Text(
+                                "Login",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 40),
+                          child: MaterialButton(
                             color: HexColor("#F58E34"),
-                          ),
-                          child: Center(
+                            height: 40,
+                            minWidth: 600,
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40))),
+                            onPressed: () {
+                              final form = formKey.currentState;
+                              if (form.validate()) {
+                                form.save();
+                                return Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AuthPage()));
+                              }
+                            },
                             child: Text("Register",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white)),
+                                    fontSize: 17, color: Colors.white)),
                           ),
                         ),
-                      )
-                    ],
+                        SizedBox(height: 10),
+                      ],
+                    ),
                   ),
                 ),
-              ),
+              ]),
             ),
           ],
         ),
