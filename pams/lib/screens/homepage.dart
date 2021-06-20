@@ -190,7 +190,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
+            margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -219,7 +219,7 @@ class _HomeViewState extends State<HomeView> {
                   ],
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Row(
                   children: [
@@ -227,7 +227,7 @@ class _HomeViewState extends State<HomeView> {
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
-                            color: Colors.red, shape: BoxShape.circle),
+                            color: Colors.red.shade300, shape: BoxShape.circle),
                         child: Icon(
                           Icons.lock_clock,
                           color: Colors.white,
@@ -333,22 +333,61 @@ class _HomeViewState extends State<HomeView> {
                       fontSize: 19,
                       fontWeight: FontWeight.w500),
                 ),
+                SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       height: MediaQuery.of(context).size.height / 5,
-                      width: MediaQuery.of(context).size.width / 4,
+                      width: MediaQuery.of(context).size.width / 2.5,
                       decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(15)),
+                          color: Colors.lightBlueAccent.shade200,
+                          borderRadius: BorderRadius.circular(25)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(children: [
+                          Container(
+                              height: 80,
+                              width: 120,
+                              child: Image.asset("assets/mobile_testing.png")),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Center(
+                              child: Text(
+                            'Field Sampling',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          ))
+                        ]),
+                      ),
                     ),
                     Container(
                       height: MediaQuery.of(context).size.height / 5,
-                      width: MediaQuery.of(context).size.width / 4,
+                      width: MediaQuery.of(context).size.width / 2.5,
                       decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(15)),
+                          color: Colors.red.shade300,
+                          borderRadius: BorderRadius.circular(25)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(children: [
+                          Container(
+                              height: 80,
+                              width: 120,
+                              child: Image.asset("assets/access_account.png")),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Center(
+                              child: Text('View Activity',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500)))
+                        ]),
+                      ),
                     )
                   ],
                 )

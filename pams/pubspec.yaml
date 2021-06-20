@@ -31,8 +31,15 @@ dependencies:
   hexcolor: ^2.0.3
   provider: ^5.0.0
   shared_preferences: ^2.0.5
-  http: ^0.13.3
   another_flushbar: ^1.10.22
+  fluttertoast: ^8.0.7
+  http:
+  connectivity: ^3.0.3
+  hooks_riverpod: ^0.13.1+1
+  flutter_hooks: ^0.16.0
+  shimmer: ^1.1.2
+  path_provider: ^2.0.1
+  dio: ^4.0.0
 
 dev_dependencies:
   flutter_test:

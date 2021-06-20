@@ -1,20 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pams/authentication/forgotpassword.dart';
 import 'package:pams/authentication/register.dart';
+import 'package:pams/models/access_model/req_login_model.dart';
+import 'package:pams/routes/routes.dart';
 import 'package:pams/screens/homepage.dart';
+import 'package:pams/services/api_services/repositories/users_repository.dart';
+import 'package:pams/utils/connection_status.dart';
+import 'package:pams/utils/validators.dart';
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
+class LoginPage extends HookWidget {
+  final obscurePasswordProvider = StateProvider<bool>((ref) {
+    return true;
+  });
 
-class _LoginPageState extends State<LoginPage> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final pendingLoginProvider = StateProvider<bool>((ref) {
+    return false;
+  });
+
+  final _formKey = GlobalKey<FormState>();
   bool hidePassWord = true;
   @override
   Widget build(BuildContext context) {
+    final _emailTextController = useTextEditingController();
+    final _passwordTextController = useTextEditingController();
+    useProvider(pendingLoginProvider);
+
+    final _keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+
+    bool _keyboardVisible = false;
+
+    _keyboardHeight == 0 ? _keyboardVisible = false : _keyboardVisible = true;
+
+    useProvider(obscurePasswordProvider);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -40,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                     color: HexColor("#F5F5F5"),
                     borderRadius: BorderRadius.circular(20)),
                 child: Form(
-                  key: formKey,
+                  key: _formKey,
                   child: Column(
                     children: <Widget>[
                       SizedBox(
@@ -53,9 +76,10 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 10),
                         child: TextFormField(
-                          validator: (input) => !input.contains("@")
-                              ? "Email Id should be valid"
-                              : null,
+                          controller: _emailTextController,
+                          validator: (value) {
+                            return Validators.isEmailStr(value.toString());
+                          },
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             prefixIcon: Icon(
@@ -81,10 +105,15 @@ class _LoginPageState extends State<LoginPage> {
                         margin: EdgeInsets.symmetric(horizontal: 10),
                         child: TextFormField(
                           keyboardType: TextInputType.text,
-                          validator: (input) => input.length < 6
-                              ? "Password should be at least 6 characters"
-                              : null,
-                          obscureText: hidePassWord,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                          controller: _passwordTextController,
+                          obscureText:
+                              context.read(obscurePasswordProvider).state,
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -99,13 +128,22 @@ class _LoginPageState extends State<LoginPage> {
                               color: HexColor("#F58E34"),
                             ),
                             suffixIcon: IconButton(
-                                icon: Icon(hidePassWord
-                                    ? Icons.visibility_off
-                                    : Icons.remove_red_eye),
+                                icon: Icon(
+                                  context.read(obscurePasswordProvider).state
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: Colors.black54,
+                                  semanticLabel: context
+                                          .read(obscurePasswordProvider)
+                                          .state
+                                      ? 'show password'
+                                      : 'hide password',
+                                ),
                                 onPressed: () {
-                                  setState(() {
-                                    hidePassWord = !hidePassWord;
-                                  });
+                                  context.read(obscurePasswordProvider).state =
+                                      !context
+                                          .read(obscurePasswordProvider)
+                                          .state;
                                 },
                                 color: HexColor("#60F58E34")),
                             hintText: 'password',
@@ -140,33 +178,65 @@ class _LoginPageState extends State<LoginPage> {
                           )
                         ],
                       ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 40),
-                        child: MaterialButton(
-                          onPressed: () {
-                            final form = formKey.currentState;
-                            if (form.validate()) {
-                              form.save();
-                              return Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage(
-                                            currentPage: 0,
-                                          )));
-                            }
-                          },
-                          minWidth: 600,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40))),
-                          height: 38,
-                          color: HexColor("#F58E34"),
-                          child: Text(
-                            'Login',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
+                      context.read(pendingLoginProvider).state
+                          ? Center(
+                              child: CircularProgressIndicator(
+                              backgroundColor: Colors.red,
+                              valueColor: AlwaysStoppedAnimation(
+                                  Colors.white.withOpacity(0.3)),
+                            ))
+                          : MaterialButton(
+                              color: Colors.red,
+                              child: Text(
+                                'Login',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () async {
+                                if (_formKey.currentState.validate()) {
+                                  context.read(pendingLoginProvider).state =
+                                      true;
+
+                                  if (await ConnectionStatus.isConnected(
+                                      context)) {
+                                    String emailAddress =
+                                        _emailTextController.text.toString();
+
+                                    String password =
+                                        _passwordTextController.text.toString();
+
+                                    final result =
+                                        await UsersRepository.loginUser(
+                                            ReqLoginModel(
+                                                email: emailAddress,
+                                                password: password));
+
+                                    if (result.error == false) {
+                                      context.read(pendingLoginProvider).state =
+                                          false;
+                                      print("Wrong Credentials");
+                                      Fluttertoast.showToast(
+                                          msg: "Wrong Credentials Entered");
+                                    } else {
+                                      context.read(pendingLoginProvider).state =
+                                          true;
+                                      print("======Logged In========");
+                                      Navigator.of(context)
+                                          .pushNamedAndRemoveUntil(
+                                              Routes.home, (route) => false);
+                                    }
+                                    print(
+                                        " ${result.data} ====== +++++ =======");
+                                  } else {
+                                    context.read(pendingLoginProvider).state =
+                                        false;
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            "Please check your internet connection");
+                                  }
+                                }
+                              },
+                            ),
                       SizedBox(
                         height: 10,
                       ),
