@@ -46,8 +46,14 @@ class UsersImplementation implements UsersInterface {
         print(jsonData["returnObject"]["email"].toString());
         print(jsonData["returnObject"][reqLoginModel.password].toString());
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString(
-            'email', jsonData["returnObject"]["email"].toString());
+        prefs.setString('email', jsonData["returnObject"]["email"].toString());
+
+        Prefs.instance.setStringValue(
+            'name', jsonData["returnObject"]["fullname"].toString());
+        Prefs.instance.setStringValue(
+            'token', jsonData["returnObject"]["token"].toString());
+        Prefs.instance.setStringValue(
+            'role', jsonData["returnObject"]["role"].toString());
 
         if (jsonData.length > 0) {
           return APIResponse(data: false, error: true);
@@ -56,17 +62,17 @@ class UsersImplementation implements UsersInterface {
 
           //SAVE DETAIL TO SHARED PREFERENCE
 
-          await Prefs.setString(
-              Strings.token_pref, jsonData["returnObject"]["token"]);
-          await Prefs.setString(
-              Strings.f_name_pref, jsonData["returnObject"]["fullname"]);
-          await Prefs.setString(
-              Strings.l_name_pref, jsonData["returnObject"]['fullname']);
-          await Prefs.setString(Strings.role, jsonData["returnObject"]["role"]);
-          // Prefs.setString(Strings.phone, jsonData["returnObject"][3]);
-          await Prefs.setString(
-              Strings.email_pref, jsonData["returnObject"]["email"]);
-          await Prefs.setBool(Strings.is_logged_in, true);
+          // await Prefs.setString(
+          //     Strings.token_pref, jsonData["returnObject"]["token"]);
+          // await Prefs.setString(
+          //     Strings.f_name_pref, jsonData["returnObject"]["fullname"]);
+          // await Prefs.setString(
+          //     Strings.l_name_pref, jsonData["returnObject"]['fullname']);
+          // await Prefs.setString(Strings.role, jsonData["returnObject"]["role"]);
+          // // Prefs.setString(Strings.phone, jsonData["returnObject"][3]);
+          // await Prefs.setString(
+          //     Strings.email_pref, jsonData["returnObject"]["email"]);
+          // await Prefs.setBool(Strings.is_logged_in, true);
 
           return APIResponse(data: jsonData, error: false);
         }
@@ -101,10 +107,10 @@ class UsersImplementation implements UsersInterface {
       Map<dynamic, dynamic> jsonData = Map<String, dynamic>.from(response.data);
 
       //SAVE DETAIL TO SHARED PREFERENCE
-      Prefs.setString(Strings.token_pref, jsonData["api_key"]);
-      Prefs.setString(Strings.f_name_pref, jsonData["fname"]);
-      Prefs.setString(Strings.l_name_pref, jsonData["lname"]);
-      Prefs.setString(Strings.phone, jsonData["phone"]);
+      // Prefs.setString(Strings.token_pref, jsonData["api_key"]);
+      // Prefs.setString(Strings.f_name_pref, jsonData["fname"]);
+      // Prefs.setString(Strings.l_name_pref, jsonData["lname"]);
+      // Prefs.setString(Strings.phone, jsonData["phone"]);
 
       if (jsonData["error"]) {
         return APIResponse(data: false, error: true);

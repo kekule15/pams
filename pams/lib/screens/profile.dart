@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/routes/routes.dart';
 import 'package:pams/screens/editemail.dart';
+import 'package:pams/utils/shared_pref_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -10,6 +11,21 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String name = '';
+  String role = '';
+  String email = '';
+
+  _ProfilePageState() {
+     Prefs.instance.getStringValue("name").then((value) => setState(() {
+          name = value;
+        }));
+    Prefs.instance.getStringValue("role").then((value) => setState(() {
+          role = value;
+        }));
+        Prefs.instance.getStringValue("email").then((value) => setState(() {
+          email = value;
+        }));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     shape: BoxShape.circle),
               ),
-              Text("Henry Joe",
+              Text("$name",
                   style: TextStyle(fontSize: 30, color: HexColor("#072468"))),
               Container(
                 margin: EdgeInsets.only(top: 20),
@@ -65,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Henry Joe",
+                      Text("$name",
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -99,7 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Designation",
+                      Text("$role",
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -136,7 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("henryJoe@gmail.com",
+                          Text("$email",
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
