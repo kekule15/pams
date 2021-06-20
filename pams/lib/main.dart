@@ -5,7 +5,7 @@ import 'package:pams/routes/route_generator.dart';
 import 'package:pams/routes/routes.dart';
 import 'package:pams/screens/splashScreen.dart';
 
-void main() {
+Future <void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:pams/routes/routes.dart';
 import 'package:pams/screens/editemail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -158,31 +160,39 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                height: 50,
-                width: 350,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                  // to make elevation
-                  BoxShadow(
-                    color: Colors.grey[300],
-                    offset: Offset(0, 2),
-                    blurRadius: 4,
+              InkWell(
+                onTap: () async {
+                  print("======Logout=======");
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.remove("email");
+                  Navigator.of(context).pushNamed(Routes.authPage);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(top: 20),
+                  height: 50,
+                  width: 350,
+                  decoration: BoxDecoration(boxShadow: [
+                    // to make elevation
+                    BoxShadow(
+                      color: Colors.grey[300],
+                      offset: Offset(0, 2),
+                      blurRadius: 4,
+                    ),
+                    // to make the coloured border
+                    BoxShadow(
+                      color: HexColor("#072468"),
+                      offset: Offset(0, 0.5),
+                    ),
+                  ], color: Colors.white),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                    child: Text("Logout",
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 23,
+                            fontWeight: FontWeight.bold)),
                   ),
-                  // to make the coloured border
-                  BoxShadow(
-                    color: HexColor("#072468"),
-                    offset: Offset(0, 0.5),
-                  ),
-                ], color: Colors.white),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                  child: Text("Logout",
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 23,
-                          fontWeight: FontWeight.bold)),
                 ),
               )
             ],

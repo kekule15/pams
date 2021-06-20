@@ -11,7 +11,7 @@ class Routes {
   static const String notification = "/notification";
   static const String faq = "/faq";
   static const String viewActivity = "/activity";
-  static const String restaurantSearchScreen = "/restaurant_search";
+  static const String authPage = "/authPage";
   static const String restaurantDetailedScreen = "/restaurant_detailed_screen";
   static const String checkoutScreen = "/checkout_screen";
   static const String orderConfirmedScreen = "/order_confirmed";

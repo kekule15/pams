@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pams/authentication/auth.dart';
+import 'package:pams/screens/homepage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,7 +17,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  _transitionToNextPageAfterSplash() {
+  _transitionToNextPageAfterSplash() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+      var email = prefs.getString('email');
     return Timer(
       Duration(
         seconds: 3,
@@ -23,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => AuthPage(),
+          builder: (context) => email== null? AuthPage(): HomePage(currentPage: 0),
         ),
       ),
     );

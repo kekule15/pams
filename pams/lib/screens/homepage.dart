@@ -8,6 +8,9 @@ import 'package:pams/screens/fieldsampling.dart';
 import 'package:pams/screens/notification.dart';
 import 'package:pams/screens/profile.dart';
 import 'package:pams/screens/test.dart';
+import 'package:pams/utils/shared_pref_manager.dart';
+import 'package:pams/utils/strings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   final int currentPage;
@@ -95,6 +98,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
+     
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -119,10 +123,8 @@ class _HomeViewState extends State<HomeView> {
                     children: <Widget>[
                       IconButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ProfilePage()));
+                            Navigator.of(context)
+                                .pushNamed(Routes.profileScreen);
                           },
                           icon: Icon(
                             Icons.menu,
@@ -131,10 +133,7 @@ class _HomeViewState extends State<HomeView> {
                           )),
                       InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => NotificationPage()));
+                          Navigator.of(context).pushNamed(Routes.notification);
                         },
                         child: Container(
                           height: 40,
@@ -173,7 +172,7 @@ class _HomeViewState extends State<HomeView> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Hi Henry",
+                            Text("",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: Colors.white,

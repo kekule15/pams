@@ -12,6 +12,7 @@ import 'package:pams/services/api_services/interface/users_interface.dart';
 import 'package:pams/utils/constants.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
 import 'package:pams/utils/strings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UsersImplementation implements UsersInterface {
   @override
@@ -22,8 +23,8 @@ class UsersImplementation implements UsersInterface {
     print("=====INITIATED LOGIN====");
     var options = BaseOptions(
       baseUrl: 'http://chikahenry-001-site1.itempurl.com',
-      connectTimeout: 1000,
-      receiveTimeout: 1000,
+      connectTimeout: 3000,
+      receiveTimeout: 3000,
     );
     Dio dio = Dio(options);
     try {
@@ -42,25 +43,30 @@ class UsersImplementation implements UsersInterface {
         Map<dynamic, dynamic> jsonData =
             Map<String, dynamic>.from(response.data);
 
-        print(jsonData["returnObject"]['token'].toString());
+        print(jsonData["returnObject"]["email"].toString());
+        print(jsonData["returnObject"][reqLoginModel.password].toString());
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString(
+            'email', jsonData["returnObject"]["email"].toString());
 
-        if (jsonData["status"]) {
+        if (jsonData.length > 0) {
           return APIResponse(data: false, error: true);
         } else {
           print(jsonData["returnObject"]['role'].toString());
 
           //SAVE DETAIL TO SHARED PREFERENCE
 
-          Prefs.setString(
+          await Prefs.setString(
               Strings.token_pref, jsonData["returnObject"]["token"]);
-          Prefs.setString(
+          await Prefs.setString(
               Strings.f_name_pref, jsonData["returnObject"]["fullname"]);
-          Prefs.setString(
+          await Prefs.setString(
               Strings.l_name_pref, jsonData["returnObject"]['fullname']);
-          Prefs.setString(Strings.role, jsonData["returnObject"]["role"]);
+          await Prefs.setString(Strings.role, jsonData["returnObject"]["role"]);
           // Prefs.setString(Strings.phone, jsonData["returnObject"][3]);
-          Prefs.setString(Strings.email_pref, reqLoginModel.email);
-          Prefs.setBool(Strings.is_logged_in, true);
+          await Prefs.setString(
+              Strings.email_pref, jsonData["returnObject"]["email"]);
+          await Prefs.setBool(Strings.is_logged_in, true);
 
           return APIResponse(data: jsonData, error: false);
         }

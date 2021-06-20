@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pams/authentication/auth.dart';
 import 'package:pams/authentication/forgotpassword.dart';
 import 'package:pams/authentication/login.dart';
 import 'package:pams/authentication/register.dart';
 import 'package:pams/routes/routes.dart';
 import 'package:pams/screens/fieldsampling.dart';
 import 'package:pams/screens/homepage.dart';
+import 'package:pams/screens/notification.dart';
 import 'package:pams/screens/profile.dart';
 import 'package:pams/screens/splashScreen.dart';
 
@@ -66,6 +68,14 @@ class RouteGenerator {
       case Routes.register:
         return CupertinoPageRoute(
           builder: (context) => RegisterPage(),
+        );
+         case Routes.notification:
+        return CupertinoPageRoute(
+          builder: (context) => NotificationPage(),
+        );
+         case Routes.authPage:
+        return CupertinoPageRoute(
+          builder: (context) => AuthPage(),
         );
 
       default:
