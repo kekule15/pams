@@ -4,6 +4,7 @@ import 'package:pams/authentication/forgotpassword.dart';
 import 'package:pams/authentication/login.dart';
 import 'package:pams/authentication/register.dart';
 import 'package:pams/routes/routes.dart';
+import 'package:pams/screens/fieldsampling.dart';
 import 'package:pams/screens/homepage.dart';
 import 'package:pams/screens/profile.dart';
 import 'package:pams/screens/splashScreen.dart';
@@ -53,14 +54,20 @@ class RouteGenerator {
         return CupertinoPageRoute(
           builder: (context) => ProfilePage(),
         );
-      
-      
-      
+      case Routes.fieldSampling:
+        return CupertinoPageRoute(
+          builder: (context) => FieldSampling(),
+        );
+      case Routes.viewActivity:
+        return CupertinoPageRoute(
+          builder: (context) => HomePage(currentPage: 1),
+        );
+
       case Routes.register:
         return CupertinoPageRoute(
           builder: (context) => RegisterPage(),
         );
-      
+
       default:
         break;
     }

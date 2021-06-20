@@ -162,7 +162,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 margin: EdgeInsets.only(top: 20),
                 height: 50,
                 width: 350,
-                decoration: BoxDecoration(boxShadow: [
+                decoration: BoxDecoration(
+                  boxShadow: [
                   // to make elevation
                   BoxShadow(
                     color: Colors.grey[300],

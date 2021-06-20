@@ -6,11 +6,11 @@ class Routes {
   static const String resetPassword = "/reset";
   static const String home = "/home";
   static const String signupLogin = "/signup_login";
-  static const String recommendedScreens = "/recommended";
+  static const String fieldSampling = "/fieldSampling";
   static const String profileScreen = "/profile";
-  static const String aboutScreen = "/about";
-  static const String cartScreen = "/cart";
-  static const String orderScreen = "/order";
+  static const String notification = "/notification";
+  static const String faq = "/faq";
+  static const String viewActivity = "/activity";
   static const String restaurantSearchScreen = "/restaurant_search";
   static const String restaurantDetailedScreen = "/restaurant_detailed_screen";
   static const String checkoutScreen = "/checkout_screen";

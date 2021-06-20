@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:pams/routes/routes.dart';
 import 'package:pams/screens/faq.dart';
 import 'package:pams/screens/fieldsampling.dart';
 import 'package:pams/screens/notification.dart';
@@ -224,8 +225,8 @@ class _HomeViewState extends State<HomeView> {
                 Row(
                   children: [
                     Container(
-                        height: 40,
-                        width: 40,
+                        height: 20,
+                        width: 20,
                         decoration: BoxDecoration(
                             color: Colors.red.shade300, shape: BoxShape.circle),
                         child: Icon(
@@ -241,13 +242,13 @@ class _HomeViewState extends State<HomeView> {
                       children: [
                         Text('To Do',
                             style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
                               color: Colors.black,
                             )),
                         Text(
                           'Task to do',
-                          style: TextStyle(fontSize: 14, color: Colors.black45),
+                          style: TextStyle(fontSize: 12, color: Colors.black45),
                         )
                       ],
                     )
@@ -259,8 +260,8 @@ class _HomeViewState extends State<HomeView> {
                 Row(
                   children: [
                     Container(
-                        height: 40,
-                        width: 40,
+                        height: 20,
+                        width: 20,
                         decoration: BoxDecoration(
                             color: Colors.orange, shape: BoxShape.circle),
                         child: Icon(
@@ -276,13 +277,13 @@ class _HomeViewState extends State<HomeView> {
                       children: [
                         Text('In progress',
                             style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
                               color: Colors.black,
                             )),
                         Text(
                           '1 task in progress',
-                          style: TextStyle(fontSize: 14, color: Colors.black45),
+                          style: TextStyle(fontSize: 12, color: Colors.black45),
                         )
                       ],
                     )
@@ -294,8 +295,8 @@ class _HomeViewState extends State<HomeView> {
                 Row(
                   children: [
                     Container(
-                        height: 40,
-                        width: 40,
+                        height: 20,
+                        width: 20,
                         decoration: BoxDecoration(
                             color: Colors.green, shape: BoxShape.circle),
                         child: Icon(
@@ -311,13 +312,13 @@ class _HomeViewState extends State<HomeView> {
                       children: [
                         Text('Done',
                             style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
                               color: Colors.black,
                             )),
                         Text(
                           '3 tasks completed',
-                          style: TextStyle(fontSize: 14, color: Colors.black45),
+                          style: TextStyle(fontSize: 12, color: Colors.black45),
                         )
                       ],
                     )
@@ -333,60 +334,88 @@ class _HomeViewState extends State<HomeView> {
                       fontSize: 19,
                       fontWeight: FontWeight.w500),
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height / 5,
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      decoration: BoxDecoration(
-                          color: Colors.lightBlueAccent.shade200,
-                          borderRadius: BorderRadius.circular(25)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(children: [
-                          Container(
-                              height: 80,
-                              width: 120,
-                              child: Image.asset("assets/mobile_testing.png")),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Center(
-                              child: Text(
-                            'Field Sampling',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ))
-                        ]),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(Routes.fieldSampling);
+                      },
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 5,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 1,
+                                offset: Offset(
+                                    0, 0.5), // changes position of shadow
+                              ),
+                            ],
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(children: [
+                            Container(
+                                height: 80,
+                                width: 120,
+                                child: Image.asset("assets/field.png")),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Center(
+                                child: Text(
+                              'Field Sampling',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
+                            ))
+                          ]),
+                        ),
                       ),
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height / 5,
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      decoration: BoxDecoration(
-                          color: Colors.red.shade300,
-                          borderRadius: BorderRadius.circular(25)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(children: [
-                          Container(
-                              height: 80,
-                              width: 120,
-                              child: Image.asset("assets/access_account.png")),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Center(
-                              child: Text('View Activity',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500)))
-                        ]),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(Routes.viewActivity);
+                      },
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 5,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 1,
+                                offset: Offset(
+                                    0, 0.5), // changes position of shadow
+                              ),
+                            ],
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(children: [
+                            Container(
+                                height: 80,
+                                width: 120,
+                                child: Image.asset("assets/view_acticity.png")),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Center(
+                                child: Text('View Activity',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500)))
+                          ]),
+                        ),
                       ),
                     )
                   ],

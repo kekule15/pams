@@ -41,7 +41,8 @@ class UsersImplementation implements UsersInterface {
       if (statusCode == 200) {
         Map<dynamic, dynamic> jsonData =
             Map<String, dynamic>.from(response.data);
-            
+
+        print(jsonData["returnObject"]['token'].toString());
 
         if (jsonData["status"]) {
           return APIResponse(data: false, error: true);
