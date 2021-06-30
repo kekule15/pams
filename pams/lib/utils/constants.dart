@@ -5,16 +5,14 @@ import 'dart:math';
 class Constants {
   //ADD MORE BASE_URL AND EDIT API_SUB_ENPOINT IF API CHANGES IN FUTURE
   static const String base_url = "http://chikahenry-001-site1.itempurl.com";
-  static const String base_url2 = "https://api.food2pot.com";
-  static const String base_url3 =
-      "https://app.food2pot.com"; //SWAP BASE_URL_3 FOR BASE_URL_4
-  static const String base_url4 = "https://app.food2pot.com";
 
   static const Map<String, String> api_sub_endpoint = {
     "login": base_url + "/api/v1/Account/SignIn",
     "registration": base_url + "/api/v1/Account/SignUp",
-    "update_profile": base_url2 + "/api/v1/user_profile",
-    "reset_password": base_url2 + "/api/v1/forgot",
+    "update_profile": base_url + "/api/v1/user_profile",
+    "reset_password": base_url + "/api/v1/forgot",
+    "get_all_clients": base_url +"/api/v1/Client/GetAllClient",
+  
    
   };
 

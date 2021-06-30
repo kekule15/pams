@@ -22,7 +22,7 @@ class UsersImplementation implements UsersInterface {
 
     print("=====INITIATED LOGIN====");
     var options = BaseOptions(
-      baseUrl: 'http://chikahenry-001-site1.itempurl.com',
+      baseUrl: 'http://sethlab-001-site1.itempurl.com',
       connectTimeout: 3000,
       receiveTimeout: 3000,
     );
