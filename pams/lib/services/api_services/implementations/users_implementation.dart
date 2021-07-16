@@ -33,7 +33,7 @@ class UsersImplementation implements UsersInterface {
         data: body,
         options: Options(method: 'POST'),
       );
-      final int statusCode = response.statusCode;
+      final int? statusCode = response.statusCode;
 
       print(response.toString());
       print("Augustus");
@@ -56,7 +56,7 @@ class UsersImplementation implements UsersInterface {
             'role', jsonData["returnObject"]["role"].toString());
 
         if (jsonData.length > 0) {
-          return APIResponse(data: false, error: true);
+          return APIResponse(data: false, error: true, errorMessage: '');
         } else {
           print(jsonData["returnObject"]['role'].toString());
 
@@ -74,7 +74,7 @@ class UsersImplementation implements UsersInterface {
           //     Strings.email_pref, jsonData["returnObject"]["email"]);
           // await Prefs.setBool(Strings.is_logged_in, true);
 
-          return APIResponse(data: jsonData, error: false);
+          return APIResponse(data: jsonData, error: false, errorMessage: '');
         }
       } else {
         // APIResponse(data: false, error: true);
@@ -86,7 +86,7 @@ class UsersImplementation implements UsersInterface {
       }
     }
 
-    return APIResponse(data: true, error: false);
+    return APIResponse(data: true, error: false, errorMessage: '');
   }
 
   @override
@@ -96,12 +96,12 @@ class UsersImplementation implements UsersInterface {
 
     final response = await Dio()
         .post(
-          Constants.api_sub_endpoint["registration"],
+          Constants.api_sub_endpoint["registration"]!,
           data: formData,
         )
         .timeout(Constants.network_call_duration);
 
-    final int statusCode = response.statusCode;
+    final int? statusCode = response.statusCode;
 
     if (statusCode == 200 || statusCode == 201) {
       Map<dynamic, dynamic> jsonData = Map<String, dynamic>.from(response.data);
@@ -113,13 +113,13 @@ class UsersImplementation implements UsersInterface {
       // Prefs.setString(Strings.phone, jsonData["phone"]);
 
       if (jsonData["error"]) {
-        return APIResponse(data: false, error: true);
+        return APIResponse(data: false, error: true, errorMessage: '');
       } else {
-        return APIResponse(data: jsonData, error: false);
+        return APIResponse(data: jsonData, error: false, errorMessage: '');
       }
     }
 
-    return APIResponse(data: false, error: true);
+    return APIResponse(data: false, error: true, errorMessage: '');
   }
 
   @override
@@ -134,7 +134,7 @@ class UsersImplementation implements UsersInterface {
     var h = {"Authorization": api_key};
 
     final response = await http.post(
-      Uri.parse(Constants.api_sub_endpoint["update_profile"]),
+      Uri.parse(Constants.api_sub_endpoint["update_profile"]!),
       body: data,
       headers: h,
     );
@@ -147,13 +147,13 @@ class UsersImplementation implements UsersInterface {
       print(jsonData.toString() + "--------");
 
       if (jsonData["error"]) {
-        return APIResponse(data: false, error: true);
+        return APIResponse(data: false, error: true, errorMessage: '');
       } else {
-        return APIResponse(data: jsonData, error: false);
+        return APIResponse(data: jsonData, error: false, errorMessage: '');
       }
     }
 
-    return APIResponse(data: false, error: true);
+    return APIResponse(data: false, error: true, errorMessage: '');
   }
 
   @override
@@ -163,7 +163,7 @@ class UsersImplementation implements UsersInterface {
     FormData formData = new FormData.fromMap(reqResetModel.toJson());
 
     final response = await http.post(
-      Uri.parse(Constants.api_sub_endpoint["reset_password"]),
+      Uri.parse(Constants.api_sub_endpoint["reset_password"]!),
       body: formData,
     );
 
@@ -177,12 +177,12 @@ class UsersImplementation implements UsersInterface {
       print(jsonData.toString() + "--------");
 
       if (jsonData["error"]) {
-        return APIResponse(data: false, error: true);
+        return APIResponse(data: false, error: true, errorMessage: '');
       } else {
-        return APIResponse(data: jsonData, error: false);
+        return APIResponse(data: jsonData, error: false, errorMessage: '');
       }
     }
 
-    return APIResponse(data: false, error: true);
+    return APIResponse(data: false, error: true, errorMessage: '');
   }
 }

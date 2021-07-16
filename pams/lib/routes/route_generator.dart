@@ -12,7 +12,7 @@ import 'package:pams/screens/profile.dart';
 import 'package:pams/screens/splashScreen.dart';
 
 class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic>? generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
     switch (settings.name) {

@@ -24,7 +24,7 @@ class ClientImplementation extends ClientsInterface {
       '/api/v1/Client/GetAllClient',
       options: Options(method: 'GET'),
     );
-    final int statusCode = response.statusCode;
+    final  statusCode = response.statusCode;
     if (statusCode == 200) {
       var jsonData = response.data["returnObject"] as List;
       print(jsonData);
@@ -39,11 +39,11 @@ class ClientImplementation extends ClientsInterface {
       //   "all_clients": clients,
       //   //"client_unique_id": jsonData[2]["id"],
       // };
-      return APIResponse(data: clients, error: false);
+      return APIResponse(data: clients, error: false, errorMessage: '');
     }
     return APIResponse(data: {
       "all_clients": [],
       //"client_unique_id": '',
-    }, error: true);
+    }, error: true, errorMessage: '');
   }
 }

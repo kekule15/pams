@@ -4,7 +4,7 @@ class ReqResetModel {
   String email;
 
   ReqResetModel({
-    this.email,
+  required  this.email,
   });
 
   Map<String, dynamic> toJson() {

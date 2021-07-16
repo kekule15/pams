@@ -18,7 +18,7 @@ class FieldSampling extends StatefulWidget {
 }
 
 class _FieldSamplingState extends State<FieldSampling> {
-  Future<ReturnObject> getAllClients() async {
+  Future<ClientModel> getAllClients() async {
     String token = await Prefs.instance.getStringValue('token');
 
     // or new Dio with a BaseOptions instance.
@@ -33,30 +33,17 @@ class _FieldSamplingState extends State<FieldSampling> {
       '/api/v1/Client/GetAllClient',
       options: Options(method: 'GET'),
     );
-    //print(response.data);
-    // final response = await http.get(
-    //   Uri.parse(
-    //       'http://sethlab-001-site1.itempurl.com/api/v1/Client/GetAllClient'),
-    //   // Send authorization headers to the backend.
-    //   headers: {
-    //     HttpHeaders.authorizationHeader: token,
-    //   },
-    // );
-
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      print(response.data);
-      Map<String, dynamic> jsonData = response.data;
-      return ReturnObject.fromJson(jsonData);
+      var body = response.data;
+      ClientModel data = ClientModel.fromJson(body);
+      print(data.toString());
+      return data;
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
       throw Exception('Failed to load Clients');
     }
   }
 
-  Future<ReturnObject> futureAlbum;
+  late Future<ClientModel> futureAlbum;
 
   @override
   void initState() {
@@ -83,25 +70,20 @@ class _FieldSamplingState extends State<FieldSampling> {
       ),
       backgroundColor: Colors.white,
       body: Center(
-        child: FutureBuilder<ReturnObject>(
+        child: FutureBuilder<ClientModel?>(
           future: futureAlbum,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              print(snapshot.data);
-              List<ReturnObject> clients = snapshot.data as List<ReturnObject>;
-              print(clients);
+              print("======my data ${snapshot.data} =====");
               return ListView.builder(
-                  itemCount: clients.length,
+                  itemCount: snapshot.data?.returnObject.length,
                   itemBuilder: (BuildContext context, index) {
-                    var client = clients[index];
-                    return Container(
-                      child: ListTile(
-                        title: Text(client.email),
-                      ),
-                    );
+                    final client = snapshot.data?.returnObject[index];
+                    return Card(child: Text(client!.name));
                   });
             } else if (snapshot.hasError) {
-              return Text("${snapshot.error} thats it");
+              print(snapshot.error);
+              return Text("${snapshot.error}===na error o");
             }
 
             // By default, show a loading spinner.

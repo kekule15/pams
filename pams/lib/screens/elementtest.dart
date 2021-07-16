@@ -51,7 +51,7 @@ class _ElementTestState extends State<ElementTest> {
                     child: TextFormField(
                       // controller: _titleController,
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'title can not be empty';
                         }
                         return null;
@@ -173,7 +173,7 @@ class _ElementTestState extends State<ElementTest> {
                           boxShadow: [
                             // to make elevation
                             BoxShadow(
-                              color: Colors.grey[300],
+                              color: Colors.grey[300]!,
                               offset: Offset(0, 2),
                               blurRadius: 4,
                             ),
@@ -222,7 +222,7 @@ class _ElementTestState extends State<ElementTest> {
                           boxShadow: [
                             // to make elevation
                             BoxShadow(
-                              color: Colors.grey[300],
+                              color: Colors.grey[300]!,
                               offset: Offset(0, 2),
                               blurRadius: 4,
                             ),
@@ -271,7 +271,7 @@ class _ElementTestState extends State<ElementTest> {
                           boxShadow: [
                             // to make elevation
                             BoxShadow(
-                              color: Colors.grey[300],
+                              color: Colors.grey[300]!,
                               offset: Offset(0, 2),
                               blurRadius: 4,
                             ),
@@ -320,7 +320,7 @@ class _ElementTestState extends State<ElementTest> {
                           boxShadow: [
                             // to make elevation
                             BoxShadow(
-                              color: Colors.grey[300],
+                              color: Colors.grey[300]!,
                               offset: Offset(0, 2),
                               blurRadius: 4,
                             ),

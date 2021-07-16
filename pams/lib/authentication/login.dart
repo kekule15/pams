@@ -193,7 +193,7 @@ class LoginPage extends HookWidget {
                                     color: Colors.white, fontSize: 20),
                               ),
                               onPressed: () async {
-                                if (_formKey.currentState.validate()) {
+                                if (_formKey.currentState!.validate()) {
                                   context.read(pendingLoginProvider).state =
                                       true;
 

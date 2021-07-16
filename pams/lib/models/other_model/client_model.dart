@@ -4,15 +4,15 @@
 
 import 'dart:convert';
 
-ClientModel clientModelFromJson(String str) => ClientModel.fromJson(json.decode(str));
+ ClientModel clientModelFromJson(String str) => ClientModel.fromJson(json.decode(str));
 
-String clientModelToJson(ClientModel data) => json.encode(data.toJson());
+// String clientModelToJson(ClientModel data) => json.encode(data.toJson());
 
 class ClientModel {
     ClientModel({
-        this.status,
-        this.message,
-        this.returnObject,
+      required  this.status,
+      required  this.message,
+      required  this.returnObject,
     });
 
     bool status;
@@ -34,13 +34,13 @@ class ClientModel {
 
 class ReturnObject {
     ReturnObject( {
-        this.name,
-        this.email,
-        this.address,
-        this.registeredDate,
-        this.samplings,
-        this.invoices,
-        this.id,
+      required  this.name,
+      required  this.email,
+      required  this.address,
+      required  this.registeredDate,
+      required  this.samplings,
+      required  this.invoices,
+      required  this.id,
     });
 
     String name;
@@ -74,14 +74,14 @@ class ReturnObject {
 
 class Invoice {
     Invoice({
-        this.items,
-        this.paid,
-        this.inoviceNumber,
-        this.dueDate,
-        this.dateGenerated,
-        this.clientId,
-        this.samplingId,
-        this.id,
+      required  this.items,
+      required  this.paid,
+      required  this.inoviceNumber,
+      required  this.dueDate,
+      required  this.dateGenerated,
+      required  this.clientId,
+      required  this.samplingId,
+      required  this.id,
     });
 
     String items;
@@ -118,15 +118,15 @@ class Invoice {
 
 class Sampling {
     Sampling({
-        this.clientId,
-        this.staffId,
-        this.staffName,
-        this.samplingTime,
-        this.samplingDate,
-        this.sampleType,
-        this.status,
-        this.samples,
-        this.id,
+      required  this.clientId,
+      required  this.staffId,
+      required  this.staffName,
+      required  this.samplingTime,
+      required  this.samplingDate,
+      required  this.sampleType,
+      required  this.status,
+      required  this.samples,
+      required  this.id,
     });
 
     String clientId;
@@ -166,11 +166,11 @@ class Sampling {
 
 class Sample {
     Sample({
-        this.samplingId,
-        this.name,
-        this.sampleType,
-        this.tests,
-        this.id,
+     required   this.samplingId,
+     required   this.name,
+      required  this.sampleType,
+      required  this.tests,
+      required  this.id,
     });
 
     String samplingId;
@@ -198,11 +198,11 @@ class Sample {
 
 class Test {
     Test({
-        this.name,
-        this.limit,
-        this.value,
-        this.sampleId,
-        this.id,
+      required  this.name,
+      required  this.limit,
+      required  this.value,
+      required  this.sampleId,
+      required  this.id,
     });
 
     String name;

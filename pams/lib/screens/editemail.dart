@@ -44,7 +44,7 @@ class _EditEmailState extends State<EditEmail> {
                   boxShadow: [
                     // to make elevation
                     BoxShadow(
-                      color: Colors.grey[300],
+                      color: Colors.grey[300]!,
                       offset: Offset(0, 2),
                       blurRadius: 4,
                     ),

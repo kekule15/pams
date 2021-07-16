@@ -56,7 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           child: TextFormField(
-                            validator: (input) => input.length < 6
+                            validator: (input) => input!.length < 6
                                 ? "First name should not be empty"
                                 : null,
                             keyboardType: TextInputType.text,
@@ -84,7 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           child: TextFormField(
                             keyboardType: TextInputType.text,
-                            validator: (input) => input.length < 6
+                            validator: (input) => input!.length < 6
                                 ? "Last name should not be empty"
                                 : null,
                             decoration: InputDecoration(
@@ -110,7 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           child: TextFormField(
-                            validator: (input) => input.length < 11
+                            validator: (input) => input!.length < 11
                                 ? "Phone number should be at least 11 characters"
                                 : null,
                             keyboardType: TextInputType.phone,
@@ -138,7 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           child: TextFormField(
-                            validator: (input) => !input.contains("@")
+                            validator: (input) => !input!.contains("@")
                                 ? "Email Id should be valid"
                                 : null,
                             keyboardType: TextInputType.emailAddress,
@@ -166,7 +166,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           child: TextFormField(
                             keyboardType: TextInputType.text,
-                            validator: (input) => input.length < 6
+                            validator: (input) => input!.length < 6
                                 ? "Password should be at least 6 characters"
                                 : null,
                             obscureText: true,
@@ -195,7 +195,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: TextFormField(
                             keyboardType: TextInputType.phone,
                             maxLength: 4,
-                            validator: (input) => input.length < 4
+                            validator: (input) => input!.length < 4
                                 ? "Activation code should be at least 4 characters"
                                 : null,
                             decoration: InputDecoration(
@@ -247,9 +247,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                     BorderRadius.all(Radius.circular(40))),
                             onPressed: () {
                               final form = formKey.currentState;
-                              if (form.validate()) {
+                              if (form!.validate()) {
                                 form.save();
-                                return Navigator.push(
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => AuthPage()));

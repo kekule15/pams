@@ -1,5 +1,5 @@
 class Validators {
-  static String isEmailStr(String email,
+  static String? isEmailStr(String email,
       {String error = "Enter a valid email address"}) {
     return isEmail(email) ? null : error;
   }

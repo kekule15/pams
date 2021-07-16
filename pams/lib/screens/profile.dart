@@ -66,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 decoration: BoxDecoration(boxShadow: [
                   // to make elevation
                   BoxShadow(
-                    color: Colors.grey[300],
+                    color: Colors.grey[300]!,
                     offset: Offset(0, 2),
                     blurRadius: 4,
                   ),
@@ -100,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 decoration: BoxDecoration(boxShadow: [
                   // to make elevation
                   BoxShadow(
-                    color: Colors.grey[300],
+                    color: Colors.grey[300]!,
                     offset: Offset(0, 2),
                     blurRadius: 4,
                   ),
@@ -134,7 +134,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 decoration: BoxDecoration(boxShadow: [
                   // to make elevation
                   BoxShadow(
-                    color: Colors.grey[300],
+                    color: Colors.grey[300]!,
                     offset: Offset(0, 2),
                     blurRadius: 4,
                   ),
@@ -191,7 +191,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   decoration: BoxDecoration(boxShadow: [
                     // to make elevation
                     BoxShadow(
-                      color: Colors.grey[300],
+                      color: Colors.grey[300]!,
                       offset: Offset(0, 2),
                       blurRadius: 4,
                     ),

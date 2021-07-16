@@ -5,10 +5,10 @@ class ReqProfileModel {
   String phone;
 
   ReqProfileModel({
-    this.fname,
-    this.lname,
-    this.email,
-    this.phone,
+  required  this.fname,
+  required  this.lname,
+  required  this.email,
+  required  this.phone,
   });
 
   Map<String, dynamic> toJson() {

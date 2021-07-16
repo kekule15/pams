@@ -5,8 +5,8 @@ class ReqLoginModel {
   String password;
 
   ReqLoginModel({
-    this.email,
-    this.password,
+   required this.email,
+   required this.password,
   });
 
   Map<String, dynamic> toJson() {

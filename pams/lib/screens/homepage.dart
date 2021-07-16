@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/routes/routes.dart';
+import 'package:pams/screens/album/album_page.dart';
 import 'package:pams/screens/faq.dart';
 import 'package:pams/screens/fieldsampling.dart';
 import 'package:pams/screens/notification.dart';
@@ -15,9 +16,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class HomePage extends StatefulWidget {
   final int currentPage;
   const HomePage({
-    Key key,
-    @required this.currentPage,
-  }) : super(key: key);
+    //required Key key,
+    required this.currentPage,
+  });
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -25,13 +26,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int tapCounter = 0;
   bool tapped = false;
-  ValueNotifier<int> currentPage;
-  int _currentIndex;
+  ValueNotifier<int>? currentPage;
+  int? _currentIndex;
 
   @override
   void initState() {
     super.initState();
-    _currentIndex = widget.currentPage ?? 0;
+    _currentIndex = widget.currentPage;
   }
 
   @override
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
         elevation: 20,
-        currentIndex: _currentIndex,
+        currentIndex: _currentIndex!,
         backgroundColor: Colors.white,
         selectedItemColor: Colors.black,
         items: [
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: _children[_currentIndex],
+      body: _children[_currentIndex!],
     );
   }
 
@@ -376,7 +377,9 @@ class _HomeViewState extends State<HomeView> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed(Routes.fieldSampling);
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (context) => MyAbumPage()));
+                           Navigator.of(context).pushNamed(Routes.fieldSampling);
                         },
                         child: Container(
                           height: MediaQuery.of(context).size.height / 5,

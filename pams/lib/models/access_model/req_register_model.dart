@@ -8,11 +8,11 @@ class ReqRegisterModel {
   String password;
 
   ReqRegisterModel({
-    this.fname,
-    this.lname,
-    this.email,
-    this.phone,
-    this.password,
+   required this.fname,
+  required  this.lname,
+  required  this.email,
+  required  this.phone,
+  required  this.password,
   });
 
   Map<String, dynamic> toJson() {

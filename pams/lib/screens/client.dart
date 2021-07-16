@@ -52,7 +52,7 @@ class _ClientState extends State<Client> {
                     child: TextFormField(
                       // controller: _titleController,
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'title can not be empty';
                         }
                         return null;
@@ -159,7 +159,7 @@ class _ClientState extends State<Client> {
                   boxShadow: [
                     // to make elevation
                     BoxShadow(
-                      color: Colors.grey[300],
+                      color: Colors.grey[300]!,
                       offset: Offset(0, 2),
                       blurRadius: 4,
                     ),
@@ -192,7 +192,7 @@ class _ClientState extends State<Client> {
                   boxShadow: [
                     // to make elevation
                     BoxShadow(
-                      color: Colors.grey[300],
+                      color: Colors.grey[300]!,
                       offset: Offset(0, 2),
                       blurRadius: 4,
                     ),
@@ -225,7 +225,7 @@ class _ClientState extends State<Client> {
                   boxShadow: [
                     // to make elevation
                     BoxShadow(
-                      color: Colors.grey[300],
+                      color: Colors.grey[300]!,
                       offset: Offset(0, 2),
                       blurRadius: 4,
                     ),
