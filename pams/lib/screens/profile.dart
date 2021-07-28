@@ -16,13 +16,13 @@ class _ProfilePageState extends State<ProfilePage> {
   String email = '';
 
   _ProfilePageState() {
-     Prefs.instance.getStringValue("name").then((value) => setState(() {
+    Prefs.instance.getStringValue("name").then((value) => setState(() {
           name = value;
         }));
     Prefs.instance.getStringValue("role").then((value) => setState(() {
           role = value;
         }));
-        Prefs.instance.getStringValue("email").then((value) => setState(() {
+    Prefs.instance.getStringValue("email").then((value) => setState(() {
           email = value;
         }));
   }
@@ -178,11 +178,12 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               InkWell(
                 onTap: () async {
-                  print("======Logout=======");
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  prefs.remove("email");
-                  Navigator.of(context).pushNamed(Routes.authPage);
+                  // print("======Logout=======");
+                  // SharedPreferences prefs =
+                  //     await SharedPreferences.getInstance();
+                  // prefs.remove("email");
+                  // Navigator.of(context).pushNamed(Routes.authPage);
+                  _onWillPop();
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 20),
@@ -216,5 +217,32 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
+
+  Future<bool> _onWillPop() async {
+    print("======Logout=======");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    return (await showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Are you sure?'),
+            content: new Text('Do you want to Logout?'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: new Text('No'),
+              ),
+              TextButton(
+                onPressed: () {
+                  prefs.remove("email");
+                  Navigator.of(context).pushNamed(Routes.authPage);
+                },
+                child: new Text('Yes'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
   }
 }

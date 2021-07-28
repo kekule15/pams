@@ -1,49 +1,60 @@
 import 'package:dio/dio.dart';
 import 'package:pams/models/api_response_model.dart';
 import 'package:pams/models/other_model/client_model.dart';
+import 'package:pams/models/other_model/client_sample_model.dart';
 import 'package:pams/services/api_services/interface/client_interface.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
 
-class ClientImplementation extends ClientsInterface {
+class ClientImplementation implements ClientsInterface {
   @override
-  Future<APIResponse<dynamic>> getAllClients() async {
+  Future<ClientModel> getAllClients() async {
     String token = await Prefs.instance.getStringValue('token');
-    List<ReturnObject> clients = [];
 
     // or new Dio with a BaseOptions instance.
     var options = BaseOptions(
       baseUrl: 'http://sethlab-001-site1.itempurl.com',
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
       headers: {
         "Authorization": "Bearer " + token,
       },
     );
     Dio dio = Dio(options);
-    Response response = await dio.get(
+    final response = await dio.get(
       '/api/v1/Client/GetAllClient',
       options: Options(method: 'GET'),
     );
-    final  statusCode = response.statusCode;
-    if (statusCode == 200) {
-      var jsonData = response.data["returnObject"] as List;
-      print(jsonData);
-
-      for (var i = 0; i < jsonData.length; i++) {
-        var client_detail = ReturnObject.fromJson(jsonData[i]);
-        clients.add(client_detail);
-        print(client_detail);
-      }
-
-      // var detail = {
-      //   "all_clients": clients,
-      //   //"client_unique_id": jsonData[2]["id"],
-      // };
-      return APIResponse(data: clients, error: false, errorMessage: '');
+    if (response.statusCode == 200) {
+      var body = response.data;
+      ClientModel data = ClientModel.fromJson(body);
+      print(data.toString());
+      return data;
+    } else {
+      throw Exception('Failed to load Clients');
     }
-    return APIResponse(data: {
-      "all_clients": [],
-      //"client_unique_id": '',
-    }, error: true, errorMessage: '');
+  }
+
+
+//Get samples for a client using the id
+  Future <ClientSampleModel>  getAllClientsSamplings( String client_id) async {
+    String token = await Prefs.instance.getStringValue('token');
+      // or new Dio with a BaseOptions instance.
+    var options = BaseOptions(
+      baseUrl: 'http://sethlab-001-site1.itempurl.com',
+      headers: {
+        "Authorization": "Bearer " + token,
+      },
+    );
+     Dio dio = Dio(options);
+    final response = await dio.get(
+      '/api/v1/Sample/clientTemplates' + '/$client_id',
+      options: Options(method: 'GET'),
+    );
+    if (response.statusCode == 200) {
+      var body = response.data;
+      ClientSampleModel data = ClientSampleModel.fromJson(body);
+      print(data.toString());
+      return data;
+    } else {
+      throw Exception('Failed to load Clients');
+    }
   }
 }

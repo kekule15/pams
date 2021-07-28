@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/routes/routes.dart';
 import 'package:pams/screens/album/album_page.dart';
+import 'package:pams/screens/client_samples.dart';
 import 'package:pams/screens/faq.dart';
 import 'package:pams/screens/fieldsampling.dart';
 import 'package:pams/screens/notification.dart';
@@ -377,9 +378,7 @@ class _HomeViewState extends State<HomeView> {
                     children: [
                       InkWell(
                         onTap: () {
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //     builder: (context) => MyAbumPage()));
-                           Navigator.of(context).pushNamed(Routes.fieldSampling);
+                          Navigator.of(context).pushNamed(Routes.fieldSampling);
                         },
                         child: Container(
                           height: MediaQuery.of(context).size.height / 5,
