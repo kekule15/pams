@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/models/other_model/client_sample_model.dart';
 import 'package:pams/screens/elementtest.dart';
 import 'package:pams/services/api_services/repositories/clients_repository.dart';
+import 'package:pams/widgets/client_placeholder.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ClientSamples extends StatefulWidget {
@@ -175,9 +176,7 @@ class _ClientSamplesState extends State<ClientSamples> {
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       ClientSampleModel? getIt = snapshot.data;
                       return snapshot.connectionState == ConnectionState.waiting
-                          ? Container(
-                              child: loader(),
-                            )
+                          ? ClientPlaceHlder()
                           : snapshot.hasData
                               ? Container(
                                   child: ListView.builder(
@@ -185,13 +184,18 @@ class _ClientSamplesState extends State<ClientSamples> {
                                       itemBuilder:
                                           (BuildContext context, index) {
                                         final sam = getIt.returnObject![index];
+                                        final sample_id = getIt.returnObject![index].testTemplates![index].sampleTemplateId.toString();
                                         return InkWell(
-                                          onTap: (){
+                                          onTap: () {
                                             Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ElementTest()));
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ElementTest(
+                                                         sample_id: sample_id,
+                                                          client_name: widget
+                                                              .client_name,
+                                                        )));
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.fromLTRB(
@@ -223,7 +227,8 @@ class _ClientSamplesState extends State<ClientSamples> {
                                                   child: Icon(
                                                       Icons
                                                           .arrow_forward_ios_sharp,
-                                                      color: HexColor("#F58E34")),
+                                                      color:
+                                                          HexColor("#F58E34")),
                                                 ),
                                               ),
                                             ),
@@ -242,66 +247,6 @@ class _ClientSamplesState extends State<ClientSamples> {
                     }),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget loader() {
-    return Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-      child: Expanded(
-        child: Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[100]!,
-          enabled: true,
-          child: ListView.builder(
-            itemBuilder: (_, __) => Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: 48.0,
-                    height: 48.0,
-                    color: Colors.white,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: double.infinity,
-                          height: 8.0,
-                          color: Colors.white,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 2.0),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          height: 8.0,
-                          color: Colors.white,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 2.0),
-                        ),
-                        Container(
-                          width: 40.0,
-                          height: 8.0,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            itemCount: 20,
           ),
         ),
       ),

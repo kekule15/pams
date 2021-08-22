@@ -159,25 +159,25 @@ class LoginPage extends HookWidget {
                         },
                         child: Text('Forgot Password'),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Do not have an account?',
-                            style: TextStyle(),
-                          ),
-                          MaterialButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RegisterPage()));
-                            },
-                            child: Text('Register',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                          )
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: <Widget>[
+                      //     Text(
+                      //       'Do not have an account?',
+                      //       style: TextStyle(),
+                      //     ),
+                      //     MaterialButton(
+                      //       onPressed: () {
+                      //         Navigator.pushReplacement(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //                 builder: (context) => RegisterPage()));
+                      //       },
+                      //       child: Text('Register',
+                      //           style: TextStyle(fontWeight: FontWeight.bold)),
+                      //     )
+                      //   ],
+                      // ),
                       context.read(pendingLoginProvider).state
                           ? Center(
                               child: CircularProgressIndicator(
@@ -187,10 +187,14 @@ class LoginPage extends HookWidget {
                             ))
                           : MaterialButton(
                               color: Colors.red,
-                              child: Text(
-                                'Login',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                child: Text(
+                                  'Login',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
                               ),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {

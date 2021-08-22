@@ -1,16 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:pams/models/api_response_model.dart';
 import 'package:pams/models/other_model/client_model.dart';
 import 'package:pams/screens/client_samples.dart';
-import 'package:pams/services/api_services/repositories/clients_repository.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
-import 'package:pams/widgets/client_placeholder.dart';
-import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
 
 class FieldSampling extends StatefulWidget {

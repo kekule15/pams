@@ -78,24 +78,24 @@ class _AuthPageState extends State<AuthPage> {
           SizedBox(
             height: 15,
           ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 30),
-            child: MaterialButton(
-              color: Colors.white,
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RegisterPage()));
-              },
-              child: Text(
-                "Register",
-                style: TextStyle(fontSize: 20),
-              ),
-              height: 45,
-              minWidth: 600,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(40))),
-            ),
-          ),
+          // Container(
+          //   margin: EdgeInsets.symmetric(horizontal: 30),
+          //   child: MaterialButton(
+          //     color: Colors.white,
+          //     onPressed: () {
+          //       Navigator.push(context,
+          //           MaterialPageRoute(builder: (context) => RegisterPage()));
+          //     },
+          //     child: Text(
+          //       "Register",
+          //       style: TextStyle(fontSize: 20),
+          //     ),
+          //     height: 45,
+          //     minWidth: 600,
+          //     shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.all(Radius.circular(40))),
+          //   ),
+          // ),
         ],
       ),
     );
