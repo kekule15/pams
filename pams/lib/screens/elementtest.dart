@@ -214,98 +214,92 @@ class _ElementTestState extends State<ElementTest> {
             style: TextStyle(color: Colors.black, fontSize: 18)),
       ),
       backgroundColor: Colors.white,
-      body: Column(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  "Sample type",
-                  style: TextStyle(
-                    color: HexColor("#072468"),
-                    fontSize: 20,
-                  ),
-                ),
-              ],
+      body: Container(
+        margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              "Sample type",
+              style: TextStyle(
+                color: HexColor("#072468"),
+                fontSize: 20,
+              ),
             ),
-          ),
-          Expanded(
-              child: Container(
-                  child: ListView.builder(
-                      key: key,
-                      itemCount: 6,
-                      itemBuilder: (BuildContext context, index) {
-                        return Container(
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                            child: Form(
-                              child: Container(
-                                  margin: EdgeInsets.only(top: 20),
-                                  height: 60,
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      // to make elevation
-                                      BoxShadow(
-                                        color: Colors.grey[300]!,
-                                        offset: Offset(0, 2),
-                                        blurRadius: 4,
-                                      ),
-                                      // to make the coloured border
-                                      BoxShadow(
-                                        color: HexColor("#072468"),
-                                        offset: Offset(0, 0.5),
-                                      ),
-                                    ],
-                                    color: Colors.white,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Expanded(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text(
-                                            'Value name',
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.all(10),
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1.5,
-                                            decoration: BoxDecoration(
-                                                color: Colors.grey[300]),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      5, 2, 2, 2),
-                                              child: TextFormField(
-                                                autofocus: false,
-                                                keyboardAppearance:
-                                                    Brightness.dark,
-                                                keyboardType:
-                                                    TextInputType.emailAddress,
-                                                decoration: InputDecoration(
-                                                  hintText: 'Result',
-                                                  border: InputBorder.none,
-                                                ),
+            Expanded(
+                child: ListView.builder(
+                    key: key,
+                    itemCount: 6,
+                    itemBuilder: (BuildContext context, index) {
+                      return Container(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                          child: Form(
+                            child: Container(
+                                margin: EdgeInsets.only(top: 20),
+                                height: 60,
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    // to make elevation
+                                    BoxShadow(
+                                      color: Colors.grey[300]!,
+                                      offset: Offset(0, 2),
+                                      blurRadius: 4,
+                                    ),
+                                    // to make the coloured border
+                                    BoxShadow(
+                                      color: HexColor("#072468"),
+                                      offset: Offset(0, 0.5),
+                                    ),
+                                  ],
+                                  color: Colors.white,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Expanded(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Value name',
+                                          style: TextStyle(fontSize: 13),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.all(10),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.5,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[300]),
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                5, 2, 2, 2),
+                                            child: TextFormField(
+                                              autofocus: false,
+                                              keyboardAppearance:
+                                                  Brightness.dark,
+                                              keyboardType:
+                                                  TextInputType.emailAddress,
+                                              decoration: InputDecoration(
+                                                hintText: 'Result',
+                                                border: InputBorder.none,
                                               ),
                                             ),
-                                          )
-                                        ],
-                                      ),
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                  )),
-                            ),
+                                  ),
+                                )),
                           ),
-                        );
-                      }))),
-        ],
+                        ),
+                      );
+                    })),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,

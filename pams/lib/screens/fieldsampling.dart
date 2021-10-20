@@ -77,69 +77,70 @@ class _FieldSamplingState extends State<FieldSampling> {
       backgroundColor: Colors.white,
       body: Center(
         child: FutureBuilder<ClientModel?>(
-          future: futureAlbum,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              // print("======my data ${snapshot.data!.returnObject} =====");
-              return ListView.builder(
-                  itemCount: snapshot.data?.returnObject.length,
-                  itemBuilder: (BuildContext context, index) {
-                    final client = snapshot.data?.returnObject[index];
-                    final client_id = client!.id;
-                    final client_name = client.name;
-                    // print('my sample lenght is========');
-                    return InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SelectSampleType()));
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (context) => ClientSamples(
-                        //           client_id: client_id,
-                        //           client_name: client_name,
-                        //         )));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          margin: EdgeInsets.only(top: 10),
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              // to make elevation
-                              BoxShadow(
-                                color: Colors.grey[300]!,
-                                offset: Offset(0, 2),
-                                blurRadius: 4,
+            future: futureAlbum,
+            builder: (context, snapshot) {
+              return snapshot.connectionState == ConnectionState.waiting
+                  ? Center(
+                      child: SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(),
+                    ))
+                  : snapshot.hasData
+                      ? ListView.builder(
+                          itemCount: snapshot.data?.returnObject.length,
+                          itemBuilder: (BuildContext context, index) {
+                            final client = snapshot.data?.returnObject[index];
+                            final client_id = client!.id;
+                            final client_name = client.name;
+                            // print('my sample lenght is========');
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => SelectSampleType()));
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //     builder: (context) => ClientSamples(
+                                //           client_id: client_id,
+                                //           client_name: client_name,
+                                //         )));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      // to make elevation
+                                      BoxShadow(
+                                        color: Colors.grey[300]!,
+                                        offset: Offset(0, 2),
+                                        blurRadius: 4,
+                                      ),
+                                      // to make the coloured border
+                                      BoxShadow(
+                                        color: HexColor("#072468"),
+                                        offset: Offset(0, 0.5),
+                                      ),
+                                    ],
+                                    color: Colors.white,
+                                  ),
+                                  child: ListTile(
+                                    title: Text(client.name),
+                                    trailing: InkWell(
+                                      child: Icon(Icons.arrow_forward_ios_sharp,
+                                          color: HexColor("#F58E34")),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              // to make the coloured border
-                              BoxShadow(
-                                color: HexColor("#072468"),
-                                offset: Offset(0, 0.5),
-                              ),
-                            ],
-                            color: Colors.white,
-                          ),
-                          child: ListTile(
-                            title: Text(client.name),
-                            trailing: InkWell(
-                              child: Icon(Icons.arrow_forward_ios_sharp,
-                                  color: HexColor("#F58E34")),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  });
-            } else if (snapshot.hasError) {
-              print(snapshot.error);
-              return Text("${snapshot.error}===na error o");
-            }
-
-            // By default, show a loading spinner.
-            return loader();
-          },
-        ),
+                            );
+                          })
+                      : Center(
+                          child: Text('No Client available'),
+                        );
+            }),
       ),
     );
   }
