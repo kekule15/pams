@@ -14,9 +14,17 @@ class _ActivityPageState extends State<ActivityPage> {
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: HexColor("#26E07F"),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: BackButton(
+          color: Colors.black,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        //backgroundColor: HexColor("#26E07F"),
         title: Text("Activities",
-            style: TextStyle(color: Colors.white, fontSize: 20)),
+            style: TextStyle(color: Colors.black, fontSize: 20)),
       ),
       backgroundColor: Colors.white,
       body: Container(
@@ -28,6 +36,7 @@ class _ActivityPageState extends State<ActivityPage> {
                 height: 70,
                 width: MediaQuery.of(context).size.width / 1.4,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     // to make elevation
                     BoxShadow(

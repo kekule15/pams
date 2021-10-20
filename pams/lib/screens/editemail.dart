@@ -7,6 +7,7 @@ class EditEmail extends StatefulWidget {
 }
 
 class _EditEmailState extends State<EditEmail> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +39,7 @@ class _EditEmailState extends State<EditEmail> {
               Text("Please enter your new email address",
                   style: TextStyle(color: HexColor("#072468"), fontSize: 18)),
               Container(
-                height: 50,
+                height: 60,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -77,19 +78,37 @@ class _EditEmailState extends State<EditEmail> {
                 height: 140,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () async {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  await Future.delayed(Duration(seconds: 3))
+                      .then((value) => setState(() async {
+                            isLoading = false;
+                          }));
+                  setState(() async {
+                    isLoading = false;
+                  });
+                },
                 child: Container(
                   margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
-                  height: 40,
+                  height: 50,
                   width: 200,
                   decoration: BoxDecoration(
-                    color: HexColor("#F58E34"),
-                  ),
-                  child: Center(
-                    child: Text("Continue",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white)),
-                  ),
+                      color: HexColor("#F58E34"),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.white,
+                          ),
+                        )
+                      : Center(
+                          child: Text("Continue",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        ),
                 ),
               )
             ],

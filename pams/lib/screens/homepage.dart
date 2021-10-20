@@ -3,16 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/routes/routes.dart';
-import 'package:pams/screens/album/album_page.dart';
-import 'package:pams/screens/client_samples.dart';
 import 'package:pams/screens/faq.dart';
-import 'package:pams/screens/fieldsampling.dart';
-import 'package:pams/screens/notification.dart';
-import 'package:pams/screens/profile.dart';
 import 'package:pams/screens/test.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
-import 'package:pams/utils/strings.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   final int currentPage;
@@ -239,18 +232,18 @@ class _HomeViewState extends State<HomeView> {
                             fontSize: 19,
                             fontWeight: FontWeight.w500),
                       ),
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.lightBlueAccent),
-                        child: Icon(
-                          Icons.calendar_today_outlined,
-                          color: Colors.white,
-                          size: 15,
-                        ),
-                      )
+                      // Container(
+                      //   height: 30,
+                      //   width: 30,
+                      //   decoration: BoxDecoration(
+                      //       shape: BoxShape.circle,
+                      //       color: Colors.lightBlueAccent),
+                      //   child: Icon(
+                      //     Icons.calendar_today_outlined,
+                      //     color: Colors.white,
+                      //     size: 15,
+                      //   ),
+                      // )
                     ],
                   ),
                   SizedBox(

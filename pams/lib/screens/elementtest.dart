@@ -1,46 +1,76 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pams/models/other_model/client_sample_model.dart';
 import 'package:pams/models/other_model/test_template_model.dart';
 import 'package:pams/services/api_services/repositories/clients_repository.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
 import 'package:pams/widgets/client_placeholder.dart';
+import 'package:http/http.dart' as http;
 
 final key = UniqueKey();
 
 class ElementTest extends StatefulWidget {
-  final String client_name;
-  final String sample_id;
-
-  const ElementTest(
-      {Key? key, required this.client_name, required this.sample_id})
-      : super(key: key);
   @override
   _ElementTestState createState() => _ElementTestState();
 }
 
 class _ElementTestState extends State<ElementTest> {
+  bool isLoading = false;
+  PickedFile? _imageFile;
+  final ImagePicker _picker = ImagePicker();
+  Widget bottomSheet() {
+    return Container(
+        height: 100.0,
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.symmetric(
+          horizontal: 20.0,
+          vertical: 20.0,
+        ),
+        child: Column(children: <Widget>[
+          Text(
+            "Upload photo",
+            style: TextStyle(fontSize: 20.0),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextButton.icon(
+                icon: Icon(Icons.camera),
+                onPressed: () {
+                  takePhoto(ImageSource.camera);
+                },
+                label: Text("Camera"),
+              ),
+              TextButton.icon(
+                icon: Icon(Icons.image),
+                onPressed: () {
+                  takePhoto(ImageSource.gallery);
+                },
+                label: Text("Gallery"),
+              ),
+            ],
+          )
+        ]));
+  }
+
+  void takePhoto(ImageSource source) async {
+    final imageGotten = await _picker.getImage(source: source);
+    setState(() {
+      _imageFile = imageGotten;
+    });
+  }
+
   dosomthing(String value, String id) {
     print("===$value");
     print("===$id");
   }
-  // Map? testing;
-
-  Future<void> allTestTemplates() async {
-    String sample_id = widget.sample_id;
-    var data = await ClientsRepository.getTestTemplates(sample_id);
-    // setState(() {
-    //   testing = data;
-    // });
-    // print("-----$testing");
-    return data;
-  }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   allTestTemplates();
-  // }
 
   _displayDialog() {
     return showDialog(
@@ -60,6 +90,7 @@ class _ElementTestState extends State<ElementTest> {
   Widget _dialogWithTextField(BuildContext context) => Container(
         height: 300,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
           color: Colors.white,
         ),
         child: Container(
@@ -67,6 +98,8 @@ class _ElementTestState extends State<ElementTest> {
           child: Form(
             // key: _formKey,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SizedBox(height: 10),
                 Text(
@@ -80,7 +113,9 @@ class _ElementTestState extends State<ElementTest> {
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 30, 10, 0),
-                  decoration: BoxDecoration(color: Colors.grey[200]),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey[200]),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: TextFormField(
@@ -151,10 +186,32 @@ class _ElementTestState extends State<ElementTest> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        centerTitle: true,
-        backgroundColor: HexColor("#26E07F"),
-        title: Text(widget.client_name,
-            style: TextStyle(color: Colors.white, fontSize: 20)),
+        leading: BackButton(
+          color: Colors.black,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: InkWell(
+              onTap: () {
+                _displayDialog();
+              },
+              child: Icon(
+                Icons.add,
+                size: 30,
+                color: Colors.black,
+              ),
+            ),
+          )
+        ],
+        //backgroundColor: HexColor("#26E07F"),
+        title: Text('Client name',
+            style: TextStyle(color: Colors.black, fontSize: 18)),
       ),
       backgroundColor: Colors.white,
       body: Column(
@@ -165,169 +222,105 @@ class _ElementTestState extends State<ElementTest> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  "Water test",
+                  "Sample type",
                   style: TextStyle(
                     color: HexColor("#072468"),
-                    fontSize: 25,
+                    fontSize: 20,
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    _displayDialog();
-                  },
-                  child: Container(
-                    height: 25,
-                    width: 40,
-                    decoration: BoxDecoration(color: HexColor("#F58E34")),
-                    child: Center(
-                      child: Text("Add", style: TextStyle(color: Colors.white)),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 25,
-                  width: 60,
-                  decoration: BoxDecoration(color: HexColor("#F58E34")),
-                  child: Center(
-                    child: Text("Send", style: TextStyle(color: Colors.white)),
-                  ),
-                )
               ],
             ),
           ),
           Expanded(
-            child: FutureBuilder(
-                future: allTestTemplates(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  Template? getTestTemplate = snapshot.data;
-                  // print(
-                  //     "lenght=======${getTestTemplate!.returnObject!.testTemplates!.length}");
-                  return snapshot.hasData
-                      ? Container(
-                          child: ListView.builder(
-                              key: key,
-                              itemCount: getTestTemplate!
-                                  .returnObject!.testTemplates!.length,
-                              itemBuilder: (BuildContext context, index) {
-                                final valueName = getTestTemplate
-                                    .returnObject!.testTemplates![index].name;
-                                final valueId = getTestTemplate
-                                    .returnObject!.testTemplates![index].id;
-                                return Container(
+              child: Container(
+                  child: ListView.builder(
+                      key: key,
+                      itemCount: 6,
+                      itemBuilder: (BuildContext context, index) {
+                        return Container(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                            child: Form(
+                              child: Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  height: 60,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      // to make elevation
+                                      BoxShadow(
+                                        color: Colors.grey[300]!,
+                                        offset: Offset(0, 2),
+                                        blurRadius: 4,
+                                      ),
+                                      // to make the coloured border
+                                      BoxShadow(
+                                        color: HexColor("#072468"),
+                                        offset: Offset(0, 0.5),
+                                      ),
+                                    ],
+                                    color: Colors.white,
+                                  ),
                                   child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        10, 0, 10, 10),
-                                    child: Form(
-                                      child: Container(
-                                          margin: EdgeInsets.only(top: 20),
-                                          height: 60,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                            boxShadow: [
-                                              // to make elevation
-                                              BoxShadow(
-                                                color: Colors.grey[300]!,
-                                                offset: Offset(0, 2),
-                                                blurRadius: 4,
-                                              ),
-                                              // to make the coloured border
-                                              BoxShadow(
-                                                color: HexColor("#072468"),
-                                                offset: Offset(0, 0.5),
-                                              ),
-                                            ],
-                                            color: Colors.white,
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Expanded(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            'Value name',
+                                            style: TextStyle(fontSize: 13),
                                           ),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 5),
-                                            child: Expanded(
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: <Widget>[
-                                                  Text(
-                                                    valueName!,
-                                                    style:
-                                                        TextStyle(fontSize: 13),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.all(10),
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            1.5,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            Colors.grey[300]),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .fromLTRB(5, 2, 2, 2),
-                                                      child: TextFormField(
-                                                        onEditingComplete: () {
-                                                          print("object");
-                                                        },
-                                                        onChanged: (value) {
-                                                          print("====$value");
-                                                        },
-                                                        onFieldSubmitted:
-                                                            (value) {
-                                                          dosomthing(
-                                                              value,
-                                                              valueId
-                                                                  .toString());
-                                                        },
-                                                        // onSaved: (value) {
-                                                        //   print("======$value");
-                                                        // },
-                                                        autofocus: false,
-                                                        keyboardAppearance:
-                                                            Brightness.dark,
-                                                        keyboardType:
-                                                            TextInputType
-                                                                .emailAddress,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          hintText: 'Result',
-                                                          border:
-                                                              InputBorder.none,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
+                                          Container(
+                                            margin: EdgeInsets.all(10),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                1.5,
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey[300]),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      5, 2, 2, 2),
+                                              child: TextFormField(
+                                                autofocus: false,
+                                                keyboardAppearance:
+                                                    Brightness.dark,
+                                                keyboardType:
+                                                    TextInputType.emailAddress,
+                                                decoration: InputDecoration(
+                                                  hintText: 'Result',
+                                                  border: InputBorder.none,
+                                                ),
                                               ),
                                             ),
-                                          )),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }))
-                      : Container(
-                          height: 30,
-                          width: 30,
-                          child: Center(
-                            child: CircularProgressIndicator(),
+                                  )),
+                            ),
                           ),
                         );
-                }),
-          ),
-          Icon(Icons.camera_alt, color: HexColor("#F58E34"), size: 40),
-          Text("Take a photo"),
-          Container(
-            margin: EdgeInsets.fromLTRB(20, 10, 20, 40),
-            height: 200,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("assets/backgroundImage.PNG")),
-            ),
-          )
+                      }))),
         ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+            color: HexColor("#072468"),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+          child: Center(
+            child: Text('Send',
+                style: TextStyle(color: Colors.white, fontSize: 18)),
+          ),
+        ),
       ),
     );
   }

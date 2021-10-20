@@ -13,9 +13,16 @@ class _FAQPageState extends State<FAQPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: HexColor("#26E07F"),
-        title: Text("Frequently asked questions",
-            style: TextStyle(color: Colors.white, fontSize: 20)),
+        backgroundColor: Colors.white,
+        leading: BackButton(
+          color: Colors.black,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        elevation: 0,
+        //backgroundColor: HexColor("#26E07F"),
+        title: Text("FAQ", style: TextStyle(color: Colors.black, fontSize: 20)),
       ),
       backgroundColor: Colors.white,
       body: ListView.builder(
@@ -25,6 +32,7 @@ class _FAQPageState extends State<FAQPage> {
               margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
               width: MediaQuery.of(context).size.width / 1.4,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   // to make elevation
                   BoxShadow(

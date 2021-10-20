@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/models/other_model/client_model.dart';
 import 'package:pams/screens/client_samples.dart';
+import 'package:pams/screens/select_sample_type.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -51,14 +52,25 @@ class _FieldSamplingState extends State<FieldSampling> {
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: HexColor("#26E07F"),
+        leading: BackButton(
+          color: Colors.black,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        //backgroundColor: HexColor("#26E07F"),
         title: Text("Conduct a test",
-            style: TextStyle(color: Colors.white, fontSize: 20)),
+            style: TextStyle(color: Colors.black, fontSize: 20)),
         actions: <Widget>[
-          Icon(
-            Icons.search,
-            color: Colors.white,
-            size: 35,
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Icon(
+              Icons.search,
+              color: Colors.black,
+              size: 25,
+            ),
           )
         ],
       ),
@@ -68,26 +80,31 @@ class _FieldSamplingState extends State<FieldSampling> {
           future: futureAlbum,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              print("======my data ${snapshot.data!.returnObject} =====");
+              // print("======my data ${snapshot.data!.returnObject} =====");
               return ListView.builder(
                   itemCount: snapshot.data?.returnObject.length,
                   itemBuilder: (BuildContext context, index) {
                     final client = snapshot.data?.returnObject[index];
                     final client_id = client!.id;
                     final client_name = client.name;
-                    print('my sample lenght is========');
+                    // print('my sample lenght is========');
                     return InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                ClientSamples(client_id: client_id, client_name:client_name ,)));
+                            builder: (context) => SelectSampleType()));
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: (context) => ClientSamples(
+                        //           client_id: client_id,
+                        //           client_name: client_name,
+                        //         )));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          margin: EdgeInsets.only(top: 20),
+                          margin: EdgeInsets.only(top: 10),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               // to make elevation
                               BoxShadow(

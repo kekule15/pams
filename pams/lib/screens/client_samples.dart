@@ -184,7 +184,11 @@ class _ClientSamplesState extends State<ClientSamples> {
                                       itemBuilder:
                                           (BuildContext context, index) {
                                         final sam = getIt.returnObject![index];
-                                        final sample_id = getIt.returnObject![index].testTemplates![index].sampleTemplateId.toString();
+                                        final sample_id = getIt
+                                            .returnObject![index]
+                                            .testTemplates![index]
+                                            .sampleTemplateId
+                                            .toString();
                                         return InkWell(
                                           onTap: () {
                                             Navigator.push(
@@ -192,9 +196,7 @@ class _ClientSamplesState extends State<ClientSamples> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ElementTest(
-                                                         sample_id: sample_id,
-                                                          client_name: widget
-                                                              .client_name,
+                                                          
                                                         )));
                                           },
                                           child: Padding(

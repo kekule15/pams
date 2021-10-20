@@ -31,10 +31,18 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        leading: BackButton(
+          color: Colors.black,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         centerTitle: true,
-        backgroundColor: HexColor("#26E07F"),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        //backgroundColor: HexColor("#26E07F"),
         title: Text("Profile",
-            style: TextStyle(color: Colors.white, fontSize: 20)),
+            style: TextStyle(color: Colors.black, fontSize: 20)),
       ),
       backgroundColor: Colors.white,
       body: Center(
@@ -127,52 +135,50 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                height: 50,
-                width: 350,
-                decoration: BoxDecoration(boxShadow: [
-                  // to make elevation
-                  BoxShadow(
-                    color: Colors.grey[300]!,
-                    offset: Offset(0, 2),
-                    blurRadius: 4,
-                  ),
-                  // to make the coloured border
-                  BoxShadow(
-                    color: HexColor("#072468"),
-                    offset: Offset(0, 0.5),
-                  ),
-                ], color: Colors.white),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("$email",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: HexColor("#072468"))),
-                          Text("Email address",
-                              style: TextStyle(
-                                  fontSize: 12, color: HexColor("#072468"))),
-                        ],
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EditEmail()));
-                        },
-                        child: Icon(Icons.arrow_forward_ios_sharp,
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => EditEmail()));
+                },
+                child: Container(
+                  margin: EdgeInsets.only(top: 20),
+                  height: 50,
+                  width: 350,
+                  decoration: BoxDecoration(boxShadow: [
+                    // to make elevation
+                    BoxShadow(
+                      color: Colors.grey[300]!,
+                      offset: Offset(0, 2),
+                      blurRadius: 4,
+                    ),
+                    // to make the coloured border
+                    BoxShadow(
+                      color: HexColor("#072468"),
+                      offset: Offset(0, 0.5),
+                    ),
+                  ], color: Colors.white),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("$email",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: HexColor("#072468"))),
+                            Text("Email address",
+                                style: TextStyle(
+                                    fontSize: 12, color: HexColor("#072468"))),
+                          ],
+                        ),
+                        Icon(Icons.arrow_forward_ios_sharp,
                             color: HexColor("#F58E34")),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -227,7 +233,7 @@ class _ProfilePageState extends State<ProfilePage> {
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Are you sure?'),
-            content: new Text('Do you want to Logout?'),
+            content: new Text('you want to Logout?'),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
