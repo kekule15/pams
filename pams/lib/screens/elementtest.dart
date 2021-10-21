@@ -220,60 +220,56 @@ class _ElementTestState extends State<ElementTest> {
             key: key,
             itemCount: 6,
             itemBuilder: (BuildContext context, index) {
-              return Form(
-                child: Container(
-                    margin: EdgeInsets.only(top: 20),
-                    height: 60,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        // to make elevation
-                        BoxShadow(
-                          color: Colors.grey[300]!,
-                          offset: Offset(0, 2),
-                          blurRadius: 4,
-                        ),
-                        // to make the coloured border
-                        BoxShadow(
-                          color: HexColor("#072468"),
-                          offset: Offset(0, 0.5),
-                        ),
-                      ],
-                      color: Colors.white,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 5),
-                      child: Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Value name',
-                              style: TextStyle(fontSize: 13),
-                            ),
-                            Container(
-                              margin: EdgeInsets.all(10),
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              decoration:
-                                  BoxDecoration(color: Colors.grey[300]),
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 2, 2, 2),
-                                child: TextFormField(
-                                  autofocus: false,
-                                  keyboardAppearance: Brightness.dark,
-                                  keyboardType: TextInputType.emailAddress,
-                                  decoration: InputDecoration(
-                                    hintText: 'Result',
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+              return Container(
+                  margin: EdgeInsets.only(top: 20),
+                  height: 60,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      // to make elevation
+                      BoxShadow(
+                        color: Colors.grey[300]!,
+                        offset: Offset(0, 2),
+                        blurRadius: 4,
                       ),
-                    )),
-              );
+                      // to make the coloured border
+                      BoxShadow(
+                        color: HexColor("#072468"),
+                        offset: Offset(0, 0.5),
+                      ),
+                    ],
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Value name',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          decoration: BoxDecoration(color: Colors.grey[300]),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 2, 2, 2),
+                            child: TextFormField(
+                              autofocus: false,
+                              keyboardAppearance: Brightness.dark,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                hintText: 'Result',
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ));
             }),
       ),
       bottomNavigationBar: BottomAppBar(
