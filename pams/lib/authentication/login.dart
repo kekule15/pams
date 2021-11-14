@@ -11,6 +11,7 @@ import 'package:pams/screens/homepage.dart';
 import 'package:pams/utils/connection_status.dart';
 import 'package:pams/utils/custom_colors.dart';
 import 'package:pams/utils/validators.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -24,10 +25,9 @@ class _LoginPageState extends State<LoginPage> {
   bool hidePassWord = true;
   bool btnState = false;
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  var formKey = GlobalKey<FormState>();
-  final _emailTextController = useTextEditingController();
-  final _passwordTextController = useTextEditingController();
   bool autoValidate = false;
+  TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _passwordTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                       topRight: Radius.circular(20))),
               child: Form(
                 key: _formKey,
+                autovalidate: autoValidate,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -148,8 +149,10 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     InkWell(
                         child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20),
                           decoration: BoxDecoration(
                             color: CustomColors.mainDarkGreen,
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -159,7 +162,9 @@ class _LoginPageState extends State<LoginPage> {
                                   ? SizedBox(
                                       height: 20,
                                       width: 20,
-                                      child: CircularProgressIndicator(),
+                                      child: CircularProgressIndicator(
+                                        color: CustomColors.background,
+                                      ),
                                     )
                                   : Text(
                                       'Login',
@@ -189,23 +194,46 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       btnState = true;
     });
-    var state = formKey.currentState;
+    var state = _formKey.currentState;
     if (!state!.validate()) {
-      setState(() => autoValidate = true);
-      Fluttertoast.showToast(msg: 'Error');
-      return;
-    }
-    state.save();
-
-    final result =
-        await AuthImplementation().userLogin(email: '', password: '');
-
-    if (result!['successful'] == true) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => HomeView()),
-          (route) => false);
+      setState(() {
+        autoValidate = true;
+         btnState = false;
+      });
     } else {
-      Fluttertoast.showToast(msg: 'Error');
+      state.save();
+
+      Map<String, dynamic> result = await AuthImplementation()
+          .userLogin(
+              email: _emailTextController.text.toString(),
+              password: _passwordTextController.text.toString())
+          .catchError((error) {
+        setState(() {
+          btnState = false;
+        });
+        Fluttertoast.showToast(
+            msg: 'Oosp something went wrong...Please try again later');
+      });
+
+      if (result['status'] = true) {
+        setState(() {
+          btnState = false;
+        });
+        Fluttertoast.showToast(msg: '${result['message']}');
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('email', '${result['returnObject']['email']}');
+        prefs.setString('fullname', '${result['returnObject']['fullname']}');
+        prefs.setString('role', '${result['returnObject']['role']}');
+        prefs.setString('apiToken', '${result['returnObject']['token']}');
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => HomeView()),
+            (route) => false);
+      } else {
+        setState(() {
+          btnState = false;
+        });
+        Fluttertoast.showToast(msg: '${result['message']}');
+      }
     }
   }
 }

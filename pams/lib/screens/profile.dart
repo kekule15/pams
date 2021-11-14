@@ -236,7 +236,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               TextButton(
                 onPressed: () {
-                  prefs.remove("email");
+                  prefs.remove("apiToken");
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => AuthPage()),
                       (route) => false);

@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _transitionToNextPageAfterSplash() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-      var email = prefs.getString('email');
+      var token = prefs.getString('apiToken');
     return Timer(
       Duration(
         seconds: 3,
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => email== null? AuthPage(): HomeView(),
+          builder: (context) => token== null? AuthPage(): HomeView(),
         ),
       ),
     );
