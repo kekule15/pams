@@ -2,13 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pams/models/other_model/client_sample_model.dart';
-import 'package:pams/models/other_model/test_template_model.dart';
-import 'package:pams/services/api_services/repositories/clients_repository.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
-import 'package:pams/widgets/client_placeholder.dart';
 import 'package:http/http.dart' as http;
 
 final key = UniqueKey();
@@ -106,7 +101,7 @@ class _ElementTestState extends State<ElementTest> {
                   "Add sample type",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: HexColor("#072468"),
+                   
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
                   ),
@@ -151,14 +146,14 @@ class _ElementTestState extends State<ElementTest> {
                         child: Text(
                           "Cancel",
                           style: TextStyle(
-                            color: HexColor("#F58E34"),
+                            
                           ),
                         ),
                       ),
                       SizedBox(width: 8),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: HexColor("#F58E34"),
+                         
                         ),
                         child: Text(
                           "Save",
@@ -234,7 +229,7 @@ class _ElementTestState extends State<ElementTest> {
                       ),
                       // to make the coloured border
                       BoxShadow(
-                        color: HexColor("#072468"),
+                       
                         offset: Offset(0, 0.5),
                       ),
                     ],
@@ -277,7 +272,7 @@ class _ElementTestState extends State<ElementTest> {
         child: Container(
           height: 50,
           decoration: BoxDecoration(
-            color: HexColor("#072468"),
+           
             borderRadius: BorderRadius.circular(5),
           ),
           margin: EdgeInsets.fromLTRB(20, 10, 20, 10),

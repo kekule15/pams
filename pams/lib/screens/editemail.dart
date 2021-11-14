@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:pams/utils/custom_colors.dart';
 
 class EditEmail extends StatefulWidget {
   @override
@@ -12,11 +12,12 @@ class _EditEmailState extends State<EditEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: HexColor("#26E07F"),
-        title:
-            Text("Email", style: TextStyle(color: Colors.white, fontSize: 20)),
+        backgroundColor: CustomColors.background,
+        title: Text("Update email",
+            style: TextStyle(color: Colors.black, fontSize: 20)),
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -31,13 +32,12 @@ class _EditEmailState extends State<EditEmail> {
                         fit: BoxFit.fill,
                         image: AssetImage("assets/email update.png"))),
               ),
-              Text("Update your email address",
-                  style: TextStyle(color: HexColor("#072468"), fontSize: 24)),
+              Text("Update your email address", style: TextStyle(fontSize: 24)),
               SizedBox(
                 height: 50,
               ),
               Text("Please enter your new email address",
-                  style: TextStyle(color: HexColor("#072468"), fontSize: 18)),
+                  style: TextStyle(fontSize: 18)),
               Container(
                 height: 60,
                 width: MediaQuery.of(context).size.width,
@@ -51,7 +51,6 @@ class _EditEmailState extends State<EditEmail> {
                     ),
                     // to make the coloured border
                     BoxShadow(
-                      color: HexColor("#072468"),
                       offset: Offset(0, 0.5),
                     ),
                   ],
@@ -65,7 +64,6 @@ class _EditEmailState extends State<EditEmail> {
                     decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.email_rounded,
-                        color: HexColor("#F58E34"),
                         size: 28,
                       ),
                       hintText: 'Email',
@@ -94,9 +92,8 @@ class _EditEmailState extends State<EditEmail> {
                   margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
                   height: 50,
                   width: 200,
-                  decoration: BoxDecoration(
-                      color: HexColor("#F58E34"),
-                      borderRadius: BorderRadius.circular(10)),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   child: isLoading
                       ? Center(
                           child: CircularProgressIndicator(

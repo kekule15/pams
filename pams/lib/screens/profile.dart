@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:pams/routes/routes.dart';
+import 'package:pams/authentication/auth.dart';
 import 'package:pams/screens/editemail.dart';
+import 'package:pams/utils/custom_colors.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,7 +40,6 @@ class _ProfilePageState extends State<ProfilePage> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white,
-        //backgroundColor: HexColor("#26E07F"),
         title: Text("Profile",
             style: TextStyle(color: Colors.black, fontSize: 20)),
       ),
@@ -49,9 +48,9 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Container(
           margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(top: 60),
                 height: 110,
                 width: 90,
                 decoration: BoxDecoration(
@@ -59,18 +58,21 @@ class _ProfilePageState extends State<ProfilePage> {
                         fit: BoxFit.cover,
                         image: AssetImage("assets/avatar.png")),
                     border: Border.all(
-                      color: HexColor("#26E07F"),
                       style: BorderStyle.solid,
                       width: 6.0,
                     ),
                     shape: BoxShape.circle),
               ),
               Text("$name",
-                  style: TextStyle(fontSize: 30, color: HexColor("#072468"))),
+                  style: TextStyle(
+                    fontSize: 30,
+                  )),
+              SizedBox(
+                height: 40,
+              ),
               Container(
                 margin: EdgeInsets.only(top: 20),
-                height: 50,
-                width: 350,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(boxShadow: [
                   // to make elevation
                   BoxShadow(
@@ -80,12 +82,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   // to make the coloured border
                   BoxShadow(
-                    color: HexColor("#072468"),
                     offset: Offset(0, 0.5),
                   ),
                 ], color: Colors.white),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -93,18 +94,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: HexColor("#072468"))),
+                              color: CustomColors.blackColor)),
                       Text("Account name",
                           style: TextStyle(
-                              fontSize: 12, color: HexColor("#072468"))),
+                              fontSize: 12, color: CustomColors.blackColor)),
                     ],
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 20),
-                height: 50,
-                width: 350,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(boxShadow: [
                   // to make elevation
                   BoxShadow(
@@ -114,12 +114,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   // to make the coloured border
                   BoxShadow(
-                    color: HexColor("#072468"),
+                    color: CustomColors.blackColor,
                     offset: Offset(0, 0.5),
                   ),
                 ], color: Colors.white),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -127,10 +127,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: HexColor("#072468"))),
+                              color: CustomColors.blackColor)),
                       Text("Current position",
                           style: TextStyle(
-                              fontSize: 12, color: HexColor("#072468"))),
+                              fontSize: 12, color: CustomColors.blackColor)),
                     ],
                   ),
                 ),
@@ -142,8 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 20),
-                  height: 50,
-                  width: 350,
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(boxShadow: [
                     // to make elevation
                     BoxShadow(
@@ -153,12 +152,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     // to make the coloured border
                     BoxShadow(
-                      color: HexColor("#072468"),
+                      color: CustomColors.blackColor,
                       offset: Offset(0, 0.5),
                     ),
                   ], color: Colors.white),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -167,16 +167,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: <Widget>[
                             Text("$email",
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 17,
                                     fontWeight: FontWeight.bold,
-                                    color: HexColor("#072468"))),
+                                    color: CustomColors.blackColor)),
                             Text("Email address",
                                 style: TextStyle(
-                                    fontSize: 12, color: HexColor("#072468"))),
+                                    fontSize: 12,
+                                    color: CustomColors.blackColor)),
                           ],
                         ),
                         Icon(Icons.arrow_forward_ios_sharp,
-                            color: HexColor("#F58E34")),
+                            size: 16, color: CustomColors.blackColor),
                       ],
                     ),
                   ),
@@ -184,17 +185,11 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               InkWell(
                 onTap: () async {
-                  // print("======Logout=======");
-                  // SharedPreferences prefs =
-                  //     await SharedPreferences.getInstance();
-                  // prefs.remove("email");
-                  // Navigator.of(context).pushNamed(Routes.authPage);
                   _onWillPop();
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 20),
-                  height: 50,
-                  width: 350,
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(boxShadow: [
                     // to make elevation
                     BoxShadow(
@@ -204,16 +199,16 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     // to make the coloured border
                     BoxShadow(
-                      color: HexColor("#072468"),
+                      color: CustomColors.blackColor,
                       offset: Offset(0, 0.5),
                     ),
                   ], color: Colors.white),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                     child: Text("Logout",
                         style: TextStyle(
                             color: Colors.red,
-                            fontSize: 23,
+                            fontSize: 17,
                             fontWeight: FontWeight.bold)),
                   ),
                 ),
@@ -242,7 +237,9 @@ class _ProfilePageState extends State<ProfilePage> {
               TextButton(
                 onPressed: () {
                   prefs.remove("email");
-                  Navigator.of(context).pushNamed(Routes.authPage);
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => AuthPage()),
+                      (route) => false);
                 },
                 child: new Text('Yes'),
               ),

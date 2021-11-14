@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:pams/authentication/auth.dart';
+import 'package:pams/utils/custom_colors.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: HexColor("#26E07F"),
+      backgroundColor: CustomColors.background,
       body: Center(
         child: Stack(
           children: <Widget>[
@@ -43,7 +43,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       width: MediaQuery.of(context).size.width / 1.1,
                       height: MediaQuery.of(context).size.height / 2.8,
                       decoration: BoxDecoration(
-                          color: HexColor("#F5F5F5"),
+                          
                           borderRadius: BorderRadius.circular(20)),
                       child: Padding(
                         padding: const EdgeInsets.all(12),
@@ -81,7 +81,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         Icons.email_rounded,
-                                        color: HexColor("#F58E34"),
+                                        color: CustomColors.mainDarkOrange,
                                         size: 22,
                                       ),
                                       hintText: 'Email',
@@ -130,7 +130,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                         height: 30,
                                         width: 100,
                                         decoration: BoxDecoration(
-                                          color: HexColor("#F58E34"),
+                                          color: CustomColors.mainDarkGreen,
                                         ),
                                         child: Center(
                                           child: Text("Confirm",

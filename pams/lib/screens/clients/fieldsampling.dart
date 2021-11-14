@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:pams/models/other_model/client_model.dart';
-import 'package:pams/screens/client_samples.dart';
+import 'package:pams/screens/clients/client_implementation.dart';
 import 'package:pams/screens/select_sample_type.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
 import 'package:shimmer/shimmer.dart';
@@ -13,37 +11,14 @@ class FieldSampling extends StatefulWidget {
 }
 
 class _FieldSamplingState extends State<FieldSampling> {
-  Future<ClientModel> getAllClients() async {
-    String token = await Prefs.instance.getStringValue('token');
-
-    // or new Dio with a BaseOptions instance.
-    var options = BaseOptions(
-      baseUrl: 'http://sethlab-001-site1.itempurl.com',
-      headers: {
-        "Authorization": "Bearer " + token,
-      },
-    );
-    Dio dio = Dio(options);
-    final response = await dio.get(
-      '/api/v1/Client/GetAllClient',
-      options: Options(method: 'GET'),
-    );
-    if (response.statusCode == 200) {
-      var body = response.data;
-      ClientModel data = ClientModel.fromJson(body);
-      print(data.toString());
-      return data;
-    } else {
-      throw Exception('Failed to load Clients');
-    }
-  }
-
-  late Future<ClientModel> futureAlbum;
-
   @override
   void initState() {
     super.initState();
-    futureAlbum = getAllClients();
+  }
+
+  Future<Map<String, dynamic>?> getClients() async {
+    final result = await ClientImplementation().getAllClients();
+    return result;
   }
 
   @override
@@ -76,8 +51,8 @@ class _FieldSamplingState extends State<FieldSampling> {
       ),
       backgroundColor: Colors.white,
       body: Center(
-        child: FutureBuilder<ClientModel?>(
-            future: futureAlbum,
+        child: FutureBuilder<Map<String, dynamic>?>(
+            future: getClients(),
             builder: (context, snapshot) {
               return snapshot.connectionState == ConnectionState.waiting
                   ? Center(
@@ -88,11 +63,11 @@ class _FieldSamplingState extends State<FieldSampling> {
                     ))
                   : snapshot.hasData
                       ? ListView.builder(
-                          itemCount: snapshot.data?.returnObject.length,
+                          itemCount: 7,
                           itemBuilder: (BuildContext context, index) {
-                            final client = snapshot.data?.returnObject[index];
-                            final client_id = client!.id;
-                            final client_name = client.name;
+                            final client = snapshot.data;
+                            // final client_id = client!.id;
+                            // final client_name = client.name;
                             // print('my sample lenght is========');
                             return InkWell(
                               onTap: () {
@@ -120,17 +95,17 @@ class _FieldSamplingState extends State<FieldSampling> {
                                       ),
                                       // to make the coloured border
                                       BoxShadow(
-                                        color: HexColor("#072468"),
+                                        
                                         offset: Offset(0, 0.5),
                                       ),
                                     ],
                                     color: Colors.white,
                                   ),
                                   child: ListTile(
-                                    title: Text(client.name),
+                                    title: Text("client.name"),
                                     trailing: InkWell(
                                       child: Icon(Icons.arrow_forward_ios_sharp,
-                                          color: HexColor("#F58E34")),
+                                          ),
                                     ),
                                   ),
                                 ),

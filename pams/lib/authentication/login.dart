@@ -1,257 +1,211 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pams/authentication/auth_implementation.dart';
 import 'package:pams/authentication/forgotpassword.dart';
 import 'package:pams/authentication/register.dart';
-import 'package:pams/models/access_model/req_login_model.dart';
-import 'package:pams/routes/routes.dart';
 import 'package:pams/screens/homepage.dart';
-import 'package:pams/services/api_services/repositories/users_repository.dart';
 import 'package:pams/utils/connection_status.dart';
+import 'package:pams/utils/custom_colors.dart';
 import 'package:pams/utils/validators.dart';
 
-class LoginPage extends HookWidget {
-  final obscurePasswordProvider = StateProvider<bool>((ref) {
-    return true;
-  });
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
-  final pendingLoginProvider = StateProvider<bool>((ref) {
-    return false;
-  });
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   bool hidePassWord = true;
+  bool btnState = false;
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  var formKey = GlobalKey<FormState>();
+  final _emailTextController = useTextEditingController();
+  final _passwordTextController = useTextEditingController();
+  bool autoValidate = false;
   @override
   Widget build(BuildContext context) {
-    final _emailTextController = useTextEditingController();
-    final _passwordTextController = useTextEditingController();
-    useProvider(pendingLoginProvider);
-
-    final _keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-
-    bool _keyboardVisible = false;
-
-    _keyboardHeight == 0 ? _keyboardVisible = false : _keyboardVisible = true;
-
-    useProvider(obscurePasswordProvider);
-
     return Scaffold(
+      backgroundColor: Color(0xff194A00),
       body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("assets/backgroundImage.PNG"))),
-          child: Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top: 100),
-                width: 200,
-                height: 150,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.contain,
-                        image: AssetImage("assets/logoo.png"))),
+        child: Column(
+          children: <Widget>[
+            Align(
+              alignment: Alignment.topLeft,
+              child: SvgPicture.asset(
+                'assets/logo.svg',
+                height: 300,
+                width: 500,
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(10, 50, 10, 0),
-                decoration: BoxDecoration(
-                    color: HexColor("#F5F5F5"),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Center(
-                        child: Text("Login to get started",
-                            style: TextStyle(fontSize: 18)),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _emailTextController,
-                          validator: (value) {
-                            return Validators.isEmailStr(value.toString());
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.email_rounded,
-                              color: HexColor("#F58E34"),
-                              size: 22,
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: HexColor("#30F58E34")),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: HexColor("#F58E34"))),
-                            hintText: 'Email',
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.text,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            return null;
-                          },
-                          controller: _passwordTextController,
-                          obscureText:
-                              context.read(obscurePasswordProvider).state,
-                          decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: HexColor("#30F58E34"),
-                                  style: BorderStyle.solid),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: HexColor("#F58E34"))),
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: HexColor("#F58E34"),
-                            ),
-                            suffixIcon: IconButton(
-                                icon: Icon(
-                                  context.read(obscurePasswordProvider).state
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                  color: Colors.black54,
-                                  semanticLabel: context
-                                          .read(obscurePasswordProvider)
-                                          .state
-                                      ? 'show password'
-                                      : 'hide password',
-                                ),
-                                onPressed: () {
-                                  context.read(obscurePasswordProvider).state =
-                                      !context
-                                          .read(obscurePasswordProvider)
-                                          .state;
-                                },
-                                color: HexColor("#60F58E34")),
-                            hintText: 'password',
-                          ),
-                        ),
-                      ),
-                      MaterialButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ForgotPassword()));
+            ),
+            SizedBox(height: 40),
+            Container(
+              height: MediaQuery.of(context).size.height / 1.8,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20))),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Center(
+                      child: Text("Login to get started",
+                          style: TextStyle(fontSize: 18)),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      child: TextFormField(
+                        controller: _emailTextController,
+                        validator: (value) {
+                          return Validators.isEmailStr(value.toString());
                         },
-                        child: Text('Forgot Password'),
-                      ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: <Widget>[
-                      //     Text(
-                      //       'Do not have an account?',
-                      //       style: TextStyle(),
-                      //     ),
-                      //     MaterialButton(
-                      //       onPressed: () {
-                      //         Navigator.pushReplacement(
-                      //             context,
-                      //             MaterialPageRoute(
-                      //                 builder: (context) => RegisterPage()));
-                      //       },
-                      //       child: Text('Register',
-                      //           style: TextStyle(fontWeight: FontWeight.bold)),
-                      //     )
-                      //   ],
-                      // ),
-                      context.read(pendingLoginProvider).state
-                          ? Center(
-                              child: CircularProgressIndicator(
-                              backgroundColor: Colors.red,
-                              valueColor: AlwaysStoppedAnimation(
-                                  Colors.white.withOpacity(0.3)),
-                            ))
-                          : MaterialButton(
-                              color: Colors.red,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                              ),
-                              onPressed: () async {
-                                if (_formKey.currentState!.validate()) {
-                                  context.read(pendingLoginProvider).state =
-                                      true;
-
-                                  if (await ConnectionStatus.isConnected(
-                                      context)) {
-                                    String emailAddress =
-                                        _emailTextController.text.toString();
-
-                                    String password =
-                                        _passwordTextController.text.toString();
-
-                                    final result =
-                                        await UsersRepository.loginUser(
-                                            ReqLoginModel(
-                                                email: emailAddress,
-                                                password: password));
-
-                                    if (result.error == false) {
-                                      context.read(pendingLoginProvider).state =
-                                          false;
-                                      print("Wrong Credentials");
-                                      Fluttertoast.showToast(
-                                          msg: "Wrong Credentials Entered");
-                                    } else {
-                                      context.read(pendingLoginProvider).state =
-                                          true;
-                                      print("======Logged In========");
-                                      Navigator.of(context)
-                                          .pushNamedAndRemoveUntil(
-                                              Routes.home, (route) => false);
-                                    }
-                                    print(
-                                        " ${result.data} ====== +++++ =======");
-                                  } else {
-                                    context.read(pendingLoginProvider).state =
-                                        false;
-                                    Fluttertoast.showToast(
-                                        msg:
-                                            "Please check your internet connection");
-                                  }
-                                }
-                              },
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.email_rounded,
+                            color: CustomColors.mainDarkGreen,
+                            size: 28,
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: CustomColors.mainDarkGreen,
                             ),
-                      SizedBox(
-                        height: 10,
+                          ),
+                          hintText: 'Email',
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      child: TextFormField(
+                        keyboardType: TextInputType.text,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          return null;
+                        },
+                        controller: _passwordTextController,
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: CustomColors.mainDarkGreen,
+                                style: BorderStyle.solid),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.lock,
+                            size: 28,
+                            color: CustomColors.mainDarkGreen,
+                          ),
+                          hintText: 'password',
+                        ),
+                      ),
+                    ),
+                    MaterialButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ForgotPassword()));
+                      },
+                      child: Text('Forgot Password'),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Do not have an account?',
+                          style: TextStyle(),
+                        ),
+                        MaterialButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RegisterPage()));
+                          },
+                          child: Text('Register',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: CustomColors.mainDarkGreen,
+                              )),
+                        )
+                      ],
+                    ),
+                    InkWell(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: CustomColors.mainDarkGreen,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 15),
+                            child: Center(
+                              child: btnState
+                                  ? SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : Text(
+                                      'Login',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
+                                    ),
+                            ),
+                          ),
+                        ),
+                        onTap: () async {
+                          validateInputs();
+                        }),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  validateInputs() async {
+    setState(() {
+      btnState = true;
+    });
+    var state = formKey.currentState;
+    if (!state!.validate()) {
+      setState(() => autoValidate = true);
+      Fluttertoast.showToast(msg: 'Error');
+      return;
+    }
+    state.save();
+
+    final result =
+        await AuthImplementation().userLogin(email: '', password: '');
+
+    if (result!['successful'] == true) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => HomeView()),
+          (route) => false);
+    } else {
+      Fluttertoast.showToast(msg: 'Error');
+    }
   }
 }

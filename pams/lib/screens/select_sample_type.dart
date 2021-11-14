@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pams/screens/new_work_force/clients_samples.dart';
+import 'package:pams/screens/clients/clients_samples.dart';
 
 class SelectSampleType extends StatefulWidget {
   const SelectSampleType({Key? key}) : super(key: key);

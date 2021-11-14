@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:pams/screens/testdetails.dart';
 
 class ActivityPage extends StatefulWidget {
   @override
@@ -46,7 +44,7 @@ class _ActivityPageState extends State<ActivityPage> {
                     ),
                     // to make the coloured border
                     BoxShadow(
-                      color: HexColor("#072468"),
+                      
                       offset: Offset(0, 0.5),
                     ),
                   ],
@@ -54,24 +52,23 @@ class _ActivityPageState extends State<ActivityPage> {
                 ),
                 child: ListTile(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => TestDetails()));
+                   
                   },
                   leading: Container(
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                          color: HexColor("#50F58E34"), shape: BoxShape.circle),
+                          shape: BoxShape.circle),
                       child: Center(
                         child: Icon(
                           Icons.restore_page,
                           size: 25,
-                          color: HexColor("#F58E34"),
+                          
                         ),
                       )),
                   title: Text("Flour Mill - Water test",
                       style: TextStyle(
-                        color: HexColor("#072468"),
+                        
                       )),
                   subtitle: Row(
                     children: <Widget>[
@@ -84,7 +81,7 @@ class _ActivityPageState extends State<ActivityPage> {
                   ),
                   trailing: Text("Delivered",
                       style: TextStyle(
-                        color: HexColor("#072468"),
+                        
                       )),
                 ),
               );

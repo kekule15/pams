@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class FAQPage extends StatefulWidget {
   @override
@@ -42,7 +41,7 @@ class _FAQPageState extends State<FAQPage> {
                   ),
                   // to make the coloured border
                   BoxShadow(
-                    color: HexColor("#072468"),
+                   
                     offset: Offset(0, 0.5),
                   ),
                 ],
@@ -51,14 +50,14 @@ class _FAQPageState extends State<FAQPage> {
               child: ExpansionTile(
                 trailing: Icon(
                   Icons.keyboard_arrow_down_rounded,
-                  color: HexColor("#F58E34"),
+                  
                 ),
                 title: Text(
                   "What is PAMS?",
                   style: TextStyle(
                     fontSize: 17.0,
                     fontWeight: FontWeight.bold,
-                    color: HexColor("#072468"),
+                    
                   ),
                 ),
                 children: <Widget>[

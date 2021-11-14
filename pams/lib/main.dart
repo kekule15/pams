@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pams/routes/route_generator.dart';
-import 'package:pams/routes/routes.dart';
 import 'package:pams/screens/splashScreen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Future <void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-
-
-  
-   SystemChrome.setPreferredOrientations(
+  SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((val) {
     runApp(ProviderScope(child: MyApp()));
@@ -19,13 +15,14 @@ Future <void> main() async{
 }
 
 class MyApp extends StatelessWidget {
- 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-     debugShowCheckedModeBanner: false,
-           initialRoute: Routes.splash,
-onGenerateRoute: RouteGenerator.generateRoute,
-    );
+    return ScreenUtilInit(
+       designSize: Size(360, 700),
+        builder: () => MaterialApp(
+          theme: ThemeData(fontFamily: 'Rubik-Medium'),
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
+    ));
   }
 }

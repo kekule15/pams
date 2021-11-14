@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class NotificationPage extends StatefulWidget {
   @override
@@ -44,7 +43,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   ),
                   // to make the coloured border
                   BoxShadow(
-                    color: HexColor("#072468"),
+                 
                     offset: Offset(0, 0.5),
                   ),
                 ],
@@ -59,10 +58,10 @@ class _NotificationPageState extends State<NotificationPage> {
                       children: <Widget>[
                         Text("Flour Mill - Water test",
                             style: TextStyle(
-                                color: HexColor("#072468"), fontSize: 17)),
+                                 fontSize: 17)),
                         Text("Delivered",
                             style: TextStyle(
-                                color: HexColor("#072468"), fontSize: 17)),
+                                fontSize: 17)),
                       ],
                     ),
                   ),
