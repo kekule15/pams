@@ -1,10 +1,7 @@
-import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pams/utils/shared_pref_manager.dart';
-import 'package:http/http.dart' as http;
+import 'package:pams/utils/custom_colors.dart';
 
 final key = UniqueKey();
 
@@ -17,55 +14,45 @@ class _ElementTestState extends State<ElementTest> {
   bool isLoading = false;
   PickedFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
-  Widget bottomSheet() {
-    return Container(
-        height: 100.0,
-        width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.symmetric(
-          horizontal: 20.0,
-          vertical: 20.0,
-        ),
-        child: Column(children: <Widget>[
-          Text(
-            "Upload photo",
-            style: TextStyle(fontSize: 20.0),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextButton.icon(
-                icon: Icon(Icons.camera),
-                onPressed: () {
-                  takePhoto(ImageSource.camera);
-                },
-                label: Text("Camera"),
-              ),
-              TextButton.icon(
-                icon: Icon(Icons.image),
-                onPressed: () {
-                  takePhoto(ImageSource.gallery);
-                },
-                label: Text("Gallery"),
-              ),
-            ],
-          )
-        ]));
-  }
+  // Widget bottomSheet() {
+  //   return Container(
+  //       height: 100.0,
+  //       width: MediaQuery.of(context).size.width,
+  //       margin: EdgeInsets.symmetric(
+  //         horizontal: 20.0,
+  //         vertical: 20.0,
+  //       ),
+  //       child: Column(children: <Widget>[
+  //         Text(
+  //           "Upload photo",
+  //           style: TextStyle(fontSize: 20.0),
+  //         ),
+  //         SizedBox(
+  //           height: 20.0,
+  //         ),
+  //         // Row(
+  //         //   mainAxisAlignment: MainAxisAlignment.center,
+  //         //   children: <Widget>[
+  //         //     TextButton.icon(
+  //         //       icon: Icon(Icons.camera),
+  //         //       onPressed: () {
+  //         //         takePhoto(ImageSource.camera);
+  //         //       },
+  //         //       label: Text("Camera"),
+  //         //     ),
+  //         //     TextButton.icon(
+  //         //       icon: Icon(Icons.image),
+  //         //       onPressed: () {
+  //         //         takePhoto(ImageSource.gallery);
+  //         //       },
+  //         //       label: Text("Gallery"),
+  //         //     ),
+  //         //   ],
+  //         // )
+  //       ]));
+  // }
 
-  void takePhoto(ImageSource source) async {
-    final imageGotten = await _picker.getImage(source: source);
-    setState(() {
-      _imageFile = imageGotten;
-    });
-  }
-
-  dosomthing(String value, String id) {
-    print("===$value");
-    print("===$id");
-  }
+  
 
   _displayDialog() {
     return showDialog(
@@ -205,7 +192,7 @@ class _ElementTestState extends State<ElementTest> {
           )
         ],
         //backgroundColor: HexColor("#26E07F"),
-        title: Text('Client name',
+        title: Text('Sample name',
             style: TextStyle(color: Colors.black, fontSize: 18)),
       ),
       backgroundColor: Colors.white,
@@ -213,7 +200,7 @@ class _ElementTestState extends State<ElementTest> {
         margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: ListView.builder(
             key: key,
-            itemCount: 6,
+            itemCount: 1,
             itemBuilder: (BuildContext context, index) {
               return Container(
                   margin: EdgeInsets.only(top: 20),
@@ -242,7 +229,7 @@ class _ElementTestState extends State<ElementTest> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Value name',
+                          'Test name',
                           style: TextStyle(fontSize: 13),
                         ),
                         Container(
@@ -268,14 +255,15 @@ class _ElementTestState extends State<ElementTest> {
             }),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        elevation: 0,
+        color: CustomColors.background,
         child: Container(
+          margin:EdgeInsets.symmetric(horizontal: 20,vertical: 10),
           height: 50,
           decoration: BoxDecoration(
-           
+           color: CustomColors.mainDarkGreen,
             borderRadius: BorderRadius.circular(5),
           ),
-          margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
           child: Center(
             child: Text('Send',
                 style: TextStyle(color: Colors.white, fontSize: 18)),

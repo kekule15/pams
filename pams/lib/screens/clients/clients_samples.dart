@@ -3,8 +3,9 @@ import 'package:pams/screens/elementtest.dart';
 
 class ClientsSample extends StatefulWidget {
   final String? sampleType;
+  final String? clientName;
 
-  const ClientsSample({Key? key, this.sampleType}) : super(key: key);
+  const ClientsSample({Key? key,this.clientName,this.sampleType}) : super(key: key);
 
   @override
   _ClientsSampleState createState() => _ClientsSampleState();
@@ -25,7 +26,7 @@ class _ClientsSampleState extends State<ClientsSample> {
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: Text('Clients name',
+        title: Text('${widget.clientName}',
             style: TextStyle(
               color: Colors.black,
               fontSize: 18,
@@ -42,7 +43,7 @@ class _ClientsSampleState extends State<ClientsSample> {
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount: 7,
+                  itemCount: 1,
                   itemBuilder: (BuildContext context, index) {
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 2),
@@ -63,7 +64,7 @@ class _ClientsSampleState extends State<ClientsSample> {
                               size: 18,
                             ),
                             title: Text(
-                              'Samples',
+                              'Test',
                               style: TextStyle(color: Colors.black),
                             ),
                           ),

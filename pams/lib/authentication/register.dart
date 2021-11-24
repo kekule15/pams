@@ -22,11 +22,8 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             Align(
               alignment: Alignment.topLeft,
-              child: SvgPicture.asset(
-                'assets/logo.svg',
-                height: 200,
-                width: 400,
-              ),
+              child: SvgPicture.asset('assets/register_img.svg',
+                  height: 300, width: MediaQuery.of(context).size.width),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -37,13 +34,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 key: formKey,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: Text("Register to get started",
-                          style: TextStyle(fontSize: 18, color: Colors.white)),
-                    ),
                     SizedBox(
                       height: 20,
                     ),

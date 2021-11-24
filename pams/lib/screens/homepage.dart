@@ -1,90 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:pams/screens/faq.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pams/screens/clients/fieldsampling.dart';
 import 'package:pams/screens/notification.dart';
 import 'package:pams/screens/profile.dart';
 import 'package:pams/screens/test.dart';
 import 'package:pams/utils/custom_colors.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
-
-// class HomePage extends StatefulWidget {
-//   final int currentPage;
-//   const HomePage({
-//     //required Key key,
-//     required this.currentPage,
-//   });
-//   @override
-//   _HomePageState createState() => _HomePageState();
-// }
-
-// class _HomePageState extends State<HomePage> {
-//   int tapCounter = 0;
-//   bool tapped = false;
-//   ValueNotifier<int>? currentPage;
-//   int? _currentIndex;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _currentIndex = widget.currentPage;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       bottomNavigationBar: BottomNavigationBar(
-//         onTap: onTabTapped,
-//         elevation: 20,
-//         currentIndex: _currentIndex!,
-//         backgroundColor: Colors.white,
-//         selectedItemColor: Colors.black,
-//         items: [
-//           new BottomNavigationBarItem(
-//             backgroundColor: Colors.white,
-//             icon: Icon(
-//               Icons.home,
-//               size: 40,
-//               color: HexColor("#26E07F"),
-//             ),
-//             label: "Home",
-//           ),
-//           new BottomNavigationBarItem(
-//             backgroundColor: Colors.white,
-//             icon: Icon(
-//               Icons.restore_page,
-//               size: 40,
-//               color: HexColor("#26E07F"),
-//             ),
-//             label: "Activity",
-//           ),
-//           new BottomNavigationBarItem(
-//             backgroundColor: Colors.white,
-//             icon: Icon(
-//               Icons.question_answer,
-//               size: 40,
-//               color: HexColor("#26E07F"),
-//             ),
-//             label: "Faq",
-//           ),
-//         ],
-//       ),
-//       backgroundColor: Colors.white,
-//       body: _children[_currentIndex!],
-//     );
-//   }
-
-//   final List<Widget> _children = [
-//     HomeView(),
-//     ActivityPage(),
-//     FAQPage(),
-//   ];
-//   void onTabTapped(int index) {
-//     setState(() {
-//       _currentIndex = index;
-//     });
-//   }
-// }
 
 class HomeView extends StatefulWidget {
   @override
@@ -140,10 +63,10 @@ class _HomeViewState extends State<HomeView> {
                   //     fit: BoxFit.cover,
                   //     image: AssetImage('assets/backgroundImage.PNG')),
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30))),
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20))),
               child: Container(
-                margin: EdgeInsets.fromLTRB(15, 50, 15, 0),
+                margin: EdgeInsets.fromLTRB(15, 20, 15, 0),
                 child: Column(
                   children: [
                     Row(
@@ -151,8 +74,8 @@ class _HomeViewState extends State<HomeView> {
                       children: <Widget>[
                         IconButton(
                             onPressed: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (context)=>ProfilePage()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ProfilePage()));
                             },
                             icon: Icon(
                               Icons.menu,
@@ -161,8 +84,8 @@ class _HomeViewState extends State<HomeView> {
                             )),
                         InkWell(
                           onTap: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context)=>NotificationPage()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => NotificationPage()));
                           },
                           child: Container(
                             height: 40,
@@ -384,7 +307,8 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.of(context).push;
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => FieldSampling()));
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height / 5,
@@ -399,15 +323,12 @@ class _HomeViewState extends State<HomeView> {
                                   Offset(0, 0.5), // changes position of shadow
                             ),
                           ],
-                          color: Colors.white,
+                          color: CustomColors.Darkblue,
                           borderRadius: BorderRadius.circular(25)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(children: [
-                          Container(
-                              height: 80,
-                              width: 120,
-                              child: Image.asset("assets/field.png")),
+                          SvgPicture.asset('assets/sampling.svg'),
                           SizedBox(
                             height: 10,
                           ),
@@ -415,8 +336,8 @@ class _HomeViewState extends State<HomeView> {
                               child: Text(
                             'Sampling',
                             style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
+                                color: CustomColors.background,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w500),
                           ))
                         ]),
@@ -425,7 +346,8 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ActivityPage()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ActivityPage()));
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height / 5,
@@ -440,15 +362,12 @@ class _HomeViewState extends State<HomeView> {
                                   Offset(0, 0.5), // changes position of shadow
                             ),
                           ],
-                          color: Colors.white,
+                          color: CustomColors.mainDarkOrange,
                           borderRadius: BorderRadius.circular(25)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(children: [
-                          Container(
-                              height: 80,
-                              width: 120,
-                              child: Image.asset("assets/view_acticity.png")),
+                          SvgPicture.asset('assets/report.svg'),
                           SizedBox(
                             height: 10,
                           ),

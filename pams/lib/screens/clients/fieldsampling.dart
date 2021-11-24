@@ -1,9 +1,7 @@
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:pams/screens/clients/client_implementation.dart';
 import 'package:pams/screens/select_sample_type.dart';
-import 'package:pams/utils/shared_pref_manager.dart';
-import 'package:shimmer/shimmer.dart';
 
 class FieldSampling extends StatefulWidget {
   @override
@@ -14,6 +12,7 @@ class _FieldSamplingState extends State<FieldSampling> {
   @override
   void initState() {
     super.initState();
+    getClients();
   }
 
   Future<Map<String, dynamic>?> getClients() async {
@@ -35,25 +34,16 @@ class _FieldSamplingState extends State<FieldSampling> {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        //backgroundColor: HexColor("#26E07F"),
-        title: Text("Conduct a test",
+        title: Text("Customer List",
             style: TextStyle(color: Colors.black, fontSize: 20)),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Icon(
-              Icons.search,
-              color: Colors.black,
-              size: 25,
-            ),
-          )
-        ],
       ),
       backgroundColor: Colors.white,
       body: Center(
         child: FutureBuilder<Map<String, dynamic>?>(
             future: getClients(),
             builder: (context, snapshot) {
+              final client = snapshot.data;
+
               return snapshot.connectionState == ConnectionState.waiting
                   ? Center(
                       child: SizedBox(
@@ -63,21 +53,19 @@ class _FieldSamplingState extends State<FieldSampling> {
                     ))
                   : snapshot.hasData
                       ? ListView.builder(
-                          itemCount: 7,
+                          itemCount: client!['returnObject']['data'].length,
                           itemBuilder: (BuildContext context, index) {
-                            final client = snapshot.data;
-                            // final client_id = client!.id;
-                            // final client_name = client.name;
-                            // print('my sample lenght is========');
                             return InkWell(
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => SelectSampleType()));
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //     builder: (context) => ClientSamples(
-                                //           client_id: client_id,
-                                //           client_name: client_name,
-                                //         )));
+                                    builder: (context) => SelectSampleType(
+                                     
+                                          templates: client['returnObject']
+                                                  ['data'][index]['templates']
+                                              ,
+                                               clientName:client['returnObject']
+                                                  ['data'][index]['name'],
+                                        )));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -95,17 +83,24 @@ class _FieldSamplingState extends State<FieldSampling> {
                                       ),
                                       // to make the coloured border
                                       BoxShadow(
-                                        
                                         offset: Offset(0, 0.5),
                                       ),
                                     ],
                                     color: Colors.white,
                                   ),
                                   child: ListTile(
-                                    title: Text("client.name"),
+                                    title: Text(
+                                        "${client['returnObject']['data'][index]['name'].toString()}"),
+                                    subtitle: Text(
+                                      "${client['returnObject']['data'][index]['email'].toString()}",
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 13),
+                                    ),
                                     trailing: InkWell(
-                                      child: Icon(Icons.arrow_forward_ios_sharp,
-                                          ),
+                                      child: Icon(
+                                        Icons.arrow_forward_ios_sharp,
+                                        size: 17,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -116,66 +111,6 @@ class _FieldSamplingState extends State<FieldSampling> {
                           child: Text('No Client available'),
                         );
             }),
-      ),
-    );
-  }
-
-  Widget loader() {
-    return Container(
-      margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-      child: Expanded(
-        child: Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[100]!,
-          enabled: true,
-          child: ListView.builder(
-            itemBuilder: (_, __) => Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: 48.0,
-                    height: 48.0,
-                    color: Colors.white,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: double.infinity,
-                          height: 8.0,
-                          color: Colors.white,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 2.0),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          height: 8.0,
-                          color: Colors.white,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 2.0),
-                        ),
-                        Container(
-                          width: 40.0,
-                          height: 8.0,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            itemCount: 20,
-          ),
-        ),
       ),
     );
   }

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pams/authentication/auth_implementation.dart';
 import 'package:pams/authentication/forgotpassword.dart';
 import 'package:pams/authentication/register.dart';
 import 'package:pams/screens/homepage.dart';
-import 'package:pams/utils/connection_status.dart';
 import 'package:pams/utils/custom_colors.dart';
 import 'package:pams/utils/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
             Align(
               alignment: Alignment.topLeft,
               child: SvgPicture.asset(
-                'assets/logo.svg',
+                'assets/login_img.svg',
                 height: 300,
                 width: 500,
               ),
@@ -47,23 +44,16 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               height: MediaQuery.of(context).size.height / 1.8,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: CustomColors.lightDarkGreen,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
+                      topLeft: Radius.circular(50),
+                      topRight: Radius.circular(50))),
               child: Form(
                 key: _formKey,
                 autovalidate: autoValidate,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Center(
-                      child: Text("Login to get started",
-                          style: TextStyle(fontSize: 18)),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 10),
                       child: TextFormField(
@@ -198,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
     if (!state!.validate()) {
       setState(() {
         autoValidate = true;
-         btnState = false;
+        btnState = false;
       });
     } else {
       state.save();

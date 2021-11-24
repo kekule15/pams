@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ClientImplementation {
    //load all clients
   Future<Map<String, dynamic>?> getAllClients() async {
-    var url = '';
+    var url = 'http://sethlab-001-site1.itempurl.com/api/v1/Client/GetAllClient';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var api = prefs.getString('apiToken');
     final response = await http
@@ -20,7 +20,7 @@ class ClientImplementation {
     });
 
     final int statusCode = response.statusCode;
-    print("my code $statusCode");
+    print("my code ${response.body}");
     return Map.from(jsonDecode(response.body));
   }
 }
