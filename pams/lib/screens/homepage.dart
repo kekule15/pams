@@ -8,6 +8,7 @@ import 'package:pams/screens/profile.dart';
 import 'package:pams/screens/test.dart';
 import 'package:pams/utils/custom_colors.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -15,16 +16,24 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  String myName = '';
-  String role = '';
-  _HomeViewState() {
-    Prefs.instance.getStringValue("name").then((value) => setState(() {
-          myName = value;
-        }));
-    Prefs.instance.getStringValue("role").then((value) => setState(() {
-          role = value;
-        }));
+  String? myName;
+  String? role;
+  @override
+  void initState() {
+    super.initState();
+    getDetails();
   }
+
+  Future getDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var name = prefs.getString('fullname');
+    var drole = prefs.getString('role');
+    setState(() {
+      myName = name;
+      role = drole;
+    });
+  }
+
   Future<bool> _onWillPop() async {
     return (await showDialog(
           context: context,

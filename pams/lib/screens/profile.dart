@@ -16,7 +16,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String email = '';
 
   _ProfilePageState() {
-    Prefs.instance.getStringValue("name").then((value) => setState(() {
+    Prefs.instance.getStringValue("fullname").then((value) => setState(() {
           name = value;
         }));
     Prefs.instance.getStringValue("role").then((value) => setState(() {

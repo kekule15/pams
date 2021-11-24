@@ -213,7 +213,7 @@ class _LoginPageState extends State<LoginPage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('email', '${result['returnObject']['email']}');
         prefs.setString('fullname', '${result['returnObject']['fullname']}');
-        prefs.setString('role', '${result['returnObject']['role']}');
+        prefs.setString('role', '${result['returnObject']['role'][0]}');
         prefs.setString('apiToken', '${result['returnObject']['token']}');
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => HomeView()),
