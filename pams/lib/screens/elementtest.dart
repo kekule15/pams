@@ -1,11 +1,29 @@
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pams/samples/data/data_models.dart';
+import 'package:pams/samples/data/database_helper.dart';
 import 'package:pams/utils/custom_colors.dart';
-
-final key = UniqueKey();
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ElementTest extends StatefulWidget {
+  final String? testName;
+  String? limt;
+  String? unit;
+  String? method;
+  String? uc;
+  final String? sampleName;
+  final String? test_Performed_And_Unit;
+
+  ElementTest(
+      {Key? key,
+      this.testName,
+      this.limt,
+      this.unit,
+      this.method,
+      this.uc,
+      this.sampleName,
+      this.test_Performed_And_Unit})
+      : super(key: key);
   @override
   _ElementTestState createState() => _ElementTestState();
 }
@@ -14,153 +32,13 @@ class _ElementTestState extends State<ElementTest> {
   bool isLoading = false;
   PickedFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
-  // Widget bottomSheet() {
-  //   return Container(
-  //       height: 100.0,
-  //       width: MediaQuery.of(context).size.width,
-  //       margin: EdgeInsets.symmetric(
-  //         horizontal: 20.0,
-  //         vertical: 20.0,
-  //       ),
-  //       child: Column(children: <Widget>[
-  //         Text(
-  //           "Upload photo",
-  //           style: TextStyle(fontSize: 20.0),
-  //         ),
-  //         SizedBox(
-  //           height: 20.0,
-  //         ),
-  //         // Row(
-  //         //   mainAxisAlignment: MainAxisAlignment.center,
-  //         //   children: <Widget>[
-  //         //     TextButton.icon(
-  //         //       icon: Icon(Icons.camera),
-  //         //       onPressed: () {
-  //         //         takePhoto(ImageSource.camera);
-  //         //       },
-  //         //       label: Text("Camera"),
-  //         //     ),
-  //         //     TextButton.icon(
-  //         //       icon: Icon(Icons.image),
-  //         //       onPressed: () {
-  //         //         takePhoto(ImageSource.gallery);
-  //         //       },
-  //         //       label: Text("Gallery"),
-  //         //     ),
-  //         //   ],
-  //         // )
-  //       ]));
-  // }
-
-  
-
-  _displayDialog() {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-            elevation: 6,
-            backgroundColor: Colors.transparent,
-            child: _dialogWithTextField(context),
-          );
-        });
-  }
-
-  Widget _dialogWithTextField(BuildContext context) => Container(
-        height: 300,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-        ),
-        child: Container(
-          margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-          child: Form(
-            // key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 10),
-                Text(
-                  "Add sample type",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                   
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(10, 30, 10, 0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey[200]),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: TextFormField(
-                      // controller: _titleController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'title can not be empty';
-                        }
-                        return null;
-                      },
-                      maxLines: 1,
-                      autofocus: false,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        hintText: 'sample type',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(7, 50, 7, 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      TextButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.grey[200],
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          "Cancel",
-                          style: TextStyle(
-                            
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                         
-                        ),
-                        child: Text(
-                          "Save",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPressed: () {
-                          // if (_formKey.currentState.validate()) {}
-                          // return Navigator.of(context).pop(true);
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+  final _formKey = GlobalKey<FormState>();
+  bool autovalidate = false;
+  TextEditingController resultController = TextEditingController();
+  TextEditingController limitController = TextEditingController();
+  TextEditingController testMethodController = TextEditingController();
+  TextEditingController unitController = TextEditingController();
+  TextEditingController uCController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -176,100 +54,203 @@ class _ElementTestState extends State<ElementTest> {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: InkWell(
-              onTap: () {
-                _displayDialog();
-              },
-              child: Icon(
-                Icons.add,
-                size: 30,
-                color: Colors.black,
-              ),
-            ),
-          )
-        ],
-        //backgroundColor: HexColor("#26E07F"),
-        title: Text('Sample name',
+        title: Text(widget.sampleName!,
             style: TextStyle(color: Colors.black, fontSize: 18)),
       ),
       backgroundColor: Colors.white,
       body: Container(
         margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-        child: ListView.builder(
-            key: key,
-            itemCount: 1,
-            itemBuilder: (BuildContext context, index) {
-              return Container(
-                  margin: EdgeInsets.only(top: 20),
-                  height: 60,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      // to make elevation
-                      BoxShadow(
-                        color: Colors.grey[300]!,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
-                      ),
-                      // to make the coloured border
-                      BoxShadow(
-                       
-                        offset: Offset(0, 0.5),
-                      ),
-                    ],
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Test name',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(10),
-                          width: MediaQuery.of(context).size.width / 1.5,
-                          decoration: BoxDecoration(color: Colors.grey[300]),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 2, 2, 2),
-                            child: TextFormField(
-                              autofocus: false,
-                              keyboardAppearance: Brightness.dark,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                hintText: 'Result',
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
+        child: Form(
+          autovalidate: autovalidate,
+          key: _formKey,
+          child: ListView(
+            children: [
+              widget.sampleName == 'physicoParameters'
+                  ? Text('Test Name & Unit')
+                  : Text('Test Name'),
+              SizedBox(
+                height: 10,
+              ),
+              widget.sampleName == 'physicoParameters'
+                  ? TextFormField(
+                      readOnly: true,
+                      initialValue: widget.test_Performed_And_Unit,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(6))),
+                    )
+                  : TextFormField(
+                      readOnly: true,
+                      initialValue: widget.testName,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(6))),
                     ),
-                  ));
-            }),
+              SizedBox(
+                height: 20,
+              ),
+              Text('Test Result'),
+              SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                controller: resultController,
+                validator: (value) {
+                  if (value!.isEmpty == true) {
+                    return 'Field is required';
+                  }
+                },
+                decoration: InputDecoration(
+                    hintText: 'Test Result',
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(6))),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              widget.sampleName == 'physicoParameters'
+                  ? TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty == true) {
+                          return 'Field is required';
+                        }
+                      },
+                      controller: uCController,
+                      decoration: InputDecoration(
+                          hintText: 'Test UC',
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(6))),
+                    )
+                  : TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty == true) {
+                          return 'Field is required';
+                        }
+                      },
+                      controller: unitController,
+                      decoration: InputDecoration(
+                          hintText: 'Test Unit',
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(6))),
+                    ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty == true) {
+                    return 'Field is required';
+                  }
+                },
+                controller: limitController,
+                decoration: InputDecoration(
+                    hintText: 'Test Limit',
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(6))),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty == true) {
+                    return 'Field is required';
+                  }
+                },
+                controller: testMethodController,
+                decoration: InputDecoration(
+                    hintText: 'Test Method',
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(6))),
+              ),
+            ],
+          ),
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         color: CustomColors.background,
-        child: Container(
-          margin:EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-          height: 50,
-          decoration: BoxDecoration(
-           color: CustomColors.mainDarkGreen,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Center(
-            child: Text('Send',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
+        child: InkWell(
+          onTap: () {
+            widget.sampleName == 'physicoParameters'
+                ? _validatePhysioCo()
+                : _validateMicroInputs();
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            height: 50,
+            decoration: BoxDecoration(
+              color: CustomColors.mainDarkGreen,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Center(
+              child: isLoading
+                  ? SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    )
+                  : Text('Send',
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  //check for microbia
+  _validateMicroInputs() async {
+    setState(() {
+      isLoading = true;
+    });
+    var form = _formKey.currentState;
+    if (!form!.validate()) {
+      setState(() {
+        autovalidate = true;
+        isLoading = false;
+      });
+    } else {
+      form.save();
+      var data = await DataBaseHelper.instance
+          .add(MicroBial(
+              name: widget.testName,
+              result: resultController.text,
+              unit: unitController.text,
+              testlimit: limitController.text,
+              method: testMethodController.text))
+          .then((value) {
+        setState(() {
+          isLoading = false;
+        });
+      });
+      print(data);
+    }
+  }
+
+  //check for physioCo
+  _validatePhysioCo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isLoading = true;
+    });
+    var form = _formKey.currentState;
+    if (!form!.validate()) {
+      setState(() {
+        autovalidate = true;
+        isLoading = false;
+      });
+    } else {
+      form.save();
+    }
   }
 }

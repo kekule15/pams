@@ -114,23 +114,6 @@ class _HomeViewState extends State<HomeView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            height: 100,
-                            width: 80,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage("assets/avatar.png")),
-                                border: Border.all(
-                                  color: Colors.white,
-                                  style: BorderStyle.solid,
-                                  width: 4.0,
-                                ),
-                                shape: BoxShape.circle),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -143,7 +126,22 @@ class _HomeViewState extends State<HomeView> {
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 17))
                             ],
-                          )
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            height: 80,
+                            width: 60,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage("assets/avatar.png")),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  style: BorderStyle.solid,
+                                  width: 4.0,
+                                ),
+                                shape: BoxShape.circle),
+                          ),
                         ],
                       ),
                     )
@@ -166,18 +164,18 @@ class _HomeViewState extends State<HomeView> {
                         fontSize: 19,
                         fontWeight: FontWeight.w500),
                   ),
-                  // Container(
-                  //   height: 30,
-                  //   width: 30,
-                  //   decoration: BoxDecoration(
-                  //       shape: BoxShape.circle,
-                  //       color: Colors.lightBlueAccent),
-                  //   child: Icon(
-                  //     Icons.calendar_today_outlined,
-                  //     color: Colors.white,
-                  //     size: 15,
-                  //   ),
-                  // )
+                  Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.lightBlueAccent),
+                    child: Icon(
+                      Icons.calendar_today_outlined,
+                      color: Colors.white,
+                      size: 15,
+                    ),
+                  )
                 ],
               ),
             ),

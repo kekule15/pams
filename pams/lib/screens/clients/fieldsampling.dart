@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:pams/screens/clients/client_implementation.dart';
-import 'package:pams/screens/select_sample_type.dart';
+import 'package:pams/samples/select_sample_type.dart';
 
 class FieldSampling extends StatefulWidget {
   @override
@@ -59,12 +58,10 @@ class _FieldSamplingState extends State<FieldSampling> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => SelectSampleType(
-                                     
-                                          templates: client['returnObject']
-                                                  ['data'][index]['templates']
-                                              ,
-                                               clientName:client['returnObject']
-                                                  ['data'][index]['name'],
+                                          clientId: client['returnObject']
+                                              ['data'][index]['id'],
+                                          clientName: client['returnObject']
+                                              ['data'][index]['name'],
                                         )));
                               },
                               child: Padding(
