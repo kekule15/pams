@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pams/samples/custom_drop_down.dart';
 import 'package:pams/samples/sample_implementation.dart';
 import 'package:pams/samples/submit_result.dart';
-import 'package:pams/screens/elementtest.dart';
+import 'package:pams/samples/create_test.dart';
 import 'package:pams/utils/custom_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,18 +35,7 @@ class _ClientsSampleState extends State<ClientsSample> {
     super.initState();
   }
 
-  var _image;
-  final ImagePicker _picker = ImagePicker();
 
-  takePhoto(ImageSource source, cxt) async {
-    final pickedFile = await _picker.pickImage(
-        source: source, imageQuality: 50, maxHeight: 500.0, maxWidth: 500.0);
-    setState(() {
-      _image = pickedFile;
-    });
-
-    // Navigator.pop(cxt);
-  }
 
   bool loading = false;
   @override
@@ -202,63 +191,7 @@ class _ClientsSampleState extends State<ClientsSample> {
                       SizedBox(
                         height: 20,
                       ),
-                      Text('Take a sample photo'),
-                      Container(
-                        child: Stack(
-                          children: [
-                            _image == null
-                                ? InkWell(
-                                    onTap: () async {
-                                      await takePhoto(
-                                          ImageSource.camera, context);
-                                    },
-                                    child: Container(
-                                      height: 200,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image:
-                                                AssetImage('assets/field.jpg'),
-                                            fit: BoxFit.contain),
-                                      ),
-                                    ),
-                                  )
-                                : InkWell(
-                                    onTap: () async {
-                                      await takePhoto(
-                                          ImageSource.camera, context);
-                                    },
-                                    child: Container(
-                                      height: 200,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color:
-                                                Colors.grey.withOpacity(0.2)),
-                                        image: DecorationImage(
-                                            fit: BoxFit.contain,
-                                            image: FileImage(
-                                              File(_image.path.toString()),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                            Positioned(
-                                right: 0,
-                                bottom: 0,
-                                child: InkWell(
-                                  onTap: () async {
-                                    await takePhoto(
-                                        ImageSource.camera, context);
-                                  },
-                                  child: Icon(
-                                    Icons.photo_camera,
-                                    color: CustomColors.Darkblue,
-                                  ),
-                                ))
-                          ],
-                        ),
-                      ),
+                     
                       SizedBox(
                         height: 20,
                       ),
@@ -276,27 +209,18 @@ class _ClientsSampleState extends State<ClientsSample> {
           margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
           child: InkWell(
             onTap: () async {
-              _image == null
-                  ? Fluttertoast.showToast(
-                      msg: "Take a photo before proceeding ",
-                      toastLength: Toast.LENGTH_LONG,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.black,
-                      textColor: Colors.white,
-                      fontSize: 16.0)
-                  : Navigator.of(context).push(MaterialPageRoute(
+             
+                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => SubmitResult(
-                            image: _image,
+                           
                           )));
-              print(_image.toString());
             },
             child: Container(
               height: 50,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 color:
-                    _image == null ? Colors.grey : CustomColors.mainDarkGreen,
+                     CustomColors.mainDarkGreen,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(

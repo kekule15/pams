@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pams/samples/data/microbial/database_helper.dart';
 import 'package:pams/utils/custom_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,7 +29,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: CustomColors.grey.withOpacity(0.4),
+          color: CustomColors.grey.withOpacity(0.2),
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Padding(
@@ -71,6 +72,32 @@ class _CustomDropDownState extends State<CustomDropDown> {
           ),
         ),
       ),
+    );
+  }
+
+  void showDialogWithD(int id) {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text('Delete Test'),
+          content: Column(
+            children: [Text('Sure you wanna deete this test?')],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                await DataBaseHelper.instance.remove(id);
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

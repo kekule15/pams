@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:pams/samples/data/data_models.dart';
+import 'package:pams/samples/data/microbial/data_models.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -45,8 +45,21 @@ class DataBaseHelper {
   }
 
   //add item to microbial list
-  Future add(MicroBial microBial) async {
+  Future<int> add(MicroBial microBial) async {
     Database db = await instance.database;
     return await db.insert('microbial', microBial.toMap());
+  }
+    
+  //remove item from microbial list
+  Future<int> remove(int id) async {
+    Database db = await instance.database;
+    return await db.delete('microbial', where: 'id = ?', whereArgs: [id]);
+  }
+
+  //update item on the microbial list
+  Future<int> updateItem(MicroBial microbial) async {
+    Database db = await instance.database;
+    return await db.update('microbial', microbial.toMap(),
+        where: 'id = ?', whereArgs: [microbial.id]);
   }
 }

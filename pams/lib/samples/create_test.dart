@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pams/samples/data/data_models.dart';
-import 'package:pams/samples/data/database_helper.dart';
+import 'package:pams/samples/data/microbial/data_models.dart';
+import 'package:pams/samples/data/microbial/database_helper.dart';
 import 'package:pams/utils/custom_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'data/physioco/data_models.dart';
+import 'data/physioco/database_helper.dart';
 
 class ElementTest extends StatefulWidget {
   final String? testName;
@@ -43,7 +47,6 @@ class _ElementTestState extends State<ElementTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: BackButton(
@@ -232,6 +235,15 @@ class _ElementTestState extends State<ElementTest> {
         setState(() {
           isLoading = false;
         });
+        Fluttertoast.showToast(
+            msg: "Test created successfuly",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        Navigator.pop(context);
       });
       print(data);
     }
@@ -250,7 +262,28 @@ class _ElementTestState extends State<ElementTest> {
         isLoading = false;
       });
     } else {
-      form.save();
+       var data = await PhysicoDataBaseHelper.instance
+          .add(PhysiCo(
+              name: widget.testName,
+              result: resultController.text,
+              uc: uCController.text,
+              testlimit: limitController.text,
+              method: testMethodController.text))
+          .then((value) {
+        setState(() {
+          isLoading = false;
+        });
+        Fluttertoast.showToast(
+            msg: "Test created successfuly",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        Navigator.pop(context);
+      });
+      print(data);
     }
   }
 }
