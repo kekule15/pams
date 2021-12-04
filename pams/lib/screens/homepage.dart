@@ -381,8 +381,8 @@ class _HomeViewState extends State<HomeView> {
                           Center(
                               child: Text('Report',
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.w500)))
                         ]),
                       ),

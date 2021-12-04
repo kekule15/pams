@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pams/samples/custom_drop_down.dart';
 import 'package:pams/samples/data/microbial/data_models.dart';
 import 'package:pams/samples/data/microbial/database_helper.dart';
+import 'package:pams/samples/sample_implementation.dart';
 import 'package:pams/samples/update_test.dart';
 import 'package:pams/utils/custom_colors.dart';
 
@@ -13,16 +15,16 @@ import 'data/physioco/data_models.dart';
 import 'data/physioco/database_helper.dart';
 
 class SubmitResult extends StatefulWidget {
-  final XFile? image;
+  final String? clientId;
 
-  const SubmitResult({Key? key, this.image}) : super(key: key);
+  const SubmitResult({Key? key, this.clientId}) : super(key: key);
 
   @override
   _SubmitResultState createState() => _SubmitResultState();
 }
 
 class _SubmitResultState extends State<SubmitResult> {
-  var _image;
+  XFile? _image;
   final ImagePicker _picker = ImagePicker();
 
   takePhoto(ImageSource source, cxt) async {
@@ -98,7 +100,7 @@ class _SubmitResultState extends State<SubmitResult> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.fromLTRB(20, 50, 20, 0),
+        margin: EdgeInsets.fromLTRB(20, 30, 20, 0),
         child: ListView(
           scrollDirection: Axis.vertical,
           children: [
@@ -503,7 +505,7 @@ class _SubmitResultState extends State<SubmitResult> {
                               image: DecorationImage(
                                   fit: BoxFit.contain,
                                   image: FileImage(
-                                    File(_image.path.toString()),
+                                    File(_image!.path.toString()),
                                   )),
                             ),
                           ),
@@ -535,16 +537,25 @@ class _SubmitResultState extends State<SubmitResult> {
           margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
           child: InkWell(
             onTap: () async {
-              _image == null
-                  ? Fluttertoast.showToast(
-                      msg: "Take a photo before proceeding ",
-                      toastLength: Toast.LENGTH_LONG,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.black,
-                      textColor: Colors.white,
-                      fontSize: 16.0)
-                  : print(_image.toString());
+              // _image == null
+              // ? Fluttertoast.showToast(
+              //     msg: "Take a photo before proceeding ",
+              //     toastLength: Toast.LENGTH_LONG,
+              //     gravity: ToastGravity.BOTTOM,
+              //     timeInSecForIosWeb: 1,
+              //     backgroundColor: Colors.black,
+              //     textColor: Colors.white,
+              //     fontSize: 16.0)
+              // : ;
+
+              final bytes = File(_image!.path).readAsBytesSync();
+
+              String img64 = base64Encode(bytes);
+              print("img_pan : $img64");
+              final data = await SampleImplementation().SubmitTest(
+                img64, widget.clientId!,
+              );
+              print(data);
             },
             child: Container(
               height: 50,

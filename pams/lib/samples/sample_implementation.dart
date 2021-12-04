@@ -1,8 +1,13 @@
+import 'package:pams/samples/data/microbial/data_models.dart';
+import 'package:pams/samples/data/microbial/database_helper.dart';
+import 'package:pams/samples/data/physioco/data_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+
+import 'data/physioco/database_helper.dart';
 
 class SampleImplementation {
   Future<Map<String, dynamic>?> getClientsTemplates(var clientId) async {
@@ -22,48 +27,41 @@ class SampleImplementation {
   }
 
   //submit test result to the database
-  Future<Map<String, dynamic>?> SubmitTest(var clientId) async {
-    var url =
-        'http://sethlab-001-site1.itempurl.com/api/v1/Sample/sampling';
+  Future<Map<String, dynamic>?> SubmitTest(
+      String base64, String clientId) async {
+    var url = 'http://sethlab-001-site1.itempurl.com/api/v1/Sample/sampling';
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    //list of microbial test
+    List<MicroBial> micro = await DataBaseHelper.instance.getMicrobial();
+
+    var microList = micro.map((e) => e.toMap()..remove('id')).toList();
+
+    //physico list test
+    List<PhysiCo> physico = await PhysicoDataBaseHelper.instance.getPhysiCo();
+
+    var physicoList = physico.map((e) => e.toMap()..remove('id')).toList();
     var api = prefs.getString('apiToken');
+    var staffName = prefs.getString('fullname');
+    var staffId = prefs.getString('userId');
     var body = {
-      "staffName": "string",
-      "staffId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      "samplingTime": DateTime.now(),
-      "samplingDate": DateTime.now(),
-      "clientId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      "gpsLong": 0,
-      "gpsLat": 0,
-      "picture": "string",
-      "microBiologicals": [
-        {
-          "microbial_Group": "string",
-          "result": "string",
-          "unit": "string",
-          "limit": "string",
-          "test_Method": "string"
-        }
-      ],
-      "physicoChemicals": [
-        {
-          "test_Performed_And_Unit": "string",
-          "result": "string",
-          "uc": "string",
-          "limit": "string",
-          "test_Method": "string",
-          "type": 0
-        }
-      ]
+      "staffName": "$staffName",
+      "staffId": "$staffId",
+      "samplingTime": '10:52',
+      "samplingDate": '12/4/2021',
+      "clientId": "$clientId",
+      "gpsLong": 0.93318,
+      "gpsLat": 0.92998,
+      "picture": "$base64",
+      "microBiologicals": microList,
+      "physicoChemicals": physicoList,
     };
-    final response = await http.post(Uri.parse(url), body: body, headers: {
-      'Content-Type': 'application/json',
+    print(body);
+    final response =
+        await http.post(Uri.parse(url), body: json.encode(body), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $api',
     });
 
-    final int statusCode = response.statusCode;
-    //print("my code ${response.body}");
     return Map.from(jsonDecode(response.body));
   }
 }

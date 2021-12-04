@@ -75,29 +75,5 @@ class _CustomDropDownState extends State<CustomDropDown> {
     );
   }
 
-  void showDialogWithD(int id) {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          title: Text('Delete Test'),
-          content: Column(
-            children: [Text('Sure you wanna deete this test?')],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () async {
-                await DataBaseHelper.instance.remove(id);
-              },
-              child: Text('Yes'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  
 }

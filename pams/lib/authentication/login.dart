@@ -215,6 +215,7 @@ class _LoginPageState extends State<LoginPage> {
         prefs.setString('fullname', '${result['returnObject']['fullname']}');
         prefs.setString('role', '${result['returnObject']['role'][0]}');
         prefs.setString('apiToken', '${result['returnObject']['token']}');
+        prefs.setString('userId', '${result['returnObject']['userId']}');
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => HomeView()),
             (route) => false);

@@ -212,6 +212,7 @@ class _ClientsSampleState extends State<ClientsSample> {
              
                    Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => SubmitResult(
+                        clientId: widget.clientId,
                            
                           )));
             },
