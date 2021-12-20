@@ -54,35 +54,9 @@ class SampleImplementation {
       "gpsLong": 0.93318,
       "gpsLat": 0.92998,
       "picture": "$base64",
-      "microBiologicals": [
-        {
-          "microbial_Group": "string",
-          "result": "string",
-          "unit": "string",
-          "limit": "string",
-          "test_Method": "string"
-        }
-      ],
-      "physicoChemicals": [
-        {
-          "test_Performed_And_Unit": "string",
-          "result": "string",
-          "uc": "string",
-          "limit": "string",
-          "test_Method": "string",
-          "type": 0
-        }
-      ]
+      "microBiologicals": microList,
+      "physicoChemicals": physicoList
     };
-    // print(clientId);
-    // final response = await http.post(Uri.parse(url), body: body, headers: {
-    //   'Accept': 'application/json',
-    //   'Authorization': 'Bearer $api',
-    // });
-    // print(response.body);
-
-    // // return Map.from(jsonDecode(response.body));
-    // print(body);
     Response response;
     var dio = Dio();
     response = await dio.post(url,

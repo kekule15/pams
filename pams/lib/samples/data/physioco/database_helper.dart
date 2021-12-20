@@ -6,7 +6,8 @@ import 'package:path/path.dart';
 
 class PhysicoDataBaseHelper {
   PhysicoDataBaseHelper._privateConstructor();
-  static final PhysicoDataBaseHelper instance = PhysicoDataBaseHelper._privateConstructor();
+  static final PhysicoDataBaseHelper instance =
+      PhysicoDataBaseHelper._privateConstructor();
   Database? _database;
 
   Future<Database> get database async => _database ??= await initDataBase();
@@ -48,7 +49,7 @@ class PhysicoDataBaseHelper {
     Database db = await instance.database;
     return await db.insert('physiCo', physiCo.toMap());
   }
-    
+
   //remove item from PhysiCo list
   Future<int> remove(int id) async {
     Database db = await instance.database;
@@ -60,5 +61,11 @@ class PhysicoDataBaseHelper {
     Database db = await instance.database;
     return await db.update('physiCo', physiCo.toMap(),
         where: 'id = ?', whereArgs: [physiCo.id]);
+  }
+
+  //close db
+  Future close() async {
+    Database db = await instance.database;
+    return await db.close();
   }
 }

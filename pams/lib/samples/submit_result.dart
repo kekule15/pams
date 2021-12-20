@@ -9,6 +9,7 @@ import 'package:pams/samples/data/microbial/data_models.dart';
 import 'package:pams/samples/data/microbial/database_helper.dart';
 import 'package:pams/samples/sample_implementation.dart';
 import 'package:pams/samples/update_test.dart';
+import 'package:pams/screens/homepage.dart';
 import 'package:pams/utils/custom_colors.dart';
 
 import 'data/physioco/data_models.dart';
@@ -562,16 +563,35 @@ class _SubmitResultState extends State<SubmitResult> {
                       widget.clientId!,
                     )
                         .catchError((error) {
+                      Fluttertoast.showToast(
+                          msg: "Oops, something went wrong...Try again later.",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.black,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
                       setState(() {
                         btnState = false;
                       });
                     });
-                    print('my data $data');
+                    //print('my data $data');
                     if (data != null) {
                       print('object');
                       setState(() {
                         btnState = false;
                       });
+                      Fluttertoast.showToast(
+                          msg: "Test Submitted Successfully",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.black,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                      await PhysicoDataBaseHelper.instance.close();
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => HomeView()));
                     }
                     setState(() {
                       btnState = false;
