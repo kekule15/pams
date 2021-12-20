@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pams/authentication/auth_implementation.dart';
@@ -50,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                       topRight: Radius.circular(50))),
               child: Form(
                 key: _formKey,
-                autovalidate: autoValidate,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

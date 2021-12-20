@@ -536,27 +536,47 @@ class _SubmitResultState extends State<SubmitResult> {
         child: Container(
           margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
           child: InkWell(
-            onTap: () async {
-              // _image == null
-              // ? Fluttertoast.showToast(
-              //     msg: "Take a photo before proceeding ",
-              //     toastLength: Toast.LENGTH_LONG,
-              //     gravity: ToastGravity.BOTTOM,
-              //     timeInSecForIosWeb: 1,
-              //     backgroundColor: Colors.black,
-              //     textColor: Colors.white,
-              //     fontSize: 16.0)
-              // : ;
+            onTap: _image == null
+                ? () {
+                    print('object');
+                    Fluttertoast.showToast(
+                        msg: "Take a photo before proceeding ",
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.black,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  }
+                : () async {
+                    setState(() {
+                      btnState = true;
+                    });
+                    final bytes = File(_image!.path).readAsBytesSync();
 
-              final bytes = File(_image!.path).readAsBytesSync();
-
-              String img64 = base64Encode(bytes);
-              print("img_pan : $img64");
-              final data = await SampleImplementation().SubmitTest(
-                img64, widget.clientId!,
-              );
-              print(data);
-            },
+                    String img64 = base64Encode(bytes);
+                    // print("img_pan : $img64");
+                    final data = await SampleImplementation()
+                        .SubmitTest(
+                      img64,
+                      widget.clientId!,
+                    )
+                        .catchError((error) {
+                      setState(() {
+                        btnState = false;
+                      });
+                    });
+                    print('my data $data');
+                    if (data != null) {
+                      print('object');
+                      setState(() {
+                        btnState = false;
+                      });
+                    }
+                    setState(() {
+                      btnState = false;
+                    });
+                  },
             child: Container(
               height: 50,
               width: MediaQuery.of(context).size.width,
@@ -566,11 +586,19 @@ class _SubmitResultState extends State<SubmitResult> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
-                child: Text(
-                  'Confirm Submit',
-                  style:
-                      TextStyle(color: CustomColors.background, fontSize: 17),
-                ),
+                child: btnState
+                    ? SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : Text(
+                        'Confirm Submit',
+                        style: TextStyle(
+                            color: CustomColors.background, fontSize: 17),
+                      ),
               ),
             ),
           ),
@@ -578,4 +606,6 @@ class _SubmitResultState extends State<SubmitResult> {
       ),
     );
   }
+
+  bool btnState = false;
 }

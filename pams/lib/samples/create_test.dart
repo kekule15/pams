@@ -64,7 +64,7 @@ class _ElementTestState extends State<ElementTest> {
       body: Container(
         margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: Form(
-          autovalidate: autovalidate,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           key: _formKey,
           child: ListView(
             children: [

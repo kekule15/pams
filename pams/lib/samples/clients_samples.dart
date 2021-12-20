@@ -1,14 +1,10 @@
-import 'dart:io';
+
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:pams/samples/custom_drop_down.dart';
-import 'package:pams/samples/sample_implementation.dart';
 import 'package:pams/samples/submit_result.dart';
 import 'package:pams/samples/create_test.dart';
 import 'package:pams/utils/custom_colors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ClientsSample extends StatefulWidget {
   final String? sampleType;

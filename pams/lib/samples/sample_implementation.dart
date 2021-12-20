@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:pams/samples/data/microbial/data_models.dart';
 import 'package:pams/samples/data/microbial/database_helper.dart';
 import 'package:pams/samples/data/physioco/data_models.dart';
@@ -40,28 +41,57 @@ class SampleImplementation {
     List<PhysiCo> physico = await PhysicoDataBaseHelper.instance.getPhysiCo();
 
     var physicoList = physico.map((e) => e.toMap()..remove('id')).toList();
+
     var api = prefs.getString('apiToken');
     var staffName = prefs.getString('fullname');
     var staffId = prefs.getString('userId');
     var body = {
       "staffName": "$staffName",
       "staffId": "$staffId",
-      "samplingTime": '10:52',
-      "samplingDate": '12/4/2021',
+      "samplingTime": "10:52",
+      "samplingDate": "12/4/2021",
       "clientId": "$clientId",
       "gpsLong": 0.93318,
       "gpsLat": 0.92998,
       "picture": "$base64",
-      "microBiologicals": microList,
-      "physicoChemicals": physicoList,
+      "microBiologicals": [
+        {
+          "microbial_Group": "string",
+          "result": "string",
+          "unit": "string",
+          "limit": "string",
+          "test_Method": "string"
+        }
+      ],
+      "physicoChemicals": [
+        {
+          "test_Performed_And_Unit": "string",
+          "result": "string",
+          "uc": "string",
+          "limit": "string",
+          "test_Method": "string",
+          "type": 0
+        }
+      ]
     };
-    print(body);
-    final response =
-        await http.post(Uri.parse(url), body: json.encode(body), headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $api',
-    });
+    // print(clientId);
+    // final response = await http.post(Uri.parse(url), body: body, headers: {
+    //   'Accept': 'application/json',
+    //   'Authorization': 'Bearer $api',
+    // });
+    // print(response.body);
 
-    return Map.from(jsonDecode(response.body));
+    // // return Map.from(jsonDecode(response.body));
+    // print(body);
+    Response response;
+    var dio = Dio();
+    response = await dio.post(url,
+        data: body,
+        options: Options(headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $api',
+        }));
+    print(response.data.toString());
+    return Map.from(response.data);
   }
 }
