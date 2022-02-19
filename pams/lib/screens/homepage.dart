@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pams/screens/clients/fieldsampling.dart';
+import 'package:pams/screens/clients/customerList.dart';
 import 'package:pams/screens/notification.dart';
 import 'package:pams/screens/profile.dart';
 import 'package:pams/screens/test.dart';
@@ -110,19 +108,19 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 30),
+                      margin: EdgeInsets.only(top: 50),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('$myName',
+                              Text('Hello',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,
                                       fontSize: 20)),
-                              Text('$role',
+                              Text('$myName',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 17))
                             ],
@@ -168,8 +166,7 @@ class _HomeViewState extends State<HomeView> {
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.lightBlueAccent),
+                        shape: BoxShape.circle, color: Colors.lightBlueAccent),
                     child: Icon(
                       Icons.calendar_today_outlined,
                       color: Colors.white,
@@ -182,116 +179,25 @@ class _HomeViewState extends State<HomeView> {
             SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Container(
-                      height: 20,
-                      width: 20,
-                      decoration: BoxDecoration(
-                          color: Colors.red.shade300, shape: BoxShape.circle),
-                      child: Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 17,
-                      )),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Failed',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
-                          )),
-                      Text(
-                        '5 tasks failed',
-                        style: TextStyle(fontSize: 12, color: Colors.black45),
-                      )
-                    ],
-                  )
-                ],
-              ),
+            myTaskWidget(
+                'Failed', Icons.close, '5 tasks failed', Colors.red.shade300),
+            SizedBox(
+              height: 20,
+            ),
+            myTaskWidget(
+              'Pending',
+              Icons.timelapse_outlined,
+              '3 tasks pending',
+              Colors.orange,
             ),
             SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Container(
-                      height: 20,
-                      width: 20,
-                      decoration: BoxDecoration(
-                          color: Colors.orange, shape: BoxShape.circle),
-                      child: Icon(
-                        Icons.timelapse_outlined,
-                        color: Colors.white,
-                        size: 17,
-                      )),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Pending',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
-                          )),
-                      Text(
-                        '3 task pending',
-                        style: TextStyle(fontSize: 12, color: Colors.black45),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Container(
-                      height: 20,
-                      width: 20,
-                      decoration: BoxDecoration(
-                          color: Colors.green, shape: BoxShape.circle),
-                      child: Icon(
-                        Icons.done,
-                        color: Colors.white,
-                        size: 17,
-                      )),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Delivered',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
-                          )),
-                      Text(
-                        '9 tasks delivered',
-                        style: TextStyle(fontSize: 12, color: Colors.black45),
-                      )
-                    ],
-                  )
-                ],
-              ),
+            myTaskWidget(
+              'Delivered',
+              Icons.done,
+              '9 tasks delivered',
+              Colors.green,
             ),
             SizedBox(
               height: 20,
@@ -315,7 +221,7 @@ class _HomeViewState extends State<HomeView> {
                   InkWell(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => FieldSampling()));
+                          builder: (context) => CustomerList()));
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height / 5,
@@ -332,23 +238,23 @@ class _HomeViewState extends State<HomeView> {
                           ],
                           color: CustomColors.Darkblue,
                           borderRadius: BorderRadius.circular(25)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(children: [
-                          SvgPicture.asset('assets/sampling.svg'),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Center(
-                              child: Text(
-                            'Sampling',
-                            style: TextStyle(
-                                color: CustomColors.background,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          ))
-                        ]),
-                      ),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset('assets/sampling.svg'),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Center(
+                                child: Text(
+                              'Sampling',
+                              style: TextStyle(
+                                  color: CustomColors.background,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                            ))
+                          ]),
                     ),
                   ),
                   InkWell(
@@ -371,21 +277,21 @@ class _HomeViewState extends State<HomeView> {
                           ],
                           color: CustomColors.mainDarkOrange,
                           borderRadius: BorderRadius.circular(25)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(children: [
-                          SvgPicture.asset('assets/report.svg'),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Center(
-                              child: Text('Report',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500)))
-                        ]),
-                      ),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset('assets/report.svg'),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Center(
+                                child: Text('Report',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)))
+                          ]),
                     ),
                   )
                 ],
@@ -393,6 +299,45 @@ class _HomeViewState extends State<HomeView> {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget myTaskWidget(
+      String title, IconData icon, String subTitle, Color iconBGColor) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          Container(
+              height: 20,
+              width: 20,
+              decoration:
+                  BoxDecoration(color: iconBGColor, shape: BoxShape.circle),
+              child: Icon(
+                icon,
+                color: Colors.white,
+                size: 17,
+              )),
+          SizedBox(
+            width: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  )),
+              Text(
+                subTitle,
+                style: TextStyle(fontSize: 12, color: Colors.black45),
+              )
+            ],
+          )
+        ],
       ),
     );
   }
