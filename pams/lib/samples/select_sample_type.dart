@@ -5,12 +5,16 @@ import 'package:pams/screens/clients/dpr/dpr_screen.dart';
 import 'package:pams/utils/custom_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../screens/clients/fmenv/fmenv_screen.dart';
+import '../screens/clients/nesrea/nesrea_screen.dart';
+
 class SelectSampleType extends StatefulWidget {
   final String? clientName;
   final String? clientId;
   final int? locationId;
 
-  const SelectSampleType({Key? key, this.clientId, this.clientName, this.locationId})
+  const SelectSampleType(
+      {Key? key, this.clientId, this.clientName, this.locationId})
       : super(key: key);
 
   @override
@@ -87,18 +91,29 @@ class _SelectSampleTypeState extends State<SelectSampleType> {
               : () {
                   switch (selected) {
                     case 0:
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => DPRScreen(locationId: widget.locationId,)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DPRScreen(
+                                    locationId: widget.locationId,
+                                  )));
 
                       break;
                     case 1:
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => DPRScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  FMENVScreen(locationId: widget.locationId)));
 
                       break;
                     case 2:
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => DPRScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NESREAScreen(
+                                    locationId: widget.locationId,
+                                  )));
                       break;
                     default:
                   }
