@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:pams/screens/clients/dpr/dpr_implementation.dart';
 import 'package:pams/screens/clients/dpr/run_test.dart';
 import 'package:pams/screens/clients/dpr/submit_dpr.dart';
@@ -20,8 +21,43 @@ class _DPRScreenState extends State<DPRScreen> {
   void initState() {
     super.initState();
     getDPRtemplates();
+    _determinePosition();
+  }
+Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    return await getLocation();
   }
 
+  getLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      latitude = position.latitude;
+      longitude = position.longitude;
+    });
+  }
+
+  var latitude;
+  var longitude;
   Future getDPRtemplates() async {
     final result = await DPRImplementation().getDPRTemplates(widget.locationId);
     if (result != null) {
@@ -194,7 +230,10 @@ class _DPRScreenState extends State<DPRScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SubmitDPRPage()));
+                                    builder: (context) => SubmitDPRPage(
+                                      longitude: longitude,
+                                      latitude: latitude,
+                                    )));
                           }
                         },
                         child: Container(
