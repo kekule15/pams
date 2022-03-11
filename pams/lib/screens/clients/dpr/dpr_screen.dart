@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pams/screens/clients/dpr/dpr_implementation.dart';
-import 'package:pams/screens/clients/run_test.dart';
+import 'package:pams/screens/clients/dpr/run_test.dart';
+import 'package:pams/screens/clients/dpr/submit_dpr.dart';
+import 'package:pams/utils/constants.dart';
 import 'package:pams/utils/custom_colors.dart';
 
 class DPRScreen extends StatefulWidget {
@@ -29,6 +31,7 @@ class _DPRScreenState extends State<DPRScreen> {
     }
   }
 
+  bool sendLoader = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,18 +67,8 @@ class _DPRScreenState extends State<DPRScreen> {
                         height: 20,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              hintText: 'Search',
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: Colors.black,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text('Available test'),
                       ),
                       SizedBox(
                         height: 20,
@@ -155,6 +148,80 @@ class _DPRScreenState extends State<DPRScreen> {
                           dprtemplates!['returnObject']['pM5Test']['testName'],
                           dprtemplates!['returnObject']['pM5Test']
                               ['testLimit']),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (dprtemplates!['returnObject']['pmTest']['testLimit'] == null ||
+                              dprtemplates!['returnObject']['hmTest']
+                                      ['testLimit'] ==
+                                  null ||
+                              dprtemplates!['returnObject']['noiseTest']
+                                      ['testLimit'] ==
+                                  null ||
+                              dprtemplates!['returnObject']['nO2Test']
+                                      ['testLimit'] ==
+                                  null ||
+                              dprtemplates!['returnObject']['sO2Test']
+                                      ['testLimit'] ==
+                                  null ||
+                              dprtemplates!['returnObject']['h2STest']
+                                      ['testLimit'] ==
+                                  null ||
+                              dprtemplates!['returnObject']['combTest']
+                                      ['testLimit'] ==
+                                  null ||
+                              dprtemplates!['returnObject']['cO2Test']
+                                      ['testLimit'] ==
+                                  null ||
+                              dprtemplates!['returnObject']['vocTest']
+                                      ['testLimit'] ==
+                                  null ||
+                              dprtemplates!['returnObject']['o2Test']
+                                      ['testLimit'] ==
+                                  null ||
+                              dprtemplates!['returnObject']['coTest']
+                                      ['testLimit'] ==
+                                  null ||
+                              dprtemplates!['returnObject']['tempTest']
+                                      ['testLimit'] ==
+                                  null ||
+                              dprtemplates!['returnObject']['pM5Test']['testLimit'] == null) {
+                            Constants()
+                                .notify('Please complete all test to proceed');
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SubmitDPRPage()));
+                          }
+                        },
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                          height: 60,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              color: CustomColors.mainDarkGreen,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: sendLoader
+                                ? SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      color: CustomColors.background,
+                                    ),
+                                  )
+                                : Text(
+                                    'Submit',
+                                    style: TextStyle(
+                                        color: CustomColors.background,
+                                        fontSize: 18),
+                                  ),
+                          ),
+                        ),
+                      ),
                     ],
                   )
                 : Center(
