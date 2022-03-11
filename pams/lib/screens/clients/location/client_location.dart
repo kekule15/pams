@@ -146,6 +146,7 @@ class _ClientLocationState extends State<ClientLocation> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => SelectSampleType(
+                                      locationId: myLocations!.returnObject![index].sampleLocationId!,
                                           clientId: widget.clientId,
                                           clientName: widget.clientName,
                                         )));

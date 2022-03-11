@@ -40,7 +40,7 @@ class _AddLocationState extends State<AddLocation> {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text("Edit Location",
+        title: Text("Add Location",
             style: TextStyle(color: Colors.black, fontSize: 20)),
       ),
       backgroundColor: Colors.white,
@@ -108,7 +108,7 @@ class _AddLocationState extends State<AddLocation> {
                       ),
                     )
                   : Text(
-                      'Edit Location',
+                      'Add Location',
                       style: TextStyle(
                           color: CustomColors.background, fontSize: 18),
                     ),
@@ -120,6 +120,7 @@ class _AddLocationState extends State<AddLocation> {
   }
 
   bool update = false;
+ 
   Future addLocation() async {
     setState(() {
       update = true;
@@ -165,4 +166,6 @@ class _AddLocationState extends State<AddLocation> {
       }
     }
   }
+
+  
 }
