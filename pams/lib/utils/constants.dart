@@ -2,28 +2,13 @@
 
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 class Constants {
   //ADD MORE BASE_URL AND EDIT API_SUB_ENPOINT IF API CHANGES IN FUTURE
-  static const String base_url = "http://chikahenry-001-site1.itempurl.com";
+  static const String base_url = "http://sethlab-001-site1.itempurl.com/api/v1";
 
-  static const Map<String, String> api_sub_endpoint = {
-    "login": base_url + "/api/v1/Account/SignIn",
-    "registration": base_url + "/api/v1/Account/SignUp",
-    "update_profile": base_url + "/api/v1/user_profile",
-    "reset_password": base_url + "/api/v1/forgot",
-    "get_all_clients": base_url +"/api/v1/Client/GetAllClient",
-  
-   
-  };
-
-  static const network_call_duration = const Duration(seconds: 30);
-
-  //THIS IS THE BASE HEADER FOR EVERY POST REQUEST.
-  //POPULATE THIS MAP WITH ANY CUSTOM HEADERS DURING CALL.
-  static const Map<String, String> api_header = {
-    "Content-Type": "appliction/json",
-    "Accept": "*/*"
-  };
 
   static const String googleKey = 'AIzaSyCXbx6asbtvpllrqfmWEmhnoQUUbQnIKrE';
 
@@ -56,43 +41,15 @@ class Constants {
     }
     return sb.toString();
   }
-
-  static List sidebar_lists = [
-    {
-      "title": "Dashboard",
-      "img_url": 'assets/images/dashboard.svg',
-    },
-    {
-      "title": "History",
-      "img_url": 'assets/images/history_.svg',
-    },
-    {
-      "title": "Support",
-      "img_url": 'assets/images/support.svg',
-    },
-    {
-      "title": "About",
-      "img_url": 'assets/images/about-icon.svg',
-    },
-    {
-      "title": "Logout",
-      "img_url": 'assets/images/log-out.svg',
-    },
-  ];
-
-  // Lagos bounding box
-  static const double lagosNorth = 6.697265;
-  static const double lagosSouth = 6.371339;
-  static const double lagosEast = 4.350063;
-  static const double lagosWest = 2.701359;
-
-  // Abuja bounding box
-  static const double abujaNorth = 9.1881;
-  static const double abujaSouth = 8.77083;
-  static const double abujaEast = 7.6934;
-  static const double abujaWest = 6.7804;
-
-  // Wallet
-  static const double maxWalletBalance = 50000;
-  static const double minWalletBalance = 2000;
+   Future notify(String msg)async{
+     return  Fluttertoast.showToast(
+                          msg: msg,
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.black,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+   }
+ 
 }

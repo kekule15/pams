@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:pams/screens/clients/location/client_location.dart';
 import 'package:pams/screens/clients/location/implementation.dart';
-import 'package:pams/screens/clients/location/model/add_location_request_model.dart';
 import 'package:pams/utils/constants.dart';
 import 'package:pams/utils/custom_colors.dart';
 
-class AddLocation extends StatefulWidget {
+class EditLocation extends StatefulWidget {
   final String? name;
   final String? description;
+  final int? locatoionId;
   final String? clientID;
 
-  const AddLocation({Key? key, this.name, this.description, this.clientID})
+  const EditLocation(
+      {Key? key, this.name, this.description, this.locatoionId, this.clientID})
       : super(key: key);
 
   @override
-  _AddLocationState createState() => _AddLocationState();
+  _EditLocationState createState() => _EditLocationState();
 }
 
-class _AddLocationState extends State<AddLocation> {
+class _EditLocationState extends State<EditLocation> {
   TextEditingController name = TextEditingController();
   TextEditingController description = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
+    name.text = widget.name!;
+    description.text = widget.description!;
     super.initState();
   }
 
@@ -89,7 +92,7 @@ class _AddLocationState extends State<AddLocation> {
         color: Colors.white,
         child: InkWell(
           onTap: () async {
-            addLocation();
+            await updateLocation();
           },
           child: Container(
             margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -120,7 +123,7 @@ class _AddLocationState extends State<AddLocation> {
   }
 
   bool update = false;
-  Future addLocation() async {
+  Future updateLocation() async {
     setState(() {
       update = true;
     });
@@ -132,20 +135,15 @@ class _AddLocationState extends State<AddLocation> {
       });
     } else {
       form.save();
-      AddLocationRequestModel model = AddLocationRequestModel(
-        clientId: widget.clientID,
-        name: name.text,
-        description: description.text,
-      );
       final result = await LocationImplementation()
-          .addClientLocation(model)
+          .updateClientLocation(
+              widget.locatoionId!, name.text, description.text)
           .catchError((onError) {
         setState(() {
           update = false;
         });
         Constants().notify('Oops... Something went wrong, Try again later');
       });
-      print(result);
       if (result != null) {
         setState(() {
           update = false;
@@ -162,6 +160,7 @@ class _AddLocationState extends State<AddLocation> {
         setState(() {
           update = false;
         });
+        Constants().notify(result!.message!);
       }
     }
   }
