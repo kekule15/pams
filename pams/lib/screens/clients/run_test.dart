@@ -41,13 +41,13 @@ class _RunTestScreenState extends State<RunTestScreen> {
         testLimit.text = widget.data!['testLimit'];
       });
     }
-    if (widget.data!['testResult'] == 0.0) {
+    if (widget.data!['testResult'] == 0.000000) {
       setState(() {
         testResult.text = '';
       });
     } else {
       setState(() {
-        testResult.text = widget.data!['testResult'];
+        testResult.text = widget.data!['testResult'].toString();
       });
     }
   }
