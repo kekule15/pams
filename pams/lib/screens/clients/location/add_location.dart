@@ -5,6 +5,8 @@ import 'package:pams/screens/clients/location/model/add_location_request_model.d
 import 'package:pams/utils/constants.dart';
 import 'package:pams/utils/custom_colors.dart';
 
+import 'model/get_location_response.dart';
+
 class AddLocation extends StatefulWidget {
   final String? name;
   final String? description;
@@ -120,7 +122,7 @@ class _AddLocationState extends State<AddLocation> {
   }
 
   bool update = false;
- 
+
   Future addLocation() async {
     setState(() {
       update = true;
@@ -148,17 +150,22 @@ class _AddLocationState extends State<AddLocation> {
       });
       print(result);
       if (result != null) {
-        setState(() {
+        
+        Constants().notify(result.message!);
+        await getLocation();
+        if (myLocations != null) {
+          setState(() {
           update = false;
         });
-        Constants().notify(result.message!);
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ClientLocation(
-                      clientId: widget.clientID,
-                    )),
-            (route) => false);
+          Navigator.of(context).pop(myLocations);
+        }
+        // Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => ClientLocation(
+        //               clientId: widget.clientID,
+        //             )),
+        //     (route) => false);
       } else {
         setState(() {
           update = false;
@@ -167,5 +174,14 @@ class _AddLocationState extends State<AddLocation> {
     }
   }
 
-  
+  LocationResponseModel? myLocations;
+  Future getLocation() async {
+    final result =
+        await LocationImplementation().getClientLocation(widget.clientID);
+    if (result != null) {
+      setState(() {
+        myLocations = result;
+      });
+    }
+  }
 }

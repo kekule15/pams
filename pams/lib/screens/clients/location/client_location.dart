@@ -40,180 +40,186 @@ class _ClientLocationState extends State<ClientLocation> {
     }
   }
 
-  Future<bool> onclick() async {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => CustomerList()));
-
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: onclick,
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          leading: BackButton(
-            color: Colors.black,
-            onPressed: () {
-              onclick();
-            },
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AddLocation(clientID: widget.clientId,)));
-                },
-                child: Icon(
-                  Icons.add,
-                  color: Colors.black,
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        leading: BackButton(
+          color: Colors.black,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: InkWell(
+              onTap: () async {
+                var result = await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => AddLocation(
+                          clientID: widget.clientId,
+                        )));
+                if (result != null) {
+                  getLocation();
+                }
+              },
+              child: Icon(
+                Icons.add,
+                color: Colors.black,
+              ),
+            ),
+          )
+        ],
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text("Customer Location",
+            style: TextStyle(color: Colors.black, fontSize: 20)),
+      ),
+      backgroundColor: CustomColors.background,
+      body: myLocations == null
+          ? Center(
+              child: SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                    color: CustomColors.mainDarkGreen),
               ),
             )
-          ],
-          backgroundColor: Colors.white,
-          elevation: 0,
-          title: Text("Customer Location",
-              style: TextStyle(color: Colors.black, fontSize: 20)),
-        ),
-        backgroundColor: CustomColors.background,
-        body: myLocations == null
-            ? Center(
-                child: SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: CircularProgressIndicator(
-                      color: CustomColors.mainDarkGreen),
-                ),
-              )
-            : myLocations!.returnObject!.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('No Locations yet'),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        InkWell(
-                           onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AddLocation(clientID: widget.clientId,)));
-                },
-                            child: Text(
-                          'Create one',
-                          style: TextStyle(
-                              color: CustomColors.mainDarkGreen,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17.sp),
-                        ))
-                      ],
-                    ),
-                  )
-                : ListView(
+          : myLocations!.returnObject!.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Text('No Locations yet'),
                       SizedBox(
                         height: 20,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              hintText: 'Search Locations',
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: Colors.black,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      ListView.builder(
-                          itemCount: myLocations!.returnObject!.length,
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => SelectSampleType(
-                                      locationId: myLocations!.returnObject![index].sampleLocationId!,
-                                          clientId: widget.clientId,
-                                          clientName: widget.clientName,
+                      InkWell(
+                          onTap: () async {
+                            var result = await Navigator.of(context)
+                                .push(MaterialPageRoute(
+                                    builder: (context) => AddLocation(
+                                          clientID: widget.clientId,
                                         )));
-                              },
-                              child: ListWidget(
-                                title: myLocations!.returnObject![index].name,
-                                subTitle: myLocations!
-                                    .returnObject![index].description,
-                                trailing: SizedBox(
-                                  width: 80,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: Row(
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        EditLocation(
-                                                          clientID:
-                                                              widget.clientId,
-                                                          name: myLocations!
-                                                              .returnObject![
-                                                                  index]
-                                                              .name,
-                                                          description:
-                                                              myLocations!
-                                                                  .returnObject![
-                                                                      index]
-                                                                  .description,
-                                                          locatoionId: myLocations!
-                                                              .returnObject![
-                                                                  index]
-                                                              .sampleLocationId,
-                                                        )));
-                                          },
-                                          child: Icon(
-                                            Icons.edit,
-                                            color: CustomColors.mainDarkGreen,
-                                          ),
+                            if (result != null) {
+                              getLocation();
+                            }
+                          },
+                          child: Text(
+                            'Create one',
+                            style: TextStyle(
+                                color: CustomColors.mainDarkGreen,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17.sp),
+                          ))
+                    ],
+                  ),
+                )
+              : ListView(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: 'Search Locations',
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Colors.black,
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ListView.builder(
+                        itemCount: myLocations!.returnObject!.length,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => SelectSampleType(
+                                        locationId: myLocations!
+                                            .returnObject![index]
+                                            .sampleLocationId!,
+                                        clientId: widget.clientId,
+                                        clientName: widget.clientName,
+                                      )));
+                            },
+                            child: ListWidget(
+                              title: myLocations!.returnObject![index].name,
+                              subTitle:
+                                  myLocations!.returnObject![index].description,
+                              trailing: SizedBox(
+                                width: 80,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () async {
+                                          var result = await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EditLocation(
+                                                        clientID:
+                                                            widget.clientId,
+                                                        name: myLocations!
+                                                            .returnObject![
+                                                                index]
+                                                            .name,
+                                                        description:
+                                                            myLocations!
+                                                                .returnObject![
+                                                                    index]
+                                                                .description,
+                                                        locatoionId: myLocations!
+                                                            .returnObject![
+                                                                index]
+                                                            .sampleLocationId,
+                                                      )));
+                                          if (result != null) {
+                                            getLocation();
+                                          }
+                                        },
+                                        child: Icon(
+                                          Icons.edit,
+                                          color: CustomColors.mainDarkGreen,
                                         ),
-                                        SizedBox(
-                                          width: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      InkWell(
+                                        onTap: () async {
+                                          deleteLocationDialog(myLocations!
+                                              .returnObject![index]
+                                              .sampleLocationId!);
+                                        },
+                                        child: Icon(
+                                          Icons.clear,
+                                          color: Colors.red,
                                         ),
-                                        InkWell(
-                                          onTap: () async {
-                                            deleteLocationDialog(myLocations!
-                                                .returnObject![index]
-                                                .sampleLocationId!);
-                                          },
-                                          child: Icon(
-                                            Icons.clear,
-                                            color: Colors.red,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            );
-                          })
-                    ],
-                  ),
-      ),
+                            ),
+                          );
+                        })
+                  ],
+                ),
     );
   }
 
