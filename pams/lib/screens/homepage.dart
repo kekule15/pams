@@ -3,7 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pams/screens/clients/customerList.dart';
 import 'package:pams/screens/notification.dart';
 import 'package:pams/screens/profile.dart';
-import 'package:pams/screens/report/report_page.dart';
+import 'package:pams/screens/report/dpr/dpr_report_page.dart';
+import 'package:pams/screens/report/select_report_template_type.dart';
 import 'package:pams/utils/custom_colors.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -262,7 +263,7 @@ class _HomeViewState extends State<HomeView> {
                   InkWell(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ActivityPage()));
+                          builder: (context) => SelectReportTemplateType()));
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height / 5,

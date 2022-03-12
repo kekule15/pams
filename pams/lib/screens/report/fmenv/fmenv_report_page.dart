@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pams/samples/custom_drop_down.dart';
-import 'package:pams/screens/report/view_submitted_test.dart';
+import 'package:pams/screens/report/dpr/view_submitted_dpr_test.dart';
 import 'package:pams/utils/custom_colors.dart';
 
-class ActivityPage extends StatefulWidget {
+class FMENVReportPage extends StatefulWidget {
   @override
-  _ActivityPageState createState() => _ActivityPageState();
+  _FMENVReportPageState createState() => _FMENVReportPageState();
 }
 
-class _ActivityPageState extends State<ActivityPage> {
-  List<String> type = ['DPR', 'FMENV', 'NESREA', 'FMENV'];
+class _FMENVReportPageState extends State<FMENVReportPage> {
+  List<String> type = ['FMENV', 'FMENV', 'FMENV', 'FMENV'];
   List<String> clientName = [
     'Flour Mill Nig',
     'Cohn Jena',
@@ -91,7 +91,7 @@ class _ActivityPageState extends State<ActivityPage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  ViewSubmittedtest()));
+                                                  ViewSubmittedDPRtest()));
                                     },
                                     leading: Container(
                                         width: 50,

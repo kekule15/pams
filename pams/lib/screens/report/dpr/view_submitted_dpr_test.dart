@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../utils/custom_colors.dart';
+import '../../../utils/custom_colors.dart';
 
-class ViewSubmittedtest extends StatefulWidget {
-  const ViewSubmittedtest({Key? key}) : super(key: key);
+class ViewSubmittedDPRtest extends StatefulWidget {
+  const ViewSubmittedDPRtest({Key? key}) : super(key: key);
 
   @override
-  _ViewSubmittedtestState createState() => _ViewSubmittedtestState();
+  _ViewSubmittedDPRtestState createState() => _ViewSubmittedDPRtestState();
 }
 
-class _ViewSubmittedtestState extends State<ViewSubmittedtest> {
+class _ViewSubmittedDPRtestState extends State<ViewSubmittedDPRtest> {
   TextEditingController testName = TextEditingController();
   TextEditingController testUnit = TextEditingController();
   TextEditingController testLimit = TextEditingController();
