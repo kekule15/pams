@@ -200,8 +200,8 @@ class _RunNESREATestScreenState extends State<RunNESREATestScreen> {
         });
         Constants().notify('Oops... Something went wrong, Try again later');
       });
-      print(result);
-      if (result != null) {
+      print('done $result');
+      if (result!['status'] == true) {
         Constants().notify(result['returnObject']);
         await getNESREAtemplates();
         if (nesreatemplates != null) {
@@ -210,7 +210,6 @@ class _RunNESREATestScreenState extends State<RunNESREATestScreen> {
           });
           Navigator.of(context).pop(nesreatemplates);
         }
-
       } else {
         setState(() {
           update = false;

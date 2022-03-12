@@ -5,8 +5,12 @@ import 'package:pams/screens/clients/dpr/run_test.dart';
 import 'package:pams/screens/clients/dpr/submit_dpr.dart';
 import 'package:pams/screens/clients/fmenv/fmenv_implementation.dart';
 import 'package:pams/screens/clients/fmenv/run_test.dart';
+import 'package:pams/screens/clients/fmenv/submit_fmenv.dart';
+import 'package:pams/screens/clients/fmenv/submitfmenv_data_model.dart';
 import 'package:pams/utils/constants.dart';
 import 'package:pams/utils/custom_colors.dart';
+
+import '../dpr/submit_data_model.dart';
 
 class FMENVScreen extends StatefulWidget {
   final int? locationId;
@@ -25,7 +29,8 @@ class _FMENVScreenState extends State<FMENVScreen> {
     getFMENVtemplates();
     _determinePosition();
   }
-Future<Position> _determinePosition() async {
+
+  Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -56,12 +61,14 @@ Future<Position> _determinePosition() async {
       latitude = position.latitude;
       longitude = position.longitude;
     });
+   
   }
 
   var latitude;
   var longitude;
   Future getFMENVtemplates() async {
-    final result = await FMENVImplementation().getFMENVTemplates(widget.locationId);
+    final result =
+        await FMENVImplementation().getFMENVTemplates(widget.locationId);
     if (result != null) {
       setState(() {
         fmenvtemplates = result;
@@ -115,12 +122,14 @@ Future<Position> _determinePosition() async {
                           fmenvtemplates!['returnObject']['pmTest'],
                           'PM Test',
                           fmenvtemplates!['returnObject']['pmTest']['testName'],
-                          fmenvtemplates!['returnObject']['pmTest']['testLimit']),
+                          fmenvtemplates!['returnObject']['pmTest']
+                              ['testLimit']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['hmTest'],
                           'HM Test',
                           fmenvtemplates!['returnObject']['hmTest']['testName'],
-                          fmenvtemplates!['returnObject']['hmTest']['testLimit']),
+                          fmenvtemplates!['returnObject']['hmTest']
+                              ['testLimit']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['noiseTest'],
                           'Noise Test',
@@ -131,66 +140,76 @@ Future<Position> _determinePosition() async {
                       listTemplateView(
                           fmenvtemplates!['returnObject']['nO2Test'],
                           'NO2 Test',
-                          fmenvtemplates!['returnObject']['nO2Test']['testName'],
+                          fmenvtemplates!['returnObject']['nO2Test']
+                              ['testName'],
                           fmenvtemplates!['returnObject']['nO2Test']
                               ['testLimit']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['sO2Test'],
                           'SO2 Test',
-                          fmenvtemplates!['returnObject']['sO2Test']['testName'],
+                          fmenvtemplates!['returnObject']['sO2Test']
+                              ['testName'],
                           fmenvtemplates!['returnObject']['sO2Test']
                               ['testLimit']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['h2STest'],
                           'H2S Test',
-                          fmenvtemplates!['returnObject']['h2STest']['testName'],
+                          fmenvtemplates!['returnObject']['h2STest']
+                              ['testName'],
                           fmenvtemplates!['returnObject']['h2STest']
                               ['testLimit']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['combTest'],
                           'Comb Test',
-                          fmenvtemplates!['returnObject']['combTest']['testName'],
+                          fmenvtemplates!['returnObject']['combTest']
+                              ['testName'],
                           fmenvtemplates!['returnObject']['combTest']
                               ['testLimit']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['cO2Test'],
                           'CO2 Test',
-                          fmenvtemplates!['returnObject']['cO2Test']['testName'],
+                          fmenvtemplates!['returnObject']['cO2Test']
+                              ['testName'],
                           fmenvtemplates!['returnObject']['cO2Test']
                               ['testLimit']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['vocTest'],
                           'VOC Test',
-                          fmenvtemplates!['returnObject']['vocTest']['testName'],
+                          fmenvtemplates!['returnObject']['vocTest']
+                              ['testName'],
                           fmenvtemplates!['returnObject']['vocTest']
                               ['testLimit']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['o2Test'],
                           'O2 Test',
                           fmenvtemplates!['returnObject']['o2Test']['testName'],
-                          fmenvtemplates!['returnObject']['o2Test']['testLimit']),
+                          fmenvtemplates!['returnObject']['o2Test']
+                              ['testLimit']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['coTest'],
                           'CO Test',
                           fmenvtemplates!['returnObject']['coTest']['testName'],
-                          fmenvtemplates!['returnObject']['coTest']['testLimit']),
+                          fmenvtemplates!['returnObject']['coTest']
+                              ['testLimit']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['tempTest'],
                           'TEMP Test',
-                          fmenvtemplates!['returnObject']['tempTest']['testName'],
+                          fmenvtemplates!['returnObject']['tempTest']
+                              ['testName'],
                           fmenvtemplates!['returnObject']['tempTest']
                               ['testLimit']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['pM5Test'],
                           'PM5 Test',
-                          fmenvtemplates!['returnObject']['pM5Test']['testName'],
+                          fmenvtemplates!['returnObject']['pM5Test']
+                              ['testName'],
                           fmenvtemplates!['returnObject']['pM5Test']
                               ['testLimit']),
                       SizedBox(
                         height: 20,
                       ),
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
                           if (fmenvtemplates!['returnObject']['pmTest']['testLimit'] == null ||
                               fmenvtemplates!['returnObject']['hmTest']
                                       ['testLimit'] ==
@@ -229,13 +248,77 @@ Future<Position> _determinePosition() async {
                             Constants()
                                 .notify('Please complete all test to proceed');
                           } else {
-                            Navigator.push(
+                            SubmitFMENVData model = SubmitFMENVData(
+                              samplePtId: fmenvtemplates!['returnObject']
+                                  ['samplePointLocationId'],
+                              fmenvFieldId: fmenvtemplates!['returnObject']
+                                  ['id'],
+                              latitude: latitude,
+                              longitude: longitude,
+                              pmTestLimit: fmenvtemplates!['returnObject']
+                                  ['pmTest']['testLimit'],
+                              pmTestResult: fmenvtemplates!['returnObject']
+                                  ['pmTest']['testResult'],
+                              hmTestLimit: fmenvtemplates!['returnObject']
+                                  ['hmTest']['testLimit'],
+                              hmTestResult: fmenvtemplates!['returnObject']
+                                  ['hmTest']['testResult'],
+                              noiseTestLimit: fmenvtemplates!['returnObject']
+                                  ['noiseTest']['testLimit'],
+                              noiseTestResult: fmenvtemplates!['returnObject']
+                                  ['noiseTest']['testResult'],
+                              no2TestLimit: fmenvtemplates!['returnObject']
+                                  ['nO2Test']['testLimit'],
+                              no2TestResult: fmenvtemplates!['returnObject']
+                                  ['nO2Test']['testResult'],
+                              so2TestLimit: fmenvtemplates!['returnObject']
+                                  ['sO2Test']['testLimit'],
+                              so2TestResult: fmenvtemplates!['returnObject']
+                                  ['sO2Test']['testResult'],
+                              h2STestLimit: fmenvtemplates!['returnObject']
+                                  ['h2STest']['testLimit'],
+                              h2STestResult: fmenvtemplates!['returnObject']
+                                  ['h2STest']['testResult'],
+                              combTestLimit: fmenvtemplates!['returnObject']
+                                  ['combTest']['testLimit'],
+                              combTestResult: fmenvtemplates!['returnObject']
+                                  ['combTest']['testResult'],
+                              co2TestLimit: fmenvtemplates!['returnObject']
+                                  ['cO2Test']['testLimit'],
+                              co2TestResult: fmenvtemplates!['returnObject']
+                                  ['cO2Test']['testResult'],
+                              vocTestLimit: fmenvtemplates!['returnObject']
+                                  ['vocTest']['testLimit'],
+                              vocTestResult: fmenvtemplates!['returnObject']
+                                  ['vocTest']['testResult'],
+                              o2TestLimit: fmenvtemplates!['returnObject']
+                                  ['o2Test']['testLimit'],
+                              o2TestResult: fmenvtemplates!['returnObject']
+                                  ['o2Test']['testResult'],
+                              coTestLimit: fmenvtemplates!['returnObject']
+                                  ['coTest']['testLimit'],
+                              coTestResult: fmenvtemplates!['returnObject']
+                                  ['coTest']['testResult'],
+                              tempTestLimit: fmenvtemplates!['returnObject']
+                                  ['tempTest']['testLimit'],
+                              tempTestResult: fmenvtemplates!['returnObject']
+                                  ['tempTest']['testResult'],
+                              pm5TestLimit: fmenvtemplates!['returnObject']
+                                  ['tempTest']['testLimit'],
+                              pm5TestResult: fmenvtemplates!['returnObject']
+                                  ['tempTest']['testResult'],
+                              picture: '',
+                            );
+                            var result = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SubmitDPRPage(
-                                      longitude: longitude,
-                                      latitude: latitude,
-                                    )));
+                                    builder: (context) => SubmitFMENVPage(
+                                      locationId: widget.locationId,
+                                          model: model,
+                                        )));
+                            if (result != null) {
+                              getFMENVtemplates();
+                            }
                           }
                         },
                         child: Container(

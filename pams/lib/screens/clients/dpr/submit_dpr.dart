@@ -1,9 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pams/screens/clients/dpr/dpr_implementation.dart';
+import 'package:pams/screens/clients/dpr/submit_data_model.dart';
+import 'package:pams/screens/homepage.dart';
+import 'package:pams/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/custom_colors.dart';
@@ -11,10 +16,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http_parser/http_parser.dart';
 
 class SubmitDPRPage extends StatefulWidget {
-  final double? longitude;
-  final double? latitude;
+  final SubmitData? model;
+  final int? locationId;
 
-  const SubmitDPRPage({Key? key, this.longitude, this.latitude})
+  const SubmitDPRPage({Key? key, this.model, this.locationId})
       : super(key: key);
 
   @override
@@ -125,13 +130,20 @@ class _SubmitDPRPageState extends State<SubmitDPRPage> {
         elevation: 0,
         color: Colors.white,
         child: InkWell(
-          onTap: () async {},
+          onTap: _image == null
+              ? () async {
+                  Constants().notify('Upload Image to proceed');
+                }
+              : () async {
+                  await submitTest();
+                },
           child: Container(
             margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
             height: 60,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                color: CustomColors.mainDarkGreen,
+                color:
+                    _image == null ? Colors.grey : CustomColors.mainDarkGreen,
                 borderRadius: BorderRadius.circular(10)),
             child: Center(
               child: submit
@@ -155,48 +167,89 @@ class _SubmitDPRPageState extends State<SubmitDPRPage> {
   }
 
   bool submit = false;
-  // addCashier() async {
-  //   setState(() {
-  //     submit = true;
-  //   });
+  Future submitTest() async {
+    setState(() {
+      submit = true;
+    });
+    String fileName = _image!.path.split('/').last;
+    print(fileName);
 
-  //   String fileName = _image!.path.split('/').last;
-  //   print(fileName);
+    SubmitData model = SubmitData(
+      samplePtId: widget.model!.samplePtId!,
+      dprFieldId: widget.model!.dprFieldId,
+      latitude: widget.model!.latitude,
+      longitude: widget.model!.longitude,
+      pmTestLimit: widget.model!.pmTestLimit,
+      pmTestResult: widget.model!.pmTestResult,
+      hmTestLimit: widget.model!.hmTestLimit,
+      hmTestResult: widget.model!.hmTestResult,
+      noiseTestLimit: widget.model!.noiseTestLimit,
+      noiseTestResult: widget.model!.noiseTestResult,
+      no2TestLimit: widget.model!.no2TestLimit,
+      no2TestResult: widget.model!.no2TestResult,
+      so2TestLimit: widget.model!.so2TestLimit,
+      so2TestResult: widget.model!.so2TestResult,
+      h2STestLimit: widget.model!.h2STestLimit,
+      h2STestResult: widget.model!.h2STestResult,
+      combTestLimit: widget.model!.combTestLimit,
+      combTestResult: widget.model!.combTestResult,
+      co2TestLimit: widget.model!.co2TestLimit,
+      co2TestResult: widget.model!.co2TestResult,
+      vocTestLimit: widget.model!.vocTestLimit,
+      vocTestResult: widget.model!.vocTestResult,
+      o2TestLimit: widget.model!.o2TestLimit,
+      o2TestResult: widget.model!.o2TestResult,
+      coTestLimit: widget.model!.coTestLimit,
+      coTestResult: widget.model!.coTestResult,
+      tempTestLimit: widget.model!.tempTestLimit,
+      tempTestResult: widget.model!.tempTestResult,
+      pm5TestLimit: widget.model!.pm5TestLimit,
+      pm5TestResult: widget.model!.pm5TestResult,
+      picture: await MultipartFile.fromFile(_image!.path,
+          filename: fileName, contentType: MediaType('image', 'jpg')),
+    );
 
-  //   var body = FormData.fromMap({
-  //     "picture": await MultipartFile.fromFile(_image!.path,
-  //         filename: fileName, contentType: MediaType('image', 'jpg')),
-  //   });
+    var dio = Dio();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('apiToken');
+    var postbody = FormData.fromMap(model.toJson());
 
-  //   var dio = Dio();
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   var token = prefs.getString('apiToken');
+    var url = Constants.base_url +
+        "/FieldScientistAnalysisDPR/submit-dpr-test-Testresult";
+    final response = await dio.post(url,
+        data: postbody,
+        options: Options(headers: {
+          'content-type': 'multipart/form-data',
+          'accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        }));
+    // print(postbody);
+    // print(response.data);
+    if (response.data['status'] == true) {
+      getDPRtemplates();
+      Constants().notify(response.data['returnObject']);
+      if (dprtemplates != null) {
+        setState(() {
+          submit = false;
+        });
+        Navigator.of(context).pop(dprtemplates);
+      }
+    } else {
+      setState(() {
+        submit = false;
+      });
+      Constants().notify(response.data['returnObject']);
+    }
+    return (response.data);
+  }
 
-  //   Map<String, String> requestHeaders = {
-  //     'content-type': 'application/json',
-  //     'accept': 'application/json',
-  //     'Content-Type:': ' multipart/form-data',
-  //     'Picture=@oak_holding.jpeg;type=image/jpeg'
-  //         'Authorization': 'Bearer $token'
-  //   };
-  //   var url = Constants.base_url + 
-  //       "/FieldScientistAnalysisDPR/submit-dpr-test-Testresult?samplePtId=$samplePtId&DPRFieldId=$DPRFieldId&Latitude=$Latitude&Longitude=$Longitude&PmTestLimit=$PmTestLimit&PmTestResult=$PmTestResult&HmTestLimit=$HmTestLimit&HmTestResult=$HmTestResult&NoiseTestLimit=$NoiseTestLimit&NoiseTestResult=$NoiseTestResult&NO2TestLimit=$NO2TestLimit&No2TestResult=$No2TestResult&SO2TestLimit=$SO2TestLimit&So2TestResult=$So2TestResult&H2STestLimit=$H2STestLimit&H2STestResult=$H2STestResult&CombTestLimit=$CombTestLimit&CombTestResult=$CombTestResult&CO2TestLimit=$CO2TestLimit&Co2TestResult=$Co2TestResult&VocTestLimit=$VocTestLimit&VocTestResult=$VocTestResult&O2TestLimit=$O2TestLimit&O2TestResult=$O2TestResult&CoTestLimit=$CoTestLimit&CoTestResult=$CoTestResult&TempTestLimit=$TempTestLimit&TempTestResult=$TempTestResult&Pm5TestLimit=$Pm5TestLimit&Pm5TestResult=$Pm5TestResult";
-  //   var response = await dio
-  //       .post('https://www.landmarkafrica.com/ldc/public/api/cashier/new',
-  //           data: body,
-  //           options: Options(headers: {
-  //             //'Content-Type': 'multipart/form-data',
-  //             'Accept': 'application/json',
-  //             'Authorization': 'Bearer $token',
-  //           }))
-  //       .then((value) async {
-  //     setState(() {
-  //       submit = false;
-  //     });
-  //     await Future.delayed(Duration(seconds: 1));
-  //   });
-  // }
-
-
-
+  Map<String, dynamic>? dprtemplates;
+  Future getDPRtemplates() async {
+    final result = await DPRImplementation().getDPRTemplates(widget.locationId);
+    if (result != null) {
+      setState(() {
+        dprtemplates = result;
+      });
+    }
+  }
 }

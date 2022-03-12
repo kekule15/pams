@@ -7,6 +7,7 @@ import 'package:pams/screens/clients/fmenv/fmenv_implementation.dart';
 import 'package:pams/screens/clients/fmenv/run_test.dart';
 import 'package:pams/screens/clients/nesrea/run_test.dart';
 import 'package:pams/screens/clients/nesrea/submit_nesrea.dart';
+import 'package:pams/screens/clients/nesrea/submit_nesrea_data_model.dart';
 import 'package:pams/utils/constants.dart';
 import 'package:pams/utils/custom_colors.dart';
 
@@ -120,13 +121,15 @@ class _NESREAScreenState extends State<NESREAScreen> {
                       listTemplateView(
                           nesreatemplates!['returnObject']['pmTest'],
                           'PM Test',
-                          nesreatemplates!['returnObject']['pmTest']['testName'],
+                          nesreatemplates!['returnObject']['pmTest']
+                              ['testName'],
                           nesreatemplates!['returnObject']['pmTest']
                               ['testLimit']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['hmTest'],
                           'HM Test',
-                          nesreatemplates!['returnObject']['hmTest']['testName'],
+                          nesreatemplates!['returnObject']['hmTest']
+                              ['testName'],
                           nesreatemplates!['returnObject']['hmTest']
                               ['testLimit']),
                       listTemplateView(
@@ -181,13 +184,15 @@ class _NESREAScreenState extends State<NESREAScreen> {
                       listTemplateView(
                           nesreatemplates!['returnObject']['o2Test'],
                           'O2 Test',
-                          nesreatemplates!['returnObject']['o2Test']['testName'],
+                          nesreatemplates!['returnObject']['o2Test']
+                              ['testName'],
                           nesreatemplates!['returnObject']['o2Test']
                               ['testLimit']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['coTest'],
                           'CO Test',
-                          nesreatemplates!['returnObject']['coTest']['testName'],
+                          nesreatemplates!['returnObject']['coTest']
+                              ['testName'],
                           nesreatemplates!['returnObject']['coTest']
                               ['testLimit']),
                       listTemplateView(
@@ -208,7 +213,7 @@ class _NESREAScreenState extends State<NESREAScreen> {
                         height: 20,
                       ),
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
                           if (nesreatemplates!['returnObject']['pmTest']['testLimit'] == null ||
                               nesreatemplates!['returnObject']['hmTest']
                                       ['testLimit'] ==
@@ -247,13 +252,76 @@ class _NESREAScreenState extends State<NESREAScreen> {
                             Constants()
                                 .notify('Please complete all test to proceed');
                           } else {
-                            Navigator.push(
+                            SubmitNESREAData model = SubmitNESREAData(
+                              samplePtId: nesreatemplates!['returnObject']
+                                  ['samplePointLocationId'],
+                              nesreaId: nesreatemplates!['returnObject']['id'],
+                              latitude: latitude,
+                              longitude: longitude,
+                              pmTestLimit: nesreatemplates!['returnObject']
+                                  ['pmTest']['testLimit'],
+                              pmTestResult: nesreatemplates!['returnObject']
+                                  ['pmTest']['testResult'],
+                              hmTestLimit: nesreatemplates!['returnObject']
+                                  ['hmTest']['testLimit'],
+                              hmTestResult: nesreatemplates!['returnObject']
+                                  ['hmTest']['testResult'],
+                              noiseTestLimit: nesreatemplates!['returnObject']
+                                  ['noiseTest']['testLimit'],
+                              noiseTestResult: nesreatemplates!['returnObject']
+                                  ['noiseTest']['testResult'],
+                              no2TestLimit: nesreatemplates!['returnObject']
+                                  ['nO2Test']['testLimit'],
+                              no2TestResult: nesreatemplates!['returnObject']
+                                  ['nO2Test']['testResult'],
+                              so2TestLimit: nesreatemplates!['returnObject']
+                                  ['sO2Test']['testLimit'],
+                              so2TestResult: nesreatemplates!['returnObject']
+                                  ['sO2Test']['testResult'],
+                              h2STestLimit: nesreatemplates!['returnObject']
+                                  ['h2STest']['testLimit'],
+                              h2STestResult: nesreatemplates!['returnObject']
+                                  ['h2STest']['testResult'],
+                              combTestLimit: nesreatemplates!['returnObject']
+                                  ['combTest']['testLimit'],
+                              combTestResult: nesreatemplates!['returnObject']
+                                  ['combTest']['testResult'],
+                              co2TestLimit: nesreatemplates!['returnObject']
+                                  ['cO2Test']['testLimit'],
+                              co2TestResult: nesreatemplates!['returnObject']
+                                  ['cO2Test']['testResult'],
+                              vocTestLimit: nesreatemplates!['returnObject']
+                                  ['vocTest']['testLimit'],
+                              vocTestResult: nesreatemplates!['returnObject']
+                                  ['vocTest']['testResult'],
+                              o2TestLimit: nesreatemplates!['returnObject']
+                                  ['o2Test']['testLimit'],
+                              o2TestResult: nesreatemplates!['returnObject']
+                                  ['o2Test']['testResult'],
+                              coTestLimit: nesreatemplates!['returnObject']
+                                  ['coTest']['testLimit'],
+                              coTestResult: nesreatemplates!['returnObject']
+                                  ['coTest']['testResult'],
+                              tempTestLimit: nesreatemplates!['returnObject']
+                                  ['tempTest']['testLimit'],
+                              tempTestResult: nesreatemplates!['returnObject']
+                                  ['tempTest']['testResult'],
+                              pm5TestLimit: nesreatemplates!['returnObject']
+                                  ['tempTest']['testLimit'],
+                              pm5TestResult: nesreatemplates!['returnObject']
+                                  ['tempTest']['testResult'],
+                              picture: '',
+                            );
+                            var result = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => SubmitNESREAPage(
-                                          longitude: longitude,
-                                          latitude: latitude,
+                                          locationId: widget.locationId,
+                                          model: model,
                                         )));
+                            if (result != null) {
+                              getNESREAtemplates();
+                            }
                           }
                         },
                         child: Container(

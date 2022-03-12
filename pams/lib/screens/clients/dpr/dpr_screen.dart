@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pams/screens/clients/dpr/dpr_implementation.dart';
 import 'package:pams/screens/clients/dpr/run_test.dart';
+import 'package:pams/screens/clients/dpr/submit_data_model.dart';
 import 'package:pams/screens/clients/dpr/submit_dpr.dart';
 import 'package:pams/utils/constants.dart';
 import 'package:pams/utils/custom_colors.dart';
@@ -23,7 +24,8 @@ class _DPRScreenState extends State<DPRScreen> {
     getDPRtemplates();
     _determinePosition();
   }
-Future<Position> _determinePosition() async {
+
+  Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -188,7 +190,7 @@ Future<Position> _determinePosition() async {
                         height: 20,
                       ),
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
                           if (dprtemplates!['returnObject']['pmTest']['testLimit'] == null ||
                               dprtemplates!['returnObject']['hmTest']
                                       ['testLimit'] ==
@@ -227,13 +229,77 @@ Future<Position> _determinePosition() async {
                             Constants()
                                 .notify('Please complete all test to proceed');
                           } else {
-                            Navigator.push(
+                            SubmitData model = SubmitData(
+                              samplePtId: dprtemplates!['returnObject']
+                                  ['samplePointLocationId'],
+                              dprFieldId: dprtemplates!['returnObject']['id'],
+                              latitude: latitude,
+                              longitude: longitude,
+                              pmTestLimit: dprtemplates!['returnObject']
+                                  ['pmTest']['testLimit'],
+                              pmTestResult: dprtemplates!['returnObject']
+                                  ['pmTest']['testResult'],
+                              hmTestLimit: dprtemplates!['returnObject']
+                                  ['hmTest']['testLimit'],
+                              hmTestResult: dprtemplates!['returnObject']
+                                  ['hmTest']['testResult'],
+                              noiseTestLimit: dprtemplates!['returnObject']
+                                  ['noiseTest']['testLimit'],
+                              noiseTestResult: dprtemplates!['returnObject']
+                                  ['noiseTest']['testResult'],
+                              no2TestLimit: dprtemplates!['returnObject']
+                                  ['nO2Test']['testLimit'],
+                              no2TestResult: dprtemplates!['returnObject']
+                                  ['nO2Test']['testResult'],
+                              so2TestLimit: dprtemplates!['returnObject']
+                                  ['sO2Test']['testLimit'],
+                              so2TestResult: dprtemplates!['returnObject']
+                                  ['sO2Test']['testResult'],
+                              h2STestLimit: dprtemplates!['returnObject']
+                                  ['h2STest']['testLimit'],
+                              h2STestResult: dprtemplates!['returnObject']
+                                  ['h2STest']['testResult'],
+                              combTestLimit: dprtemplates!['returnObject']
+                                  ['combTest']['testLimit'],
+                              combTestResult: dprtemplates!['returnObject']
+                                  ['combTest']['testResult'],
+                              co2TestLimit: dprtemplates!['returnObject']
+                                  ['cO2Test']['testLimit'],
+                              co2TestResult: dprtemplates!['returnObject']
+                                  ['cO2Test']['testResult'],
+                              vocTestLimit: dprtemplates!['returnObject']
+                                  ['vocTest']['testLimit'],
+                              vocTestResult: dprtemplates!['returnObject']
+                                  ['vocTest']['testResult'],
+                              o2TestLimit: dprtemplates!['returnObject']
+                                  ['o2Test']['testLimit'],
+                              o2TestResult: dprtemplates!['returnObject']
+                                  ['o2Test']['testResult'],
+                              coTestLimit: dprtemplates!['returnObject']
+                                  ['coTest']['testLimit'],
+                              coTestResult: dprtemplates!['returnObject']
+                                  ['coTest']['testResult'],
+                              tempTestLimit: dprtemplates!['returnObject']
+                                  ['tempTest']['testLimit'],
+                              tempTestResult: dprtemplates!['returnObject']
+                                  ['tempTest']['testResult'],
+                              pm5TestLimit: dprtemplates!['returnObject']
+                                  ['tempTest']['testLimit'],
+                              pm5TestResult: dprtemplates!['returnObject']
+                                  ['tempTest']['testResult'],
+                              picture: '',
+                            );
+                            var result = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => SubmitDPRPage(
-                                      longitude: longitude,
-                                      latitude: latitude,
-                                    )));
+                                      locationId: widget.locationId,
+                                          model: model,
+                                        )));
+
+                            if (result != null) {
+                              getDPRtemplates();
+                            }
                           }
                         },
                         child: Container(
