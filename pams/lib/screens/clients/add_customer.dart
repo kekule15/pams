@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pams/utils/custom_colors.dart';
+
+import '../../utils/constants.dart';
+import 'client_implementation.dart';
 
 class AddCustomerPage extends StatefulWidget {
   const AddCustomerPage({Key? key}) : super(key: key);
@@ -14,7 +18,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
   TextEditingController customersPhoneNumber = TextEditingController();
   TextEditingController customersEmail = TextEditingController();
   TextEditingController customersAddress = TextEditingController();
-  GlobalKey _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +75,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
               ),
               TextFormField(
                 controller: customersPhoneNumber,
+                keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty == true) {
                     return 'Field is required';
@@ -85,6 +90,10 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                 height: 30,
               ),
               TextFormField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                ],
+                keyboardType: TextInputType.emailAddress,
                 controller: customersEmail,
                 validator: (value) {
                   if (value!.isEmpty == true) {
@@ -118,21 +127,84 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         color: Colors.white,
-        child: Container(
-          margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
-          height: 60,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              color: CustomColors.mainDarkGreen,
-              borderRadius: BorderRadius.circular(10)),
-          child: Center(
-            child: Text(
-              'Add Customer',
-              style: TextStyle(color: CustomColors.background, fontSize: 18),
+        child: InkWell(
+          onTap: () async {
+            await createClient();
+          },
+          child: Container(
+            margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
+            height: 60,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color: CustomColors.mainDarkGreen,
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              child: loader
+                  ? SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    )
+                  : Text(
+                      'Add Customer',
+                      style: TextStyle(
+                          color: CustomColors.background, fontSize: 18),
+                    ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  bool loader = false;
+
+  Future createClient() async {
+    setState(() {
+      loader = true;
+    });
+    final form = _formKey.currentState;
+    if (!form!.validate()) {
+      setState(() {
+        loader = false;
+      });
+    } else {
+      form.save();
+      final result = await ClientImplementation().createClient(
+          customersName.text,
+          customersEmail.text,
+          customersAddress.text,
+          customerContactPerson.text,
+          customersPhoneNumber.text);
+      if (result != null) {
+        await getClients();
+        if (customers != null) {
+          setState(() {
+            loader = false;
+          });
+          Constants().notify(result['message']);
+          Navigator.of(context).pop(customers);
+        }
+      } else {
+        setState(() {
+          loader = false;
+        });
+        // Constants().notify(result!['message']);
+      }
+    }
+  }
+
+  Map<String, dynamic>? customers;
+
+  Future<Map<String, dynamic>?> getClients() async {
+    final result = await ClientImplementation().getAllClients();
+    if (result != null) {
+      setState(() {
+        customers = result;
+      });
+    }
+    return result;
   }
 }

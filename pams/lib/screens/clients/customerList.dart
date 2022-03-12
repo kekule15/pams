@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pams/screens/clients/client_implementation.dart';
-import 'package:pams/samples/select_sample_type.dart';
+import 'package:pams/screens/clients/select_sample_type.dart';
 import 'package:pams/screens/homepage.dart';
 import 'package:pams/utils/list_widget.dart';
 
@@ -47,9 +48,12 @@ class _CustomerListState extends State<CustomerList> {
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: InkWell(
-              onTap: () {
-                Navigator.of(context).push(
+              onTap: () async {
+                var result = await Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => AddCustomerPage()));
+                if (result != null) {
+                  await getClients();
+                }
               },
               child: Icon(
                 Icons.add,
@@ -72,6 +76,9 @@ class _CustomerListState extends State<CustomerList> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: TextFormField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                ],
               decoration: InputDecoration(
                   hintText: 'Search Customers',
                   prefixIcon: Icon(

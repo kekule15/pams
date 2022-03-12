@@ -60,7 +60,7 @@ class LocationImplementation {
     } catch (e) {}
   }
 
-  Future<DeleteLocationResponseModel?> deleteClientLocation(
+  Future<Map<String, dynamic>?> deleteClientLocation(
     int locationId,
   ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -81,7 +81,8 @@ class LocationImplementation {
         headers: requestHeaders,
       );
       // SHARED
-      return deleteLocationResponseModelFromJson(response.body);
+      print(response.body);
+      return jsonDecode(response.body);
     } catch (e) {}
   }
 

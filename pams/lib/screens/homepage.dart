@@ -7,6 +7,7 @@ import 'package:pams/screens/test.dart';
 import 'package:pams/utils/custom_colors.dart';
 import 'package:pams/utils/shared_pref_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -63,15 +64,14 @@ class _HomeViewState extends State<HomeView> {
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2.9,
+              height: MediaQuery.of(context).size.height / 3.0,
               decoration: BoxDecoration(
                   color: CustomColors.mainDarkGreen,
-                  // image: DecorationImage(
-                  //     fit: BoxFit.cover,
-                  //     image: AssetImage('assets/backgroundImage.PNG')),
+                  image: DecorationImage(
+                      fit: BoxFit.fill, image: AssetImage('assets/pams.png')),
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20))),
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30))),
               child: Container(
                 margin: EdgeInsets.fromLTRB(15, 20, 15, 0),
                 child: Column(
@@ -87,7 +87,7 @@ class _HomeViewState extends State<HomeView> {
                             icon: Icon(
                               Icons.menu,
                               size: 40,
-                              color: Colors.white,
+                              color: Colors.black,
                             )),
                         InkWell(
                           onTap: () {
@@ -102,7 +102,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                             //color: HexColor("#44F599")),
                             child: Icon(Icons.notification_important,
-                                color: Colors.white),
+                                color: Colors.black),
                           ),
                         )
                       ],
@@ -118,17 +118,19 @@ class _HomeViewState extends State<HomeView> {
                               Text('Hello',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       fontSize: 20)),
                               Text('$myName',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 17))
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17))
                             ],
                           ),
-                          SizedBox(width: 10),
+                          SizedBox(width: 10.w),
                           Container(
-                            height: 80,
-                            width: 60,
+                            height: 80.w,
+                            width: 60.w,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
@@ -148,7 +150,7 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 20.h,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -159,12 +161,12 @@ class _HomeViewState extends State<HomeView> {
                     'My Tasks',
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 19,
+                        fontSize: 19.sp,
                         fontWeight: FontWeight.w500),
                   ),
                   Container(
-                    height: 30,
-                    width: 30,
+                    height: 30.w,
+                    width: 30.w,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle, color: Colors.lightBlueAccent),
                     child: Icon(
@@ -177,13 +179,13 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 10.h,
             ),
-            myTaskWidget(
-                'Failed', Icons.close, '5 tasks failed', Colors.red.shade300),
-            SizedBox(
-              height: 20,
-            ),
+            // myTaskWidget(
+            //     'Failed', Icons.close, '5 tasks failed', Colors.red.shade300),
+            // SizedBox(
+            //   height: 20,
+            // ),
             myTaskWidget(
               'Pending',
               Icons.timelapse_outlined,
@@ -191,7 +193,7 @@ class _HomeViewState extends State<HomeView> {
               Colors.orange,
             ),
             SizedBox(
-              height: 20,
+              height: 20.h,
             ),
             myTaskWidget(
               'Delivered',
@@ -200,7 +202,7 @@ class _HomeViewState extends State<HomeView> {
               Colors.green,
             ),
             SizedBox(
-              height: 20,
+              height: 20.h,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -208,11 +210,11 @@ class _HomeViewState extends State<HomeView> {
                 'What do you want to do today?',
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w500),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 50.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -244,14 +246,14 @@ class _HomeViewState extends State<HomeView> {
                           children: [
                             SvgPicture.asset('assets/sampling.svg'),
                             SizedBox(
-                              height: 10,
+                              height: 10.h,
                             ),
                             Center(
                                 child: Text(
                               'Sampling',
                               style: TextStyle(
                                   color: CustomColors.background,
-                                  fontSize: 18,
+                                  fontSize: 18.sp,
                                   fontWeight: FontWeight.w500),
                             ))
                           ]),
@@ -283,13 +285,13 @@ class _HomeViewState extends State<HomeView> {
                           children: [
                             SvgPicture.asset('assets/report.svg'),
                             SizedBox(
-                              height: 10,
+                              height: 10.h,
                             ),
                             Center(
                                 child: Text('Report',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 18,
+                                        fontSize: 18.sp,
                                         fontWeight: FontWeight.w500)))
                           ]),
                     ),
@@ -310,8 +312,8 @@ class _HomeViewState extends State<HomeView> {
       child: Row(
         children: [
           Container(
-              height: 20,
-              width: 20,
+              height: 20.w,
+              width: 20.w,
               decoration:
                   BoxDecoration(color: iconBGColor, shape: BoxShape.circle),
               child: Icon(
@@ -320,14 +322,14 @@ class _HomeViewState extends State<HomeView> {
                 size: 17,
               )),
           SizedBox(
-            width: 10,
+            width: 10.w,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title,
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
                   )),

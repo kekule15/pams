@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pams/authentication/auth_implementation.dart';
@@ -56,6 +57,9 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 10),
                       child: TextFormField(
+                          inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                ],
                         controller: _emailTextController,
                         validator: (value) {
                           return Validators.isEmailStr(value.toString());
@@ -82,6 +86,9 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 10),
                       child: TextFormField(
+                          inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                ],
                         keyboardType: TextInputType.text,
                         validator: (value) {
                           if (value == null || value.isEmpty) {

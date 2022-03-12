@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pams/samples/select_sample_type.dart';
+import 'package:flutter/services.dart';
+import 'package:pams/screens/clients/select_sample_type.dart';
 import 'package:pams/screens/clients/customerList.dart';
 import 'package:pams/screens/clients/location/add_location.dart';
 import 'package:pams/screens/clients/location/edit_location.dart';
@@ -126,6 +127,9 @@ class _ClientLocationState extends State<ClientLocation> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                       child: TextFormField(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                        ],
                         decoration: InputDecoration(
                             hintText: 'Search Locations',
                             prefixIcon: Icon(
@@ -202,6 +206,8 @@ class _ClientLocationState extends State<ClientLocation> {
                                       ),
                                       InkWell(
                                         onTap: () async {
+                                          print(
+                                              'Locatio ID ${myLocations!.returnObject![index].sampleLocationId!}');
                                           deleteLocationDialog(myLocations!
                                               .returnObject![index]
                                               .sampleLocationId!);
@@ -278,18 +284,18 @@ class _ClientLocationState extends State<ClientLocation> {
                                   Constants().notify(
                                       'Oops...Something went wrong. Try again later');
                                 });
-                                if (result != null) {
+                                if (result!['Status'] == true) {
                                   await getLocation();
                                   setState(() {
                                     delete = false;
                                   });
-                                  Constants().notify(result.message!);
+                                  Constants().notify(result['message']);
                                   Navigator.pop(context);
                                 } else {
                                   setState(() {
                                     delete = false;
                                   });
-                                  Constants().notify(result!.message!);
+                                  Constants().notify(result['Message']);
                                 }
                               },
                               child: Text('Yes'),
