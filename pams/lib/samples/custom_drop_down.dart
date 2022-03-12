@@ -3,14 +3,12 @@ import 'package:pams/utils/custom_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDropDown extends StatefulWidget {
-  final String? title;
+  final Widget? title;
   final Widget? body;
+  final Function? downloadFile;
 
-  const CustomDropDown({
-    Key? key,
-    this.title,
-    this.body,
-  }) : super(key: key);
+  const CustomDropDown({Key? key, this.title, this.body, this.downloadFile})
+      : super(key: key);
 
   @override
   _CustomDropDownState createState() => _CustomDropDownState();
@@ -39,12 +37,25 @@ class _CustomDropDownState extends State<CustomDropDown> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.title!,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: CustomColors.mainblueColor.withOpacity(0.8)),
+                  Container(
+                    child: widget.title,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      widget.downloadFile!();
+                    },
+                    child: CircleAvatar(
+                        radius: 10.r,
+                        backgroundColor:
+                            CustomColors.mainblueColor.withOpacity(0.8),
+                        child: Icon(
+                          Icons.download,
+                          size: 17,
+                          color: Colors.white,
+                        )),
                   ),
                   _visibility == false
                       ? Icon(
@@ -73,6 +84,4 @@ class _CustomDropDownState extends State<CustomDropDown> {
       ),
     );
   }
-
-  
 }
