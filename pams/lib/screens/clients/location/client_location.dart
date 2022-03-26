@@ -163,61 +163,38 @@ class _ClientLocationState extends State<ClientLocation> {
                               title: myLocations!.returnObject![index].name,
                               subTitle:
                                   myLocations!.returnObject![index].description,
-                              trailing: SizedBox(
-                                width: 80,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () async {
-                                          var result = await Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      EditLocation(
-                                                        clientID:
-                                                            widget.clientId,
-                                                        name: myLocations!
-                                                            .returnObject![
-                                                                index]
-                                                            .name,
-                                                        description:
-                                                            myLocations!
-                                                                .returnObject![
-                                                                    index]
-                                                                .description,
-                                                        locatoionId: myLocations!
-                                                            .returnObject![
-                                                                index]
-                                                            .sampleLocationId,
-                                                      )));
-                                          if (result != null) {
-                                            getLocation();
-                                          }
-                                        },
-                                        child: Icon(
-                                          Icons.edit,
-                                          color: CustomColors.mainDarkGreen,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      InkWell(
-                                        onTap: () async {
-                                          print(
-                                              'Locatio ID ${myLocations!.returnObject![index].sampleLocationId!}');
-                                          deleteLocationDialog(myLocations!
-                                              .returnObject![index]
-                                              .sampleLocationId!);
-                                        },
-                                        child: Icon(
-                                          Icons.clear,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                    ],
+                              trailing: Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: InkWell(
+                                  onTap: () async {
+                                    var result = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditLocation(
+                                                  clientID:
+                                                      widget.clientId,
+                                                  name: myLocations!
+                                                      .returnObject![
+                                                          index]
+                                                      .name,
+                                                  description:
+                                                      myLocations!
+                                                          .returnObject![
+                                                              index]
+                                                          .description,
+                                                  locatoionId: myLocations!
+                                                      .returnObject![
+                                                          index]
+                                                      .sampleLocationId,
+                                                )));
+                                    if (result != null) {
+                                      getLocation();
+                                    }
+                                  },
+                                  child: Icon(
+                                    Icons.edit,
+                                    color: CustomColors.mainDarkGreen,
                                   ),
                                 ),
                               ),

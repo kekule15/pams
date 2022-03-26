@@ -226,7 +226,7 @@ class _SubmitDPRPageState extends State<SubmitDPRPage> {
     // print(postbody);
     // print(response.data);
     if (response.data['status'] == true) {
-      getDPRtemplates();
+      await getDPRtemplates();
       Constants().notify(response.data['returnObject']);
       if (dprtemplates != null) {
         setState(() {

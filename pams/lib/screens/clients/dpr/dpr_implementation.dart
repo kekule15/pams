@@ -27,6 +27,7 @@ class DPRImplementation {
         headers: requestHeaders,
       );
       // SHARED
+      print(response.body);
       return jsonDecode(response.body);
     } catch (e) {}
   }

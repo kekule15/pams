@@ -124,138 +124,138 @@ class _NESREAScreenState extends State<NESREAScreen> {
                           nesreatemplates!['returnObject']['pmTest']
                               ['testName'],
                           nesreatemplates!['returnObject']['pmTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['hmTest'],
                           'HM Test',
                           nesreatemplates!['returnObject']['hmTest']
                               ['testName'],
                           nesreatemplates!['returnObject']['hmTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['noiseTest'],
                           'Noise Test',
                           nesreatemplates!['returnObject']['noiseTest']
                               ['testName'],
                           nesreatemplates!['returnObject']['noiseTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['nO2Test'],
                           'NO2 Test',
                           nesreatemplates!['returnObject']['nO2Test']
                               ['testName'],
                           nesreatemplates!['returnObject']['nO2Test']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['sO2Test'],
                           'SO2 Test',
                           nesreatemplates!['returnObject']['sO2Test']
                               ['testName'],
                           nesreatemplates!['returnObject']['sO2Test']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['h2STest'],
                           'H2S Test',
                           nesreatemplates!['returnObject']['h2STest']
                               ['testName'],
                           nesreatemplates!['returnObject']['h2STest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['combTest'],
                           'Comb Test',
                           nesreatemplates!['returnObject']['combTest']
                               ['testName'],
                           nesreatemplates!['returnObject']['combTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['cO2Test'],
                           'CO2 Test',
                           nesreatemplates!['returnObject']['cO2Test']
                               ['testName'],
                           nesreatemplates!['returnObject']['cO2Test']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['vocTest'],
                           'VOC Test',
                           nesreatemplates!['returnObject']['vocTest']
                               ['testName'],
                           nesreatemplates!['returnObject']['vocTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['o2Test'],
                           'O2 Test',
                           nesreatemplates!['returnObject']['o2Test']
                               ['testName'],
                           nesreatemplates!['returnObject']['o2Test']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['coTest'],
                           'CO Test',
                           nesreatemplates!['returnObject']['coTest']
                               ['testName'],
                           nesreatemplates!['returnObject']['coTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['tempTest'],
                           'TEMP Test',
                           nesreatemplates!['returnObject']['tempTest']
                               ['testName'],
                           nesreatemplates!['returnObject']['tempTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           nesreatemplates!['returnObject']['pM5Test'],
                           'PM5 Test',
                           nesreatemplates!['returnObject']['pM5Test']
                               ['testName'],
                           nesreatemplates!['returnObject']['pM5Test']
-                              ['testLimit']),
+                              ['testResult']),
                       SizedBox(
                         height: 20,
                       ),
                       InkWell(
                         onTap: () async {
-                          if (nesreatemplates!['returnObject']['pmTest']['testLimit'] == null ||
+                          if (nesreatemplates!['returnObject']['pmTest']['testResult'] == null ||
                               nesreatemplates!['returnObject']['hmTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               nesreatemplates!['returnObject']['noiseTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               nesreatemplates!['returnObject']['nO2Test']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               nesreatemplates!['returnObject']['sO2Test']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               nesreatemplates!['returnObject']['h2STest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               nesreatemplates!['returnObject']['combTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               nesreatemplates!['returnObject']['cO2Test']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               nesreatemplates!['returnObject']['vocTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               nesreatemplates!['returnObject']['o2Test']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               nesreatemplates!['returnObject']['coTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               nesreatemplates!['returnObject']['tempTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
-                              nesreatemplates!['returnObject']['pM5Test']['testLimit'] == null) {
+                              nesreatemplates!['returnObject']['pM5Test']['testResult'] == null) {
                             Constants()
                                 .notify('Please complete all test to proceed');
                           } else {
                             SubmitNESREAData model = SubmitNESREAData(
                               samplePtId: nesreatemplates!['returnObject']
                                   ['samplePointLocationId'],
-                              nesreaId: nesreatemplates!['returnObject']['id'],
+                              nesreaFieldId: nesreatemplates!['returnObject']['id'],
                               latitude: latitude,
                               longitude: longitude,
                               pmTestLimit: nesreatemplates!['returnObject']
@@ -357,7 +357,7 @@ class _NESREAScreenState extends State<NESREAScreen> {
   }
 
   listTemplateView(
-      Map<String, dynamic> data, String title, String subtitle, String? limit) {
+      Map<String, dynamic> data, String title, String subtitle, String? result) {
     return Column(
       children: [
         Padding(
@@ -377,7 +377,7 @@ class _NESREAScreenState extends State<NESREAScreen> {
               },
               title: Text(title),
               subtitle: Text(subtitle),
-              trailing: limit == null
+              trailing: result == null
                   ? CircleAvatar(
                       radius: 10,
                       backgroundColor: Colors.grey,

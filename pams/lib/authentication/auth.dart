@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pams/authentication/login.dart';
 import 'package:pams/authentication/register.dart';
 import 'package:pams/utils/custom_colors.dart';
+
+import '../utils/permission_handlers.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -11,6 +12,16 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  @override
+  void initState() {
+    askPermision();
+    super.initState();
+  }
+
+  askPermision() async {
+    await PermissionService().permissionHandler();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

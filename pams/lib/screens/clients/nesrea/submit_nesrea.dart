@@ -180,7 +180,7 @@ class _SubmitNESREAPageState extends State<SubmitNESREAPage> {
 
     SubmitNESREAData model = SubmitNESREAData(
       samplePtId: widget.model!.samplePtId!,
-      nesreaId: widget.model!.nesreaId,
+      nesreaFieldId: widget.model!.nesreaFieldId,
       latitude: widget.model!.latitude,
       longitude: widget.model!.longitude,
       pmTestLimit: widget.model!.pmTestLimit,
@@ -227,8 +227,8 @@ class _SubmitNESREAPageState extends State<SubmitNESREAPage> {
           'accept': 'application/json',
           'Authorization': 'Bearer $token',
         }));
-    // print(postbody);
-    // print(response.data);
+    print(postbody);
+    print(url);
     if (response.data['status'] == true) {
       await getNESREAtemplates();
       Constants().notify(response.data['returnObject']);

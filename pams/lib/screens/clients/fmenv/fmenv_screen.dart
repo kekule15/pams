@@ -27,32 +27,10 @@ class _FMENVScreenState extends State<FMENVScreen> {
   void initState() {
     super.initState();
     getFMENVtemplates();
-    _determinePosition();
+    getLocation();
   }
 
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-    return await getLocation();
-  }
+  
 
   getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
@@ -123,128 +101,128 @@ class _FMENVScreenState extends State<FMENVScreen> {
                           'PM Test',
                           fmenvtemplates!['returnObject']['pmTest']['testName'],
                           fmenvtemplates!['returnObject']['pmTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['hmTest'],
                           'HM Test',
                           fmenvtemplates!['returnObject']['hmTest']['testName'],
                           fmenvtemplates!['returnObject']['hmTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['noiseTest'],
                           'Noise Test',
                           fmenvtemplates!['returnObject']['noiseTest']
                               ['testName'],
                           fmenvtemplates!['returnObject']['noiseTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['nO2Test'],
                           'NO2 Test',
                           fmenvtemplates!['returnObject']['nO2Test']
                               ['testName'],
                           fmenvtemplates!['returnObject']['nO2Test']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['sO2Test'],
                           'SO2 Test',
                           fmenvtemplates!['returnObject']['sO2Test']
                               ['testName'],
                           fmenvtemplates!['returnObject']['sO2Test']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['h2STest'],
                           'H2S Test',
                           fmenvtemplates!['returnObject']['h2STest']
                               ['testName'],
                           fmenvtemplates!['returnObject']['h2STest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['combTest'],
                           'Comb Test',
                           fmenvtemplates!['returnObject']['combTest']
                               ['testName'],
                           fmenvtemplates!['returnObject']['combTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['cO2Test'],
                           'CO2 Test',
                           fmenvtemplates!['returnObject']['cO2Test']
                               ['testName'],
                           fmenvtemplates!['returnObject']['cO2Test']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['vocTest'],
                           'VOC Test',
                           fmenvtemplates!['returnObject']['vocTest']
                               ['testName'],
                           fmenvtemplates!['returnObject']['vocTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['o2Test'],
                           'O2 Test',
                           fmenvtemplates!['returnObject']['o2Test']['testName'],
                           fmenvtemplates!['returnObject']['o2Test']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['coTest'],
                           'CO Test',
                           fmenvtemplates!['returnObject']['coTest']['testName'],
                           fmenvtemplates!['returnObject']['coTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['tempTest'],
                           'TEMP Test',
                           fmenvtemplates!['returnObject']['tempTest']
                               ['testName'],
                           fmenvtemplates!['returnObject']['tempTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           fmenvtemplates!['returnObject']['pM5Test'],
                           'PM5 Test',
                           fmenvtemplates!['returnObject']['pM5Test']
                               ['testName'],
                           fmenvtemplates!['returnObject']['pM5Test']
-                              ['testLimit']),
+                              ['testResult']),
                       SizedBox(
                         height: 20,
                       ),
                       InkWell(
                         onTap: () async {
-                          if (fmenvtemplates!['returnObject']['pmTest']['testLimit'] == null ||
+                          if (fmenvtemplates!['returnObject']['pmTest']['testResult'] == null ||
                               fmenvtemplates!['returnObject']['hmTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               fmenvtemplates!['returnObject']['noiseTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               fmenvtemplates!['returnObject']['nO2Test']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               fmenvtemplates!['returnObject']['sO2Test']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               fmenvtemplates!['returnObject']['h2STest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               fmenvtemplates!['returnObject']['combTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               fmenvtemplates!['returnObject']['cO2Test']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               fmenvtemplates!['returnObject']['vocTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               fmenvtemplates!['returnObject']['o2Test']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               fmenvtemplates!['returnObject']['coTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               fmenvtemplates!['returnObject']['tempTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
-                              fmenvtemplates!['returnObject']['pM5Test']['testLimit'] == null) {
+                              fmenvtemplates!['returnObject']['pM5Test']['testResult'] == null) {
                             Constants()
                                 .notify('Please complete all test to proceed');
                           } else {
@@ -354,7 +332,7 @@ class _FMENVScreenState extends State<FMENVScreen> {
   }
 
   listTemplateView(
-      Map<String, dynamic> data, String title, String subtitle, String? limit) {
+      Map<String, dynamic> data, String title, String subtitle, String? result) {
     return Column(
       children: [
         Padding(
@@ -374,7 +352,7 @@ class _FMENVScreenState extends State<FMENVScreen> {
               },
               title: Text(title),
               subtitle: Text(subtitle),
-              trailing: limit == null
+              trailing: result == null
                   ? CircleAvatar(
                       radius: 10,
                       backgroundColor: Colors.grey,

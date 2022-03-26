@@ -22,32 +22,10 @@ class _DPRScreenState extends State<DPRScreen> {
   void initState() {
     super.initState();
     getDPRtemplates();
-    _determinePosition();
+     getLocation();
   }
 
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-    return await getLocation();
-  }
 
   getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
@@ -115,117 +93,119 @@ class _DPRScreenState extends State<DPRScreen> {
                           dprtemplates!['returnObject']['pmTest'],
                           'PM Test',
                           dprtemplates!['returnObject']['pmTest']['testName'],
-                          dprtemplates!['returnObject']['pmTest']['testLimit']),
+                          dprtemplates!['returnObject']['pmTest']
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['hmTest'],
                           'HM Test',
                           dprtemplates!['returnObject']['hmTest']['testName'],
-                          dprtemplates!['returnObject']['hmTest']['testLimit']),
+                          dprtemplates!['returnObject']['hmTest']
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['noiseTest'],
                           'Noise Test',
                           dprtemplates!['returnObject']['noiseTest']
                               ['testName'],
                           dprtemplates!['returnObject']['noiseTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['nO2Test'],
                           'NO2 Test',
                           dprtemplates!['returnObject']['nO2Test']['testName'],
                           dprtemplates!['returnObject']['nO2Test']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['sO2Test'],
                           'SO2 Test',
                           dprtemplates!['returnObject']['sO2Test']['testName'],
                           dprtemplates!['returnObject']['sO2Test']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['h2STest'],
                           'H2S Test',
                           dprtemplates!['returnObject']['h2STest']['testName'],
                           dprtemplates!['returnObject']['h2STest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['combTest'],
                           'Comb Test',
                           dprtemplates!['returnObject']['combTest']['testName'],
                           dprtemplates!['returnObject']['combTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['cO2Test'],
                           'CO2 Test',
                           dprtemplates!['returnObject']['cO2Test']['testName'],
                           dprtemplates!['returnObject']['cO2Test']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['vocTest'],
                           'VOC Test',
                           dprtemplates!['returnObject']['vocTest']['testName'],
                           dprtemplates!['returnObject']['vocTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['o2Test'],
                           'O2 Test',
                           dprtemplates!['returnObject']['o2Test']['testName'],
-                          dprtemplates!['returnObject']['o2Test']['testLimit']),
+                          dprtemplates!['returnObject']['o2Test']
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['coTest'],
                           'CO Test',
                           dprtemplates!['returnObject']['coTest']['testName'],
-                          dprtemplates!['returnObject']['coTest']['testLimit']),
+                          dprtemplates!['returnObject']['coTest']
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['tempTest'],
                           'TEMP Test',
                           dprtemplates!['returnObject']['tempTest']['testName'],
                           dprtemplates!['returnObject']['tempTest']
-                              ['testLimit']),
+                              ['testResult']),
                       listTemplateView(
                           dprtemplates!['returnObject']['pM5Test'],
                           'PM5 Test',
                           dprtemplates!['returnObject']['pM5Test']['testName'],
                           dprtemplates!['returnObject']['pM5Test']
-                              ['testLimit']),
+                              ['testResult']),
                       SizedBox(
                         height: 20,
                       ),
                       InkWell(
                         onTap: () async {
-                          if (dprtemplates!['returnObject']['pmTest']['testLimit'] == null ||
-                              dprtemplates!['returnObject']['hmTest']
-                                      ['testLimit'] ==
+                          if (dprtemplates!['returnObject']['pmTest']['testResult'] == null ||
+                              dprtemplates!['returnObject']['hmTest']['testResult'] ==
                                   null ||
                               dprtemplates!['returnObject']['noiseTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               dprtemplates!['returnObject']['nO2Test']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               dprtemplates!['returnObject']['sO2Test']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               dprtemplates!['returnObject']['h2STest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               dprtemplates!['returnObject']['combTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               dprtemplates!['returnObject']['cO2Test']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               dprtemplates!['returnObject']['vocTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
-                              dprtemplates!['returnObject']['o2Test']
-                                      ['testLimit'] ==
+                              dprtemplates!['returnObject']['o2Test']['testResult'] ==
                                   null ||
                               dprtemplates!['returnObject']['coTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
                               dprtemplates!['returnObject']['tempTest']
-                                      ['testLimit'] ==
+                                      ['testResult'] ==
                                   null ||
-                              dprtemplates!['returnObject']['pM5Test']['testLimit'] == null) {
+                              dprtemplates!['returnObject']['pM5Test']['testResult'] == null) {
                             Constants()
                                 .notify('Please complete all test to proceed');
                           } else {
@@ -293,7 +273,7 @@ class _DPRScreenState extends State<DPRScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => SubmitDPRPage(
-                                      locationId: widget.locationId,
+                                          locationId: widget.locationId,
                                           model: model,
                                         )));
 
@@ -334,8 +314,8 @@ class _DPRScreenState extends State<DPRScreen> {
                   ));
   }
 
-  listTemplateView(
-      Map<String, dynamic> data, String title, String subtitle, String? limit) {
+  listTemplateView(Map<String, dynamic> data, String title, String subtitle,
+      String? result) {
     return Column(
       children: [
         Padding(
@@ -355,7 +335,7 @@ class _DPRScreenState extends State<DPRScreen> {
               },
               title: Text(title),
               subtitle: Text(subtitle),
-              trailing: limit == null
+              trailing: result == null
                   ? CircleAvatar(
                       radius: 10,
                       backgroundColor: Colors.grey,

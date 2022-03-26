@@ -7,12 +7,13 @@ import 'dart:convert';
 SubmitNESREAData submitNESREADataFromJson(String str) =>
     SubmitNESREAData.fromJson(json.decode(str));
 
-String? submitNESREADataToJson(SubmitNESREAData data) => json.encode(data.toJson());
+String? submitNESREADataToJson(SubmitNESREAData data) =>
+    json.encode(data.toJson());
 
 class SubmitNESREAData {
   SubmitNESREAData({
     this.samplePtId,
-    this.nesreaId,
+    this.nesreaFieldId,
     this.latitude,
     this.longitude,
     this.pmTestLimit,
@@ -45,40 +46,41 @@ class SubmitNESREAData {
   });
 
   final int? samplePtId;
-  final int? nesreaId;
+  final int? nesreaFieldId;
   final dynamic latitude;
   final dynamic longitude;
   final String? pmTestLimit;
-  final double? pmTestResult;
+  final String? pmTestResult;
   final String? hmTestLimit;
-  final double? hmTestResult;
+  final String? hmTestResult;
   final String? noiseTestLimit;
-  final double? noiseTestResult;
+  final String? noiseTestResult;
   final String? no2TestLimit;
-  final double? no2TestResult;
+  final String? no2TestResult;
   final String? so2TestLimit;
-  final double? so2TestResult;
+  final String? so2TestResult;
   final String? h2STestLimit;
-  final double? h2STestResult;
+  final String? h2STestResult;
   final String? combTestLimit;
-  final double? combTestResult;
+  final String? combTestResult;
   final String? co2TestLimit;
-  final double? co2TestResult;
+  final String? co2TestResult;
   final String? vocTestLimit;
-  final double? vocTestResult;
+  final String? vocTestResult;
   final String? o2TestLimit;
-  final double? o2TestResult;
+  final String? o2TestResult;
   final String? coTestLimit;
-  final double? coTestResult;
+  final String? coTestResult;
   final String? tempTestLimit;
-  final double? tempTestResult;
+  final String? tempTestResult;
   final String? pm5TestLimit;
-  final double? pm5TestResult;
+  final String? pm5TestResult;
   final dynamic picture;
 
-  factory SubmitNESREAData.fromJson(Map<String?, dynamic> json) => SubmitNESREAData(
+  factory SubmitNESREAData.fromJson(Map<String?, dynamic> json) =>
+      SubmitNESREAData(
         samplePtId: json["samplePtId"],
-        nesreaId: json["NesreaId"],
+        nesreaFieldId: json["NesreaFieldId"],
         latitude: json["Latitude"],
         longitude: json["Longitude"],
         pmTestLimit: json["PmTestLimit"],
@@ -112,7 +114,7 @@ class SubmitNESREAData {
 
   Map<String, dynamic> toJson() => {
         "samplePtId": samplePtId,
-        "NesreaId": nesreaId,
+        "NesreaFieldId": nesreaFieldId,
         "Latitude": latitude,
         "Longitude": longitude,
         "PmTestLimit": pmTestLimit,

@@ -38,17 +38,6 @@ class _MyAppState extends State<MyApp> {
       token = prefs.getString('apiToken');
     });
 
-    // return Timer(
-    //   Duration(
-    //     seconds: 3,
-    //   ),
-    //   () => Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => token == null ? AuthPage() : HomeView(),
-    //     ),
-    //   ),
-    // );
   }
 
   @override
@@ -58,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         builder: () => MaterialApp(
               theme: ThemeData(fontFamily: 'Rubik-Medium'),
               debugShowCheckedModeBanner: false,
-              home: token == null ? AuthPage() : HomeView(),
+              home:  AuthPage() 
             ));
   }
 }

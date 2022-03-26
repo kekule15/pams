@@ -19,169 +19,204 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  bool hidePassWord = true;
   bool btnState = false;
   var scaffoldKey = GlobalKey<ScaffoldState>();
   bool autoValidate = false;
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
+  bool hide = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff194A00),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.topLeft,
-              child: SvgPicture.asset(
-                'assets/login_img.svg',
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          Stack(
+            children: <Widget>[
+              Container(
                 height: 300,
-                width: 500,
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: SvgPicture.asset(
+                    'assets/login_img.svg',
+                    height: 300,
+                    width: 500,
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 40),
-            Container(
-              height: MediaQuery.of(context).size.height / 1.8,
-              decoration: BoxDecoration(
-                  color: CustomColors.lightDarkGreen,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50))),
-              child: Form(
-                key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      child: TextFormField(
-                          inputFormatters: [
-                  FilteringTextInputFormatter.deny(RegExp('[ ]')),
-                ],
-                        controller: _emailTextController,
-                        validator: (value) {
-                          return Validators.isEmailStr(value.toString());
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.email_rounded,
-                            color: CustomColors.mainDarkGreen,
-                            size: 28,
-                          ),
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: CustomColors.mainDarkGreen,
+              Padding(
+                padding: const EdgeInsets.only(top: 300),
+                child: Container(
+                  height: MediaQuery.of(context).size.height / 1.6,
+                  decoration: BoxDecoration(
+                      color: CustomColors.lightDarkGreen,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50))),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 60,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: CustomColors.mainDarkGreen))),
+                          child: TextFormField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                            ],
+                            controller: _emailTextController,
+                            validator: (value) {
+                              return Validators.isEmailStr(value.toString());
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.email_rounded,
+                                color: CustomColors.mainDarkGreen,
+                                size: 28,
+                              ),
+                              border: UnderlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              hintText: 'Email',
                             ),
                           ),
-                          hintText: 'Email',
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      child: TextFormField(
-                          inputFormatters: [
-                  FilteringTextInputFormatter.deny(RegExp('[ ]')),
-                ],
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          return null;
-                        },
-                        controller: _passwordTextController,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: CustomColors.mainDarkGreen))),
+                          child: TextFormField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                            ],
+                            keyboardType: TextInputType.text,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              }
+                              return null;
+                            },
+                            obscureText: hide,
+                            controller: _passwordTextController,
+                            decoration: InputDecoration(
+                              suffixIcon: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      hide = !hide;
+                                    });
+                                  },
+                                  child: hide
+                                      ? Icon(
+                                          Icons.visibility_off,
+                                          size: 28,
+                                          color: CustomColors.mainDarkGreen,
+                                        )
+                                      : Icon(
+                                          Icons.remove_red_eye,
+                                          size: 28,
+                                          color: CustomColors.mainDarkGreen,
+                                        )),
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide.none,
+                              ),
+                              prefixIcon: Icon(
+                                Icons.lock,
+                                size: 28,
                                 color: CustomColors.mainDarkGreen,
-                                style: BorderStyle.solid),
+                              ),
+                              hintText: 'password',
+                            ),
                           ),
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            size: 28,
-                            color: CustomColors.mainDarkGreen,
-                          ),
-                          hintText: 'password',
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ForgotPassword()));
-                      },
-                      child: Text('Forgot Password'),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Do not have an account?',
-                          style: TextStyle(),
                         ),
                         MaterialButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => RegisterPage()));
+                                    builder: (context) => ForgotPassword()));
                           },
-                          child: Text('Register',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                          child: Text('Forgot Password'),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Do not have an account?',
+                              style: TextStyle(),
+                            ),
+                            MaterialButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => RegisterPage()));
+                              },
+                              child: Text('Register',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: CustomColors.mainDarkGreen,
+                                  )),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        InkWell(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 20),
+                              decoration: BoxDecoration(
                                 color: CustomColors.mainDarkGreen,
-                              )),
-                        )
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 15),
+                                child: Center(
+                                  child: btnState
+                                      ? SizedBox(
+                                          height: 20,
+                                          width: 20,
+                                          child: CircularProgressIndicator(
+                                            color: CustomColors.background,
+                                          ),
+                                        )
+                                      : Text(
+                                          'Login',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20),
+                                        ),
+                                ),
+                              ),
+                            ),
+                            onTap: () async {
+                              validateInputs();
+                            }),
+                        SizedBox(
+                          height: 10,
+                        ),
                       ],
                     ),
-                    InkWell(
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20),
-                          decoration: BoxDecoration(
-                            color: CustomColors.mainDarkGreen,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 15),
-                            child: Center(
-                              child: btnState
-                                  ? SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: CircularProgressIndicator(
-                                        color: CustomColors.background,
-                                      ),
-                                    )
-                                  : Text(
-                                      'Login',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    ),
-                            ),
-                          ),
-                        ),
-                        onTap: () async {
-                          validateInputs();
-                        }),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }
