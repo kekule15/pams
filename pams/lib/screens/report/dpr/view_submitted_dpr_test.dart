@@ -4,7 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/custom_colors.dart';
 
 class ViewSubmittedDPRtest extends StatefulWidget {
-  const ViewSubmittedDPRtest({Key? key}) : super(key: key);
+  final String? name;
+  final String? unit;
+  final String? limit;
+  final String? result;
+
+  const ViewSubmittedDPRtest(
+      {Key? key, this.name, this.unit, this.limit, this.result})
+      : super(key: key);
 
   @override
   _ViewSubmittedDPRtestState createState() => _ViewSubmittedDPRtestState();
@@ -23,10 +30,10 @@ class _ViewSubmittedDPRtestState extends State<ViewSubmittedDPRtest> {
   }
 
   updateFields() async {
-    testName.text = 'testName';
-    testUnit.text = 'testUnit';
-    testLimit.text = 'testLimit';
-    testResult.text = 'testResult';
+    testName.text = widget.name!;
+    testUnit.text = widget.unit!;
+    testLimit.text = widget.limit!;
+    testResult.text = widget.result!;
   }
 
   @override
@@ -87,6 +94,7 @@ class _ViewSubmittedDPRtestState extends State<ViewSubmittedDPRtest> {
               ),
               TextFormField(
                 controller: testLimit,
+                readOnly: true,
                 validator: (value) {
                   if (value!.isEmpty == true) {
                     return 'Field is required';
@@ -102,6 +110,7 @@ class _ViewSubmittedDPRtestState extends State<ViewSubmittedDPRtest> {
               ),
               TextFormField(
                 controller: testResult,
+                readOnly: true,
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty == true) {
