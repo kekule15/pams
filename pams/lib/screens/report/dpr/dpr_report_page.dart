@@ -182,6 +182,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'PMTest',
                                                           name: data![index]
                                                               .pmTest!
                                                               .testName!,
@@ -238,6 +239,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                           testName: 'HMTest',
                                                           name: data![index]
                                                               .hmTest!
                                                               .testName!,
@@ -294,6 +296,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                           testName: 'NoiseTest',
                                                           name: data![index]
                                                               .noiseTest!
                                                               .testName!,
@@ -351,6 +354,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                           testName: 'NO2Test',
                                                           name: data![index]
                                                               .nO2Test!
                                                               .testName!,
@@ -407,6 +411,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'SO2Test',
                                                           name: data![index]
                                                               .sO2Test!
                                                               .testName!,
@@ -463,6 +468,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                           testName: 'H2STest',
                                                           name: data![index]
                                                               .h2STest!
                                                               .testName!,
@@ -519,6 +525,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                           testName: 'CombTest',
                                                           name: data![index]
                                                               .combTest!
                                                               .testName!,
@@ -576,6 +583,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'CO2Test',
                                                           name: data![index]
                                                               .cO2Test!
                                                               .testName!,
@@ -632,6 +640,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                           testName: 'VocTest',
                                                           name: data![index]
                                                               .vocTest!
                                                               .testName!,
@@ -688,6 +697,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                           testName: 'O2Test',
                                                           name: data![index]
                                                               .o2Test!
                                                               .testName!,
@@ -744,6 +754,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                           testName: 'CoTest',
                                                           name: data![index]
                                                               .coTest!
                                                               .testName!,
@@ -800,6 +811,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'TempTest',
                                                           name: data![index]
                                                               .tempTest!
                                                               .testName!,
@@ -857,6 +869,7 @@ class _DPRReportPageState extends State<DPRReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                            testName: 'PM5Test',
                                                           name: data![index]
                                                               .pM5Test!
                                                               .testName!,

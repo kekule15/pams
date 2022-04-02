@@ -85,6 +85,7 @@ class _RunTestScreenState extends State<RunTestScreen> {
                   }
                 },
                 decoration: InputDecoration(
+                    label: Text('Test Name'),
                     hintText: 'Test Name',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
@@ -101,6 +102,7 @@ class _RunTestScreenState extends State<RunTestScreen> {
                   }
                 },
                 decoration: InputDecoration(
+                    label: Text('Test Unit'),
                     hintText: 'Test Unit',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
@@ -116,6 +118,7 @@ class _RunTestScreenState extends State<RunTestScreen> {
                   }
                 },
                 decoration: InputDecoration(
+                    label: Text('Test Limit'),
                     hintText: 'Test Limit',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
@@ -132,6 +135,7 @@ class _RunTestScreenState extends State<RunTestScreen> {
                   }
                 },
                 decoration: InputDecoration(
+                    label: Text('Test Result'),
                     hintText: 'Test Result',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
@@ -175,8 +179,6 @@ class _RunTestScreenState extends State<RunTestScreen> {
           ),
         ),
       ),
-   
-   
     );
   }
 

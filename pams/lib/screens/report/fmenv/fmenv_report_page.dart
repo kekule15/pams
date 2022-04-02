@@ -14,8 +14,7 @@ class FMENVReportPage extends StatefulWidget {
 }
 
 class _FMENVReportPageState extends State<FMENVReportPage> {
-
- @override
+  @override
   void initState() {
     super.initState();
     getAllData();
@@ -38,8 +37,8 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
     setState(() {
       _isFirstLoadRunning = true;
     });
-    final result =
-        await SubmittedFMENVImplementation().getFMENVSubmittedResult(pageNumber);
+    final result = await SubmittedFMENVImplementation()
+        .getFMENVSubmittedResult(pageNumber);
     if (result!.returnObject!.data!.isNotEmpty) {
       setState(() {
         data = result.returnObject!.data;
@@ -62,7 +61,8 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
       });
       pageNumber += 1; // Increase _page by 1
       try {
-        final res =  await SubmittedFMENVImplementation().getFMENVSubmittedResult(pageNumber);
+        final res = await SubmittedFMENVImplementation()
+            .getFMENVSubmittedResult(pageNumber);
 
         if (res!.returnObject!.data!.length > 0) {
           setState(() {
@@ -87,7 +87,6 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
 
   late ScrollController _controller;
   @override
- 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -175,6 +174,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'PMTest',
                                                           name: data![index]
                                                               .pmTest!
                                                               .testName!,
@@ -231,6 +231,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'HMTest',
                                                           name: data![index]
                                                               .hmTest!
                                                               .testName!,
@@ -287,6 +288,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'NoiseTest',
                                                           name: data![index]
                                                               .noiseTest!
                                                               .testName!,
@@ -344,6 +346,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'NO2Test',
                                                           name: data![index]
                                                               .nO2Test!
                                                               .testName!,
@@ -400,6 +403,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'SO2Test',
                                                           name: data![index]
                                                               .sO2Test!
                                                               .testName!,
@@ -456,6 +460,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'H2STest',
                                                           name: data![index]
                                                               .h2STest!
                                                               .testName!,
@@ -512,6 +517,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'CombTest',
                                                           name: data![index]
                                                               .combTest!
                                                               .testName!,
@@ -569,6 +575,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                            testName: 'CO2Test',
                                                           name: data![index]
                                                               .cO2Test!
                                                               .testName!,
@@ -625,6 +632,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'VocTest',
                                                           name: data![index]
                                                               .vocTest!
                                                               .testName!,
@@ -681,6 +689,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                           testName: 'O2Test',
                                                           name: data![index]
                                                               .o2Test!
                                                               .testName!,
@@ -737,6 +746,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'CoTest',
                                                           name: data![index]
                                                               .coTest!
                                                               .testName!,
@@ -793,6 +803,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                          testName: 'TempTest',
                                                           name: data![index]
                                                               .tempTest!
                                                               .testName!,
@@ -850,6 +861,7 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ViewSubmittedDPRtest(
+                                                           testName: 'PM5Test',
                                                           name: data![index]
                                                               .pM5Test!
                                                               .testName!,
@@ -932,6 +944,4 @@ class _FMENVReportPageState extends State<FMENVReportPage> {
       ),
     );
   }
-
-
 }

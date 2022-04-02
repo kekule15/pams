@@ -8,9 +8,10 @@ class ViewSubmittedDPRtest extends StatefulWidget {
   final String? unit;
   final String? limit;
   final String? result;
+  final String? testName;
 
   const ViewSubmittedDPRtest(
-      {Key? key, this.name, this.unit, this.limit, this.result})
+      {Key? key, this.name, this.unit, this.limit, this.result, this.testName})
       : super(key: key);
 
   @override
@@ -50,7 +51,7 @@ class _ViewSubmittedDPRtestState extends State<ViewSubmittedDPRtest> {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text('test Name',
+        title: Text(widget.testName!,
             style: TextStyle(color: Colors.black, fontSize: 20)),
       ),
       backgroundColor: CustomColors.background,
@@ -69,6 +70,7 @@ class _ViewSubmittedDPRtestState extends State<ViewSubmittedDPRtest> {
                   }
                 },
                 decoration: InputDecoration(
+                    label: Text('Test Name'),
                     hintText: 'Test Name',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
@@ -85,6 +87,7 @@ class _ViewSubmittedDPRtestState extends State<ViewSubmittedDPRtest> {
                   }
                 },
                 decoration: InputDecoration(
+                    label: Text('Test Unit'),
                     hintText: 'Test Unit',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
@@ -101,6 +104,7 @@ class _ViewSubmittedDPRtestState extends State<ViewSubmittedDPRtest> {
                   }
                 },
                 decoration: InputDecoration(
+                    label: Text('Test Limit'),
                     hintText: 'Test Limit',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
@@ -118,6 +122,7 @@ class _ViewSubmittedDPRtestState extends State<ViewSubmittedDPRtest> {
                   }
                 },
                 decoration: InputDecoration(
+                    label: Text('Test Result'),
                     hintText: 'Test Result',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
