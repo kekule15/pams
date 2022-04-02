@@ -43,13 +43,13 @@ class ReturnObject {
     final int? pageNumber;
     final int? pageSize;
     final int? total;
-    final List<Datum>? data;
+    final List<NESREAList>? data;
 
     factory ReturnObject.fromJson(Map<String, dynamic> json) => ReturnObject(
         pageNumber: json["pageNumber"],
         pageSize: json["pageSize"],
         total: json["total"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<NESREAList>.from(json["data"].map((x) => NESREAList.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -60,8 +60,8 @@ class ReturnObject {
     };
 }
 
-class Datum {
-    Datum({
+class NESREAList {
+    NESREAList({
         this.id,
         this.samplePointLocationId,
         this.analystFullName,
@@ -109,7 +109,7 @@ class Datum {
     final DateTime? time;
     final ImageDetails? imageDetails;
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory NESREAList.fromJson(Map<String, dynamic> json) => NESREAList(
         id: json["id"],
         samplePointLocationId: json["samplePointLocationId"],
         analystFullName: json["analystFullName"],

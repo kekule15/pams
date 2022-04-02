@@ -43,13 +43,13 @@ class ReturnObject {
     final int? pageNumber;
     final int? pageSize;
     final int? total;
-    final List<Datum>? data;
+    final List<FMENVList>? data;
 
     factory ReturnObject.fromJson(Map<String, dynamic> json) => ReturnObject(
         pageNumber: json["pageNumber"],
         pageSize: json["pageSize"],
         total: json["total"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<FMENVList>.from(json["data"].map((x) => FMENVList.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -60,8 +60,8 @@ class ReturnObject {
     };
 }
 
-class Datum {
-    Datum({
+class FMENVList {
+    FMENVList({
         this.id,
         this.samplePointLocationId,
         this.clientName,
@@ -109,7 +109,7 @@ class Datum {
     final DateTime? time;
     final dynamic imageDetails;
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory FMENVList.fromJson(Map<String, dynamic> json) => FMENVList(
         id: json["id"],
         samplePointLocationId: json["samplePointLocationId"],
         clientName: json["clientName"],

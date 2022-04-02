@@ -43,20 +43,20 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   SizedBox(
                     width: 10.w,
                   ),
-                  InkWell(
-                    onTap: () {
-                      widget.downloadFile!();
-                    },
-                    child: CircleAvatar(
-                        radius: 10.r,
-                        backgroundColor:
-                            CustomColors.mainblueColor.withOpacity(0.8),
-                        child: Icon(
-                          Icons.download,
-                          size: 17,
-                          color: Colors.white,
-                        )),
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     widget.downloadFile!();
+                  //   },
+                  //   child: CircleAvatar(
+                  //       radius: 10.r,
+                  //       backgroundColor:
+                  //           CustomColors.mainblueColor.withOpacity(0.8),
+                  //       child: Icon(
+                  //         Icons.download,
+                  //         size: 17,
+                  //         color: Colors.white,
+                  //       )),
+                  // ),
                   _visibility == false
                       ? Icon(
                           Icons.arrow_drop_down,
