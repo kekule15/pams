@@ -198,7 +198,7 @@ class _RunTestScreenState extends State<RunTestScreen> {
       print('object');
       final result = await DPRImplementation()
           .runTest(widget.data!['dprId'], testName.text, testLimit.text,
-              int.parse(testResult.text))
+              testResult.text.toString())
           .catchError((onError) {
         setState(() {
           update = false;

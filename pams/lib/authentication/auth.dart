@@ -5,6 +5,7 @@ import 'package:pams/authentication/register.dart';
 import 'package:pams/utils/custom_colors.dart';
 
 import '../utils/permission_handlers.dart';
+import 'forgotpassword.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -56,7 +57,7 @@ class _AuthPageState extends State<AuthPage> {
             InkWell(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RegisterPage()));
+                    MaterialPageRoute(builder: (context) => LoginPage()));
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 30),
@@ -67,7 +68,7 @@ class _AuthPageState extends State<AuthPage> {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Center(
                     child: Text(
-                      "Get Started",
+                      "Login Here",
                       style: TextStyle(
                           fontSize: 20, color: CustomColors.background),
                     ),
@@ -78,33 +79,39 @@ class _AuthPageState extends State<AuthPage> {
             SizedBox(
               height: 30,
             ),
-            Center(
-              child: Text(
-                'Already have an account?',
-                style: TextStyle(
-                  color: CustomColors.blackColor,
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ForgotPassword()));
+              },
+              child: Center(
+                child: Text(
+                  'Forgot your password?',
+                  style: TextStyle(
+                    color: CustomColors.blackColor,
+                  ),
                 ),
               ),
             ),
             SizedBox(
               height: 20,
             ),
-            InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              },
-              child: Center(
-                child: Text(
-                  "Login Here",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: CustomColors.mainDarkGreen,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(context,
+            //         MaterialPageRoute(builder: (context) => LoginPage()));
+            //   },
+            //   child: Center(
+            //     child: Text(
+            //       "Login Here",
+            //       style: TextStyle(
+            //         fontSize: 20,
+            //         color: CustomColors.mainDarkGreen,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     ),
+            //   ),
+            // ),
             // BottomAppBar(
             //   color: Colors.transparent,
             //   child: _buttons(),

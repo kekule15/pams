@@ -31,7 +31,7 @@ class NESREAImplementation {
 
 // run a test for each template
   Future<Map<String, dynamic>?> runTest(
-      int testID, String testName, String testLimit, int testResult) async {
+      int testID, String testName, String testLimit, String testResult) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('apiToken');
 

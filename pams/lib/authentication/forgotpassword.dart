@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pams/authentication/auth.dart';
+import 'package:pams/utils/custom_buttons.dart';
 import 'package:pams/utils/custom_colors.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -12,140 +15,98 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: CustomColors.background,
+      backgroundColor: CustomColors.lightDarkGreen,
       body: Center(
-        child: Stack(
+        child: ListView(
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage("assets/backgroundImage.PNG"))),
+            Align(
+              alignment: Alignment.topLeft,
+              child: SvgPicture.asset(
+                'assets/auth_logo.svg',
+                height: 150,
+                width: 350,
+              ),
             ),
             Center(
-              child: Container(
-                margin: EdgeInsets.only(top: 50),
+              child: Form(
                 child: Column(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.only(top: 60),
-                      width: 250,
-                      height: 170,
+                      width: 300,
+                      height: 200,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              fit: BoxFit.contain,
+                              fit: BoxFit.cover,
                               image: AssetImage("assets/logoo.png"))),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: 20,
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        "Please enter your email address to search for your account",
+                        style: TextStyle(fontSize: 15),
+                        textAlign: TextAlign.center,
                       ),
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      height: MediaQuery.of(context).size.height / 2.8,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
-                          
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Form(
-                          child: Column(
-                            children: <Widget>[
-                              Center(
-                                child: Text("Find your account",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18)),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Center(
-                                child: Text(
-                                  "Please enter your email address to search for your account",
-                                  style: TextStyle(fontSize: 15),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Container(
-                                height: 40,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15)),
-                                margin: EdgeInsets.all(20),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.emailAddress,
-                                    decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.email_rounded,
-                                        color: CustomColors.mainDarkOrange,
-                                        size: 22,
-                                      ),
-                                      hintText: 'Email',
-                                      border: InputBorder.none,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    AuthPage()));
-                                      },
-                                      child: Container(
-                                        height: 30,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                        ),
-                                        child: Center(
-                                          child: Text("Cancel",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black)),
-                                        ),
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    AuthPage()));
-                                      },
-                                      child: Container(
-                                        height: 30,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                          color: CustomColors.mainDarkGreen,
-                                        ),
-                                        child: Center(
-                                          child: Text("Confirm",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white)),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
+                          border: Border(
+                              bottom: BorderSide(
+                                  color: CustomColors.mainDarkGreen))),
+                      child: TextFormField(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                        ],
+                        //controller: _emailTextController,
+                        // validator: (value) {
+                        //   return Validators.isEmailStr(value.toString());
+                        // },
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.email_rounded,
+                            color: CustomColors.mainDarkGreen,
+                            size: 28,
                           ),
+                          border:
+                              UnderlineInputBorder(borderSide: BorderSide.none),
+                          hintText: 'Email',
                         ),
+                      ),
+                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                    //   child: CustomButton(
+                    //     bgColor: Colors.grey,
+                    //     isBorder: true,
+                    //     onclick: () {
+                    //       Navigator.of(context).pop();
+                    //     },
+                    //     title: Text("Cancel",
+                    //         style: TextStyle(
+                    //             fontWeight: FontWeight.bold,
+                    //             color: Colors.black)),
+                    //   ),
+                    // ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: CustomButton(
+                        bgColor: CustomColors.mainDarkGreen,
+                        onclick: () {},
+                        isBorder: false,
+                        title: Text("Proceed",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
                       ),
                     ),
                   ],

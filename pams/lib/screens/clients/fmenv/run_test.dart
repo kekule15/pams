@@ -197,7 +197,7 @@ class _RunFMENVTestScreenState extends State<RunFMENVTestScreen> {
       form.save();
       final result = await FMENVImplementation()
           .runTest(widget.data!['fmEnvId'], testName.text, testLimit.text,
-              int.parse(testResult.text))
+              testResult.text.toString())
           .catchError((onError) {
         setState(() {
           update = false;
