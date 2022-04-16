@@ -42,7 +42,7 @@ class NESREAImplementation {
     };
 
     var url = Constants.base_url +
-        "/FieldScientistAnalysisNesrea/add-nesrea-test-Testresult-ForEachTest?TestName=$testName&NasreaId=$testID&TestLimit=$testLimit&TestResult=$testResult";
+        "/FieldScientistAnalysisNesrea/add-nesrea-test-Testresult-ForEachTest?TestName=$testName&NesreaFieldId=$testID&TestLimit=$testLimit&TestResult=$testResult";
 
     try {
       var response = await http.post(

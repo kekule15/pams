@@ -150,28 +150,28 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           child: Text('Forgot Password'),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'Do not have an account?',
-                              style: TextStyle(),
-                            ),
-                            MaterialButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => RegisterPage()));
-                              },
-                              child: Text('Register',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: CustomColors.mainDarkGreen,
-                                  )),
-                            )
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: <Widget>[
+                        //     Text(
+                        //       'Do not have an account?',
+                        //       style: TextStyle(),
+                        //     ),
+                        //     MaterialButton(
+                        //       onPressed: () {
+                        //         Navigator.pushReplacement(
+                        //             context,
+                        //             MaterialPageRoute(
+                        //                 builder: (context) => RegisterPage()));
+                        //       },
+                        //       child: Text('Register',
+                        //           style: TextStyle(
+                        //             fontWeight: FontWeight.bold,
+                        //             color: CustomColors.mainDarkGreen,
+                        //           )),
+                        //     )
+                        //   ],
+                        // ),
                         SizedBox(
                           height: 30,
                         ),

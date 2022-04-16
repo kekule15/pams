@@ -31,8 +31,6 @@ class _NESREAScreenState extends State<NESREAScreen> {
     getLocation();
   }
 
-
-
   getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -192,115 +190,116 @@ class _NESREAScreenState extends State<NESREAScreen> {
                       ),
                       InkWell(
                         onTap: () async {
-                          if (nesreatemplates!['returnObject']['pmTest']['testResult'] == null ||
-                              nesreatemplates!['returnObject']['hmTest']
-                                      ['testResult'] ==
-                                  null ||
-                              nesreatemplates!['returnObject']['noiseTest']
-                                      ['testResult'] ==
-                                  null ||
-                              nesreatemplates!['returnObject']['nO2Test']
-                                      ['testResult'] ==
-                                  null ||
-                              nesreatemplates!['returnObject']['sO2Test']
-                                      ['testResult'] ==
-                                  null ||
-                              nesreatemplates!['returnObject']['h2STest']
-                                      ['testResult'] ==
-                                  null ||
-                              nesreatemplates!['returnObject']['combTest']
-                                      ['testResult'] ==
-                                  null ||
-                              nesreatemplates!['returnObject']['cO2Test']
-                                      ['testResult'] ==
-                                  null ||
-                              nesreatemplates!['returnObject']['vocTest']
-                                      ['testResult'] ==
-                                  null ||
-                              nesreatemplates!['returnObject']['o2Test']
-                                      ['testResult'] ==
-                                  null ||
-                              nesreatemplates!['returnObject']['coTest']
-                                      ['testResult'] ==
-                                  null ||
-                              nesreatemplates!['returnObject']['tempTest']
-                                      ['testResult'] ==
-                                  null ||
-                              nesreatemplates!['returnObject']['pM5Test']['testResult'] == null) {
-                            Constants()
-                                .notify('Please complete all test to proceed');
-                          } else {
-                            SubmitNESREAData model = SubmitNESREAData(
-                              samplePtId: nesreatemplates!['returnObject']
-                                  ['samplePointLocationId'],
-                              nesreaFieldId: nesreatemplates!['returnObject']['id'],
-                              latitude: latitude,
-                              longitude: longitude,
-                              pmTestLimit: nesreatemplates!['returnObject']
-                                  ['pmTest']['testLimit'],
-                              pmTestResult: nesreatemplates!['returnObject']
-                                  ['pmTest']['testResult'],
-                              hmTestLimit: nesreatemplates!['returnObject']
-                                  ['hmTest']['testLimit'],
-                              hmTestResult: nesreatemplates!['returnObject']
-                                  ['hmTest']['testResult'],
-                              noiseTestLimit: nesreatemplates!['returnObject']
-                                  ['noiseTest']['testLimit'],
-                              noiseTestResult: nesreatemplates!['returnObject']
-                                  ['noiseTest']['testResult'],
-                              no2TestLimit: nesreatemplates!['returnObject']
-                                  ['nO2Test']['testLimit'],
-                              no2TestResult: nesreatemplates!['returnObject']
-                                  ['nO2Test']['testResult'],
-                              so2TestLimit: nesreatemplates!['returnObject']
-                                  ['sO2Test']['testLimit'],
-                              so2TestResult: nesreatemplates!['returnObject']
-                                  ['sO2Test']['testResult'],
-                              h2STestLimit: nesreatemplates!['returnObject']
-                                  ['h2STest']['testLimit'],
-                              h2STestResult: nesreatemplates!['returnObject']
-                                  ['h2STest']['testResult'],
-                              combTestLimit: nesreatemplates!['returnObject']
-                                  ['combTest']['testLimit'],
-                              combTestResult: nesreatemplates!['returnObject']
-                                  ['combTest']['testResult'],
-                              co2TestLimit: nesreatemplates!['returnObject']
-                                  ['cO2Test']['testLimit'],
-                              co2TestResult: nesreatemplates!['returnObject']
-                                  ['cO2Test']['testResult'],
-                              vocTestLimit: nesreatemplates!['returnObject']
-                                  ['vocTest']['testLimit'],
-                              vocTestResult: nesreatemplates!['returnObject']
-                                  ['vocTest']['testResult'],
-                              o2TestLimit: nesreatemplates!['returnObject']
-                                  ['o2Test']['testLimit'],
-                              o2TestResult: nesreatemplates!['returnObject']
-                                  ['o2Test']['testResult'],
-                              coTestLimit: nesreatemplates!['returnObject']
-                                  ['coTest']['testLimit'],
-                              coTestResult: nesreatemplates!['returnObject']
-                                  ['coTest']['testResult'],
-                              tempTestLimit: nesreatemplates!['returnObject']
-                                  ['tempTest']['testLimit'],
-                              tempTestResult: nesreatemplates!['returnObject']
-                                  ['tempTest']['testResult'],
-                              pm5TestLimit: nesreatemplates!['returnObject']
-                                  ['tempTest']['testLimit'],
-                              pm5TestResult: nesreatemplates!['returnObject']
-                                  ['tempTest']['testResult'],
-                              picture: '',
-                            );
-                            var result = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SubmitNESREAPage(
-                                          locationId: widget.locationId,
-                                          model: model,
-                                        )));
-                            if (result != null) {
-                              getNESREAtemplates();
-                            }
+                          // if (nesreatemplates!['returnObject']['pmTest']['testResult'] == null ||
+                          //     nesreatemplates!['returnObject']['hmTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     nesreatemplates!['returnObject']['noiseTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     nesreatemplates!['returnObject']['nO2Test']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     nesreatemplates!['returnObject']['sO2Test']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     nesreatemplates!['returnObject']['h2STest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     nesreatemplates!['returnObject']['combTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     nesreatemplates!['returnObject']['cO2Test']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     nesreatemplates!['returnObject']['vocTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     nesreatemplates!['returnObject']['o2Test']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     nesreatemplates!['returnObject']['coTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     nesreatemplates!['returnObject']['tempTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     nesreatemplates!['returnObject']['pM5Test']['testResult'] == null) {
+                          //   Constants()
+                          //       .notify('Please complete all test to proceed');
+                          // } else {
+                          SubmitNESREAData model = SubmitNESREAData(
+                            samplePtId: nesreatemplates!['returnObject']
+                                ['samplePointLocationId'],
+                            nesreaFieldId: nesreatemplates!['returnObject']
+                                ['id'],
+                            latitude: latitude,
+                            longitude: longitude,
+                            pmTestLimit: nesreatemplates!['returnObject']
+                                ['pmTest']['testLimit'],
+                            pmTestResult: nesreatemplates!['returnObject']
+                                ['pmTest']['testResult'],
+                            hmTestLimit: nesreatemplates!['returnObject']
+                                ['hmTest']['testLimit'],
+                            hmTestResult: nesreatemplates!['returnObject']
+                                ['hmTest']['testResult'],
+                            noiseTestLimit: nesreatemplates!['returnObject']
+                                ['noiseTest']['testLimit'],
+                            noiseTestResult: nesreatemplates!['returnObject']
+                                ['noiseTest']['testResult'],
+                            no2TestLimit: nesreatemplates!['returnObject']
+                                ['nO2Test']['testLimit'],
+                            no2TestResult: nesreatemplates!['returnObject']
+                                ['nO2Test']['testResult'],
+                            so2TestLimit: nesreatemplates!['returnObject']
+                                ['sO2Test']['testLimit'],
+                            so2TestResult: nesreatemplates!['returnObject']
+                                ['sO2Test']['testResult'],
+                            h2STestLimit: nesreatemplates!['returnObject']
+                                ['h2STest']['testLimit'],
+                            h2STestResult: nesreatemplates!['returnObject']
+                                ['h2STest']['testResult'],
+                            combTestLimit: nesreatemplates!['returnObject']
+                                ['combTest']['testLimit'],
+                            combTestResult: nesreatemplates!['returnObject']
+                                ['combTest']['testResult'],
+                            co2TestLimit: nesreatemplates!['returnObject']
+                                ['cO2Test']['testLimit'],
+                            co2TestResult: nesreatemplates!['returnObject']
+                                ['cO2Test']['testResult'],
+                            vocTestLimit: nesreatemplates!['returnObject']
+                                ['vocTest']['testLimit'],
+                            vocTestResult: nesreatemplates!['returnObject']
+                                ['vocTest']['testResult'],
+                            o2TestLimit: nesreatemplates!['returnObject']
+                                ['o2Test']['testLimit'],
+                            o2TestResult: nesreatemplates!['returnObject']
+                                ['o2Test']['testResult'],
+                            coTestLimit: nesreatemplates!['returnObject']
+                                ['coTest']['testLimit'],
+                            coTestResult: nesreatemplates!['returnObject']
+                                ['coTest']['testResult'],
+                            tempTestLimit: nesreatemplates!['returnObject']
+                                ['tempTest']['testLimit'],
+                            tempTestResult: nesreatemplates!['returnObject']
+                                ['tempTest']['testResult'],
+                            pm5TestLimit: nesreatemplates!['returnObject']
+                                ['tempTest']['testLimit'],
+                            pm5TestResult: nesreatemplates!['returnObject']
+                                ['tempTest']['testResult'],
+                            picture: '',
+                          );
+                          var result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SubmitNESREAPage(
+                                        locationId: widget.locationId,
+                                        model: model,
+                                      )));
+                          if (result != null) {
+                            getNESREAtemplates();
                           }
+                          //  }
                         },
                         child: Container(
                           margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -334,8 +333,8 @@ class _NESREAScreenState extends State<NESREAScreen> {
                   ));
   }
 
-  listTemplateView(
-      Map<String, dynamic> data, String title, String subtitle, String? result) {
+  listTemplateView(Map<String, dynamic> data, String title, String subtitle,
+      String? result) {
     return Column(
       children: [
         Padding(

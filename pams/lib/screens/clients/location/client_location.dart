@@ -123,26 +123,26 @@ class _ClientLocationState extends State<ClientLocation> {
                     SizedBox(
                       height: 20,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                      child: TextFormField(
-                        inputFormatters: [
-                          FilteringTextInputFormatter.deny(RegExp('[ ]')),
-                        ],
-                        decoration: InputDecoration(
-                            hintText: 'Search Locations',
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Colors.black,
-                            ),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(
+                    //       horizontal: 20, vertical: 10),
+                    //   child: TextFormField(
+                    //     inputFormatters: [
+                    //       FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                    //     ],
+                    //     decoration: InputDecoration(
+                    //         hintText: 'Search Locations',
+                    //         prefixIcon: Icon(
+                    //           Icons.search,
+                    //           color: Colors.black,
+                    //         ),
+                    //         border: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(10))),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
                     ListView.builder(
                         itemCount: myLocations!.returnObject!.length,
                         physics: NeverScrollableScrollPhysics(),

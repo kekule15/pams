@@ -68,7 +68,7 @@ class _AuthPageState extends State<AuthPage> {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Center(
                     child: Text(
-                      "Login Here",
+                      "Get Started",
                       style: TextStyle(
                           fontSize: 20, color: CustomColors.background),
                     ),

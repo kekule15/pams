@@ -196,7 +196,7 @@ class _RunNESREATestScreenState extends State<RunNESREATestScreen> {
     } else {
       form.save();
       final result = await NESREAImplementation()
-          .runTest(widget.data!['nesreaFieldId'], testName.text, testLimit.text,
+          .runTest(widget.data!['nesreaFieldId'], testName.text.toString(), testLimit.text.toString(),
               testResult.text.toString())
           .catchError((onError) {
         setState(() {

@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:pams/screens/clients/customer_response_model.dart';
 import 'package:pams/utils/constants.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -7,9 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ClientImplementation {
   //load all clients
-  Future<Map<String, dynamic>?> getAllClients() async {
+  Future<CustomerResponseModel?> getAllClients(int? pageNumber) async {
     var url =
-        'http://sethlab-001-site1.itempurl.com/api/v1/Client/GetAllClient';
+        'http://sethlab-001-site1.itempurl.com/api/v1/Client/GetAllClient?pageSize=10&pageNumber=$pageNumber';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var api = prefs.getString('apiToken');
     final response = await http.get(Uri.parse(url), headers: {
@@ -20,7 +21,7 @@ class ClientImplementation {
 
     final int statusCode = response.statusCode;
     //print("my code ${response.body}");
-    return Map.from(jsonDecode(response.body));
+    return CustomerResponseModel.fromJson(jsonDecode(response.body));
   }
 
   Future<Map<String, dynamic>?> createClient(

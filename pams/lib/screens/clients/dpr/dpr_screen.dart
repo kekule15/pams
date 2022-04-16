@@ -22,10 +22,8 @@ class _DPRScreenState extends State<DPRScreen> {
   void initState() {
     super.initState();
     getDPRtemplates();
-     getLocation();
+    getLocation();
   }
-
-
 
   getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
@@ -173,114 +171,114 @@ class _DPRScreenState extends State<DPRScreen> {
                       ),
                       InkWell(
                         onTap: () async {
-                          if (dprtemplates!['returnObject']['pmTest']['testResult'] == null ||
-                              dprtemplates!['returnObject']['hmTest']['testResult'] ==
-                                  null ||
-                              dprtemplates!['returnObject']['noiseTest']
-                                      ['testResult'] ==
-                                  null ||
-                              dprtemplates!['returnObject']['nO2Test']
-                                      ['testResult'] ==
-                                  null ||
-                              dprtemplates!['returnObject']['sO2Test']
-                                      ['testResult'] ==
-                                  null ||
-                              dprtemplates!['returnObject']['h2STest']
-                                      ['testResult'] ==
-                                  null ||
-                              dprtemplates!['returnObject']['combTest']
-                                      ['testResult'] ==
-                                  null ||
-                              dprtemplates!['returnObject']['cO2Test']
-                                      ['testResult'] ==
-                                  null ||
-                              dprtemplates!['returnObject']['vocTest']
-                                      ['testResult'] ==
-                                  null ||
-                              dprtemplates!['returnObject']['o2Test']['testResult'] ==
-                                  null ||
-                              dprtemplates!['returnObject']['coTest']
-                                      ['testResult'] ==
-                                  null ||
-                              dprtemplates!['returnObject']['tempTest']
-                                      ['testResult'] ==
-                                  null ||
-                              dprtemplates!['returnObject']['pM5Test']['testResult'] == null) {
-                            Constants()
-                                .notify('Please complete all test to proceed');
-                          } else {
-                            SubmitData model = SubmitData(
-                              samplePtId: dprtemplates!['returnObject']
-                                  ['samplePointLocationId'],
-                              dprFieldId: dprtemplates!['returnObject']['id'],
-                              latitude: latitude,
-                              longitude: longitude,
-                              pmTestLimit: dprtemplates!['returnObject']
-                                  ['pmTest']['testLimit'],
-                              pmTestResult: dprtemplates!['returnObject']
-                                  ['pmTest']['testResult'],
-                              hmTestLimit: dprtemplates!['returnObject']
-                                  ['hmTest']['testLimit'],
-                              hmTestResult: dprtemplates!['returnObject']
-                                  ['hmTest']['testResult'],
-                              noiseTestLimit: dprtemplates!['returnObject']
-                                  ['noiseTest']['testLimit'],
-                              noiseTestResult: dprtemplates!['returnObject']
-                                  ['noiseTest']['testResult'],
-                              no2TestLimit: dprtemplates!['returnObject']
-                                  ['nO2Test']['testLimit'],
-                              no2TestResult: dprtemplates!['returnObject']
-                                  ['nO2Test']['testResult'],
-                              so2TestLimit: dprtemplates!['returnObject']
-                                  ['sO2Test']['testLimit'],
-                              so2TestResult: dprtemplates!['returnObject']
-                                  ['sO2Test']['testResult'],
-                              h2STestLimit: dprtemplates!['returnObject']
-                                  ['h2STest']['testLimit'],
-                              h2STestResult: dprtemplates!['returnObject']
-                                  ['h2STest']['testResult'],
-                              combTestLimit: dprtemplates!['returnObject']
-                                  ['combTest']['testLimit'],
-                              combTestResult: dprtemplates!['returnObject']
-                                  ['combTest']['testResult'],
-                              co2TestLimit: dprtemplates!['returnObject']
-                                  ['cO2Test']['testLimit'],
-                              co2TestResult: dprtemplates!['returnObject']
-                                  ['cO2Test']['testResult'],
-                              vocTestLimit: dprtemplates!['returnObject']
-                                  ['vocTest']['testLimit'],
-                              vocTestResult: dprtemplates!['returnObject']
-                                  ['vocTest']['testResult'],
-                              o2TestLimit: dprtemplates!['returnObject']
-                                  ['o2Test']['testLimit'],
-                              o2TestResult: dprtemplates!['returnObject']
-                                  ['o2Test']['testResult'],
-                              coTestLimit: dprtemplates!['returnObject']
-                                  ['coTest']['testLimit'],
-                              coTestResult: dprtemplates!['returnObject']
-                                  ['coTest']['testResult'],
-                              tempTestLimit: dprtemplates!['returnObject']
-                                  ['tempTest']['testLimit'],
-                              tempTestResult: dprtemplates!['returnObject']
-                                  ['tempTest']['testResult'],
-                              pm5TestLimit: dprtemplates!['returnObject']
-                                  ['tempTest']['testLimit'],
-                              pm5TestResult: dprtemplates!['returnObject']
-                                  ['tempTest']['testResult'],
-                              picture: '',
-                            );
-                            var result = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SubmitDPRPage(
-                                          locationId: widget.locationId,
-                                          model: model,
-                                        )));
+                          // if (dprtemplates!['returnObject']['pmTest']['testResult'] == null ||
+                          //     dprtemplates!['returnObject']['hmTest']['testResult'] ==
+                          //         null ||
+                          //     dprtemplates!['returnObject']['noiseTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     dprtemplates!['returnObject']['nO2Test']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     dprtemplates!['returnObject']['sO2Test']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     dprtemplates!['returnObject']['h2STest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     dprtemplates!['returnObject']['combTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     dprtemplates!['returnObject']['cO2Test']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     dprtemplates!['returnObject']['vocTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     dprtemplates!['returnObject']['o2Test']['testResult'] ==
+                          //         null ||
+                          //     dprtemplates!['returnObject']['coTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     dprtemplates!['returnObject']['tempTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     dprtemplates!['returnObject']['pM5Test']['testResult'] == null) {
+                          //   Constants()
+                          //       .notify('Please complete all test to proceed');
+                          // } else {
+                          SubmitData model = SubmitData(
+                            samplePtId: dprtemplates!['returnObject']
+                                ['samplePointLocationId'],
+                            dprFieldId: dprtemplates!['returnObject']['id'],
+                            latitude: latitude,
+                            longitude: longitude,
+                            pmTestLimit: dprtemplates!['returnObject']['pmTest']
+                                ['testLimit'],
+                            pmTestResult: dprtemplates!['returnObject']
+                                ['pmTest']['testResult'],
+                            hmTestLimit: dprtemplates!['returnObject']['hmTest']
+                                ['testLimit'],
+                            hmTestResult: dprtemplates!['returnObject']
+                                ['hmTest']['testResult'],
+                            noiseTestLimit: dprtemplates!['returnObject']
+                                ['noiseTest']['testLimit'],
+                            noiseTestResult: dprtemplates!['returnObject']
+                                ['noiseTest']['testResult'],
+                            no2TestLimit: dprtemplates!['returnObject']
+                                ['nO2Test']['testLimit'],
+                            no2TestResult: dprtemplates!['returnObject']
+                                ['nO2Test']['testResult'],
+                            so2TestLimit: dprtemplates!['returnObject']
+                                ['sO2Test']['testLimit'],
+                            so2TestResult: dprtemplates!['returnObject']
+                                ['sO2Test']['testResult'],
+                            h2STestLimit: dprtemplates!['returnObject']
+                                ['h2STest']['testLimit'],
+                            h2STestResult: dprtemplates!['returnObject']
+                                ['h2STest']['testResult'],
+                            combTestLimit: dprtemplates!['returnObject']
+                                ['combTest']['testLimit'],
+                            combTestResult: dprtemplates!['returnObject']
+                                ['combTest']['testResult'],
+                            co2TestLimit: dprtemplates!['returnObject']
+                                ['cO2Test']['testLimit'],
+                            co2TestResult: dprtemplates!['returnObject']
+                                ['cO2Test']['testResult'],
+                            vocTestLimit: dprtemplates!['returnObject']
+                                ['vocTest']['testLimit'],
+                            vocTestResult: dprtemplates!['returnObject']
+                                ['vocTest']['testResult'],
+                            o2TestLimit: dprtemplates!['returnObject']['o2Test']
+                                ['testLimit'],
+                            o2TestResult: dprtemplates!['returnObject']
+                                ['o2Test']['testResult'],
+                            coTestLimit: dprtemplates!['returnObject']['coTest']
+                                ['testLimit'],
+                            coTestResult: dprtemplates!['returnObject']
+                                ['coTest']['testResult'],
+                            tempTestLimit: dprtemplates!['returnObject']
+                                ['tempTest']['testLimit'],
+                            tempTestResult: dprtemplates!['returnObject']
+                                ['tempTest']['testResult'],
+                            pm5TestLimit: dprtemplates!['returnObject']
+                                ['tempTest']['testLimit'],
+                            pm5TestResult: dprtemplates!['returnObject']
+                                ['tempTest']['testResult'],
+                            picture: '',
+                          );
+                          var result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SubmitDPRPage(
+                                        locationId: widget.locationId,
+                                        model: model,
+                                      )));
 
-                            if (result != null) {
-                              getDPRtemplates();
-                            }
+                          if (result != null) {
+                            getDPRtemplates();
                           }
+                          // }
                         },
                         child: Container(
                           margin: EdgeInsets.fromLTRB(20, 0, 20, 20),

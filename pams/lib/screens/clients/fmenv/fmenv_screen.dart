@@ -188,44 +188,44 @@ class _FMENVScreenState extends State<FMENVScreen> {
                       ),
                       InkWell(
                         onTap: () async {
-                          if (fmenvtemplates!['returnObject']['pmTest']['testResult'] == null ||
-                              fmenvtemplates!['returnObject']['hmTest']
-                                      ['testResult'] ==
-                                  null ||
-                              fmenvtemplates!['returnObject']['noiseTest']
-                                      ['testResult'] ==
-                                  null ||
-                              fmenvtemplates!['returnObject']['nO2Test']
-                                      ['testResult'] ==
-                                  null ||
-                              fmenvtemplates!['returnObject']['sO2Test']
-                                      ['testResult'] ==
-                                  null ||
-                              fmenvtemplates!['returnObject']['h2STest']
-                                      ['testResult'] ==
-                                  null ||
-                              fmenvtemplates!['returnObject']['combTest']
-                                      ['testResult'] ==
-                                  null ||
-                              fmenvtemplates!['returnObject']['cO2Test']
-                                      ['testResult'] ==
-                                  null ||
-                              fmenvtemplates!['returnObject']['vocTest']
-                                      ['testResult'] ==
-                                  null ||
-                              fmenvtemplates!['returnObject']['o2Test']
-                                      ['testResult'] ==
-                                  null ||
-                              fmenvtemplates!['returnObject']['coTest']
-                                      ['testResult'] ==
-                                  null ||
-                              fmenvtemplates!['returnObject']['tempTest']
-                                      ['testResult'] ==
-                                  null ||
-                              fmenvtemplates!['returnObject']['pM5Test']['testResult'] == null) {
-                            Constants()
-                                .notify('Please complete all test to proceed');
-                          } else {
+                          // if (fmenvtemplates!['returnObject']['pmTest']['testResult'] == null ||
+                          //     fmenvtemplates!['returnObject']['hmTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     fmenvtemplates!['returnObject']['noiseTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     fmenvtemplates!['returnObject']['nO2Test']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     fmenvtemplates!['returnObject']['sO2Test']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     fmenvtemplates!['returnObject']['h2STest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     fmenvtemplates!['returnObject']['combTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     fmenvtemplates!['returnObject']['cO2Test']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     fmenvtemplates!['returnObject']['vocTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     fmenvtemplates!['returnObject']['o2Test']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     fmenvtemplates!['returnObject']['coTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     fmenvtemplates!['returnObject']['tempTest']
+                          //             ['testResult'] ==
+                          //         null ||
+                          //     fmenvtemplates!['returnObject']['pM5Test']['testResult'] == null) {
+                          //   Constants()
+                          //       .notify('Please complete all test to proceed');
+                          // } else {
                             SubmitFMENVData model = SubmitFMENVData(
                               samplePtId: fmenvtemplates!['returnObject']
                                   ['samplePointLocationId'],
@@ -297,7 +297,7 @@ class _FMENVScreenState extends State<FMENVScreen> {
                             if (result != null) {
                               getFMENVtemplates();
                             }
-                          }
+                         // }
                         },
                         child: Container(
                           margin: EdgeInsets.fromLTRB(20, 0, 20, 20),

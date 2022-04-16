@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pams/screens/clients/client_implementation.dart';
-import 'package:pams/screens/clients/select_sample_type.dart';
-import 'package:pams/screens/homepage.dart';
+import 'package:pams/screens/clients/customer_response_model.dart';
+import 'package:pams/utils/custom_colors.dart';
 import 'package:pams/utils/list_widget.dart';
 
 import 'add_customer.dart';
@@ -14,23 +13,96 @@ class CustomerList extends StatefulWidget {
 }
 
 class _CustomerListState extends State<CustomerList> {
-  @override
+    List<CustomerDataList>? customers;
+
+  Future getClients() async {
+     setState(() {
+      _isFirstLoadRunning = true;
+    });
+    final result = await ClientImplementation().getAllClients(pageNumber);
+    if (result != null) {
+      setState(() {
+        customers = result.returnObject!.data!;
+      });
+    }
+     setState(() {
+      _isFirstLoadRunning = false;
+    });
+    return result;
+  }
+    @override
   void initState() {
     super.initState();
     getClients();
+    _controller = new ScrollController()..addListener(_loadMore);
   }
 
-  Map<String, dynamic>? customers;
+  @override
+  void dispose() {
+    _controller.removeListener(_loadMore);
+    super.dispose();
+  }
 
-  Future<Map<String, dynamic>?> getClients() async {
-    final result = await ClientImplementation().getAllClients();
-    if (result != null) {
+
+  int pageNumber = 1;
+  bool _isFirstLoadRunning = false;
+  bool _isLoadMoreRunning = false;
+  bool _hasNextPage = true;
+
+  // Future getAllData() async {
+  //   setState(() {
+  //     _isFirstLoadRunning = true;
+  //   });
+  //   final result = await SubmittedFMENVImplementation()
+  //       .getFMENVSubmittedResult(pageNumber);
+  //   if (result!.returnObject!.data!.isNotEmpty) {
+  //     setState(() {
+  //       data = result.returnObject!.data;
+  //     });
+  //   }
+  //   setState(() {
+  //     _isFirstLoadRunning = false;
+  //   });
+  // }
+
+// This function will be triggered whenver the user scroll
+  // to near the bottom of the list view
+  void _loadMore() async {
+    if (_hasNextPage == true &&
+        _isFirstLoadRunning == false &&
+        _isLoadMoreRunning == false &&
+        _controller.position.extentAfter < 300) {
       setState(() {
-        customers = result;
+        _isLoadMoreRunning = true; // Display a progress indicator at the bottom
+      });
+      pageNumber += 1; // Increase _page by 1
+      try {
+        final res = await ClientImplementation().getAllClients(pageNumber);
+
+        if (res!.returnObject!.data!.length > 0) {
+          setState(() {
+           customers!.addAll(res.returnObject!.data!);
+          });
+        } else {
+          // This means there is no more data
+          // and therefore, we will not send another GET request
+          setState(() {
+            _hasNextPage = false;
+          });
+        }
+      } catch (err) {
+        print('Something went wrong!');
+      }
+
+      setState(() {
+        _isLoadMoreRunning = false;
       });
     }
-    return result;
   }
+
+  late ScrollController _controller;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,71 +140,95 @@ class _CustomerListState extends State<CustomerList> {
             style: TextStyle(color: Colors.black, fontSize: 20)),
       ),
       backgroundColor: Colors.white,
-      body: ListView(
+      body: Stack(
         children: [
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: TextFormField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.deny(RegExp('[ ]')),
-                ],
-              decoration: InputDecoration(
-                  hintText: 'Search Customers',
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.black,
+          // SizedBox(
+          //   height: 20,
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          //   child: TextFormField(
+          //       inputFormatters: [
+          //         FilteringTextInputFormatter.deny(RegExp('[ ]')),
+          //       ],
+          //     decoration: InputDecoration(
+          //         hintText: 'Search Customers',
+          //         prefixIcon: Icon(
+          //           Icons.search,
+          //           color: Colors.black,
+          //         ),
+          //         border: OutlineInputBorder(
+          //             borderRadius: BorderRadius.circular(10))),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 20,
+          // ),
+           _isFirstLoadRunning
+            ? Center(
+                child: SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: CustomColors.mainDarkGreen,
                   ),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          customers == null
-              ? Center(
-                  child: SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: CircularProgressIndicator(
-                      color: Colors.green,
-                    ),
-                  ),
-                )
-              : customers!['returnObject']['data'].length == 0
+                ),
+              )
+            : customers!.length == 0
                   ? Center(
                       child: Text('No Customers Yet'),
                     )
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: customers!['returnObject']['data'].length,
-                      itemBuilder: (BuildContext context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ClientLocation(
-                                      clientId: customers!['returnObject']
-                                          ['data'][index]['id'],
-                                      clientName: customers!['returnObject']
-                                          ['data'][index]['name'],
-                                    )));
-                          },
-                          child: ListWidget(
-                            title: customers!['returnObject']['data'][index]
-                                ['name'],
-                            subTitle: customers!['returnObject']['data'][index]
-                                ['email'],
-                            trailing: Icon(
-                              Icons.arrow_forward_ios,
-                              size: 17,
-                            ),
-                          ),
-                        );
-                      })
+                  : Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                           controller: _controller,
+                            shrinkWrap: true,
+                           // physics: NeverScrollableScrollPhysics(),
+                            itemCount: customers!.length,
+                            itemBuilder: (BuildContext context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ClientLocation(
+                                            clientId: customers![index].id,
+                                            clientName: customers![index].name,
+                                          )));
+                                },
+                                child: ListWidget(
+                                  title: customers![index].name,
+                                  subTitle: customers![index].email,
+                                  trailing: Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 17,
+                                  ),
+                                ),
+                              );
+                            }),
+                      ),
+                   
+                     if (_isLoadMoreRunning == true)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 40),
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+
+                  // When nothing else to load
+                  if (_hasNextPage == false)
+                    Container(
+                      padding: const EdgeInsets.only(top: 30, bottom: 40),
+                      color: CustomColors.mainDarkGreen,
+                      child: Center(
+                        child: Text(
+                          'You have fetched all data',
+                          style: TextStyle(color: CustomColors.background),
+                        ),
+                      ),
+                    ),
+                    ],
+                  )
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pams/screens/clients/customer_response_model.dart';
 import 'package:pams/utils/custom_colors.dart';
 
 import '../../utils/constants.dart';
@@ -196,13 +197,14 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
     }
   }
 
-  Map<String, dynamic>? customers;
+  List<CustomerDataList>? customers;
+  int pageNumber = 1;
 
-  Future<Map<String, dynamic>?> getClients() async {
-    final result = await ClientImplementation().getAllClients();
+  Future getClients() async {
+    final result = await ClientImplementation().getAllClients(pageNumber);
     if (result != null) {
       setState(() {
-        customers = result;
+        customers = result.returnObject!.data!;
       });
     }
     return result;
