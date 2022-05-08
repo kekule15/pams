@@ -48,25 +48,6 @@ class _CustomerListState extends State<CustomerList> {
   bool _isFirstLoadRunning = false;
   bool _isLoadMoreRunning = false;
   bool _hasNextPage = true;
-
-  // Future getAllData() async {
-  //   setState(() {
-  //     _isFirstLoadRunning = true;
-  //   });
-  //   final result = await SubmittedFMENVImplementation()
-  //       .getFMENVSubmittedResult(pageNumber);
-  //   if (result!.returnObject!.data!.isNotEmpty) {
-  //     setState(() {
-  //       data = result.returnObject!.data;
-  //     });
-  //   }
-  //   setState(() {
-  //     _isFirstLoadRunning = false;
-  //   });
-  // }
-
-// This function will be triggered whenver the user scroll
-  // to near the bottom of the list view
   void _loadMore() async {
     if (_hasNextPage == true &&
         _isFirstLoadRunning == false &&
